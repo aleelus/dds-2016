@@ -9,9 +9,10 @@ class POI {
 	int latitud
 	int longitud
 	String calle
-	def estaCerca(Point puntoUsuario){
+
+	def estaCerca(Point puntoUsuario) {
 		val Point puntoPOI = new Point(latitud, longitud)
 		val distancia = puntoPOI.distance(puntoUsuario)
-		return (distancia<=0.5)
+		distancia <= 0.5
 	}
 }

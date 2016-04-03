@@ -7,18 +7,19 @@ import java.util.List
 
 class CGP extends POI {
 	Comuna comunaPerteneciente
+
 	override estaCerca(Point puntoUsuario) {
-		return comunaPerteneciente.poseeA(puntoUsuario)
+		comunaPerteneciente.poseeA(puntoUsuario)
 	}
-	
+
 }
 
 class Comuna {
 	List<Point> puntos
-	
+
 	def poseeA(Point punto) {
 		val Polygon areaComuna = new Polygon(puntos)
-		return areaComuna.isInside(punto)
+		areaComuna.isInside(punto)
 	}
-	
+
 }
