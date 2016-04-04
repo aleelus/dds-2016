@@ -8,7 +8,8 @@ import java.util.List
 class CGP extends POI {
 	Comuna comunaPerteneciente
 
-	override estaCerca(Point puntoUsuario) {
+	override estaCerca(int latitudUser, int longitudUser) {
+		val Point puntoUsuario = new Point(latitudUser, longitudUser)
 		comunaPerteneciente.poseeA(puntoUsuario)
 	}
 
