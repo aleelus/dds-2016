@@ -7,8 +7,14 @@ class ParadaColectivo extends POI {
 	override estaCerca(double latitudUser, double longitudUser) {
 		val Point puntoUsuario = new Point(latitudUser, longitudUser)
 		val Point puntoPOI = new Point(latitud, longitud)
-		val distancia = puntoPOI.distance(puntoUsuario)
-		distancia <= 0.1
+		puntoPOI.distance(puntoUsuario)/10 <= 1
 	}
-
+	new(){
+		super()
+	}
+	new(double latitud, double longitud){
+		this()
+		this.latitud = latitud
+		this.longitud = longitud
+	}
 }

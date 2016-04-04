@@ -13,32 +13,29 @@ class CGP extends POI {
 		comunaPerteneciente.poseeA(puntoUsuario)
 	}
 
-	new(Comuna comuna) {
-		this()
-		this.comunaPerteneciente = comuna
-
-	}
-	
 	new() {
 		super()
 	}
 
+	new(Comuna comuna) {
+		this()
+		this.comunaPerteneciente = comuna
+	}
 }
 
 class Comuna {
-	Polygon areaComuna 
+	Polygon areaComuna
 
 	def poseeA(Point punto) {
-		
 		areaComuna.isInside(punto)
 	}
-	
-	new(){
+
+	new() {
 		super()
 	}
-	new(Point... puntos){
+
+	new(Point... puntos) {
 		this()
 		areaComuna = new Polygon(puntos)
 	}
-
 }
