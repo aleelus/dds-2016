@@ -1,26 +1,44 @@
 package domain
 
-import domain.POI
-import org.uqbar.geodds.Polygon
+import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.geodds.Point
-import java.util.List
+import org.uqbar.geodds.Polygon
 
+@Accessors
 class CGP extends POI {
 	Comuna comunaPerteneciente
 
-	override estaCerca(int latitudUser, int longitudUser) {
+	override estaCerca(double latitudUser, double longitudUser) {
 		val Point puntoUsuario = new Point(latitudUser, longitudUser)
 		comunaPerteneciente.poseeA(puntoUsuario)
+	}
+
+	new(Comuna comuna) {
+		this()
+		this.comunaPerteneciente = comuna
+
+	}
+	
+	new() {
+		super()
 	}
 
 }
 
 class Comuna {
-	List<Point> puntos
+	Polygon areaComuna 
 
 	def poseeA(Point punto) {
-		val Polygon areaComuna = new Polygon(puntos)
+		
 		areaComuna.isInside(punto)
+	}
+	
+	new(){
+		super()
+	}
+	new(Point... puntos){
+		this()
+		areaComuna = new Polygon(puntos)
 	}
 
 }
