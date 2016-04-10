@@ -17,4 +17,11 @@ class ParadaColectivo extends POI {
 		this.latitud = latitud
 		this.longitud = longitud
 	}
+	
+	def estaDisponible(String fecha, String nombre){
+		
+		//VER ESTO DESPUES ( NO ME PEGUEN SOY GIORDANO (?) )
+		return true
+		
+	}
 }

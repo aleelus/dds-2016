@@ -4,6 +4,8 @@ import org.junit.Before
 import org.junit.Test
 import org.uqbar.geodds.Point
 import org.junit.Assert
+import org.joda.time.DateTime
+import org.joda.time.DateTimeConstants
 
 class CercaniaTest {
 	CGP cgpCerca
@@ -76,4 +78,27 @@ class CercaniaTest {
 	def testCercaniaPOILejano() {
 		Assert.assertFalse(bancoLejano.estaCerca(puntoUsuario.latitude, puntoUsuario.longitude))
 	}
+	
+	
+	// PROBANDO FECHAS
+	@Test
+	def testFechas() {		
+		val String fecha = "2016-04-10T21:39:45"
+		val DateTime dt = new DateTime(fecha)
+		val int anio = dt.getYear()
+		val int mes = dt.getMonthOfYear()
+		val int dia = dt.getDayOfMonth()
+		val int hora = dt.getHourOfDay()
+		val int min = dt.getMinuteOfHour()
+		val int seg = dt.getSecondOfMinute()		
+		val DateTime.Property nom = dt.dayOfWeek()		
+		val String nombreDia= nom.getAsText()
+	
+		println(anio+"/"+mes+"/"+dia+" - "+hora+":"+min+":"+seg+"  -   "+nombreDia)	
+		Assert.assertTrue(cgpCerca.estaCerca(puntoUsuario.latitude, puntoUsuario.longitude))
+		
+		
+	}
+	
+	
 }
