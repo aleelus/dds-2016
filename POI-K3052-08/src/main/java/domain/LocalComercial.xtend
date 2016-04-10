@@ -13,9 +13,17 @@ class LocalComercial extends POI {
 		distancia <= rubro.radioCercania
 	}
 
+	override obtenerDatos() {
+		val nombre_rubro = new String()
+		nombre_rubro.concat(rubro.tipo)
+		nombre_rubro.concat(" ")
+		nombre_rubro.concat(nombre)
+	}
+
 }
 
 @Accessors
 class Rubro {
 	int radioCercania
+	String tipo
 }

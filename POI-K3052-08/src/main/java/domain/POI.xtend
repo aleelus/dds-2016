@@ -15,4 +15,9 @@ class POI {
 		val distancia = puntoPOI.distance(puntoUsuario)
 		distancia <= 0.5
 	}
+
+	def obtenerDatos() {
+		this.getNombre()
+	}
+
 }
