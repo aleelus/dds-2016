@@ -16,13 +16,13 @@ class CGP extends POI {
 		val Point puntoUsuario = new Point(latitudUser, longitudUser)
 		comunaPerteneciente.poseeA(puntoUsuario)
 	}
-	
+
 	override obtenerDatos() {
 		val nombre_servicios = new String()
 		val Iterator<ServicioCGP> iteradorServ = listaServicios.iterator()
-		while (iteradorServ.hasNext){
+		while (iteradorServ.hasNext) {
 			nombre_servicios.concat(iteradorServ.next().getNombre())
-			nombre_servicios.concat(" ")	
+			nombre_servicios.concat(" ")
 		}
 		nombre_servicios.concat(" ")
 		nombre_servicios.concat(nombre)
@@ -57,6 +57,6 @@ class Comuna {
 }
 
 @Accessors
-class ServicioCGP{
+class ServicioCGP {
 	String nombre
 }

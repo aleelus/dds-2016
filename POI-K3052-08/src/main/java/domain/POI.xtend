@@ -13,8 +13,7 @@ class POI {
 	def estaCerca(double latitudUser, double longitudUser) {
 		val Point puntoUsuario = new Point(latitudUser, longitudUser)
 		val Point puntoPOI = new Point(latitud, longitud)
-		val distancia = puntoPOI.distance(puntoUsuario)
-		distancia <= 0.5
+		puntoPOI.distance(puntoUsuario) /10 <= 5
 	}
 
 	def obtenerDatos() {
