@@ -1,16 +1,17 @@
 package domain
 
-import org.uqbar.geodds.Point
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.geodds.Point
 
 @Accessors
 class POI {
 	String nombre
-	int latitud
-	int longitud
+	double latitud
+	double longitud
 	String calle
 
-	def estaCerca(Point puntoUsuario) {
+	def estaCerca(double latitudUser, double longitudUser) {
+		val Point puntoUsuario = new Point(latitudUser, longitudUser)
 		val Point puntoPOI = new Point(latitud, longitud)
 		val distancia = puntoPOI.distance(puntoUsuario)
 		distancia <= 0.5
@@ -19,5 +20,4 @@ class POI {
 	def obtenerDatos() {
 		this.getNombre()
 	}
-
 }
