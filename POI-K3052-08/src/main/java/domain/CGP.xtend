@@ -12,6 +12,7 @@ import org.joda.time.DateTime
 class CGP extends POI {
 	Comuna comunaPerteneciente
 	List<ServicioCGP> listaServicios = new ArrayList<ServicioCGP>()
+	
 
 	override estaCerca(double latitudUser, double longitudUser) {
 		val Point puntoUsuario = new Point(latitudUser, longitudUser)
@@ -34,11 +35,96 @@ class CGP extends POI {
 		super()
 	}
 
-	new(Comuna comuna) {
+	new(Comuna comuna,List<ServicioCGP> lista) {
 		this()
 		this.comunaPerteneciente = comuna
+		this.listaServicios = lista
 	}
 	
+	
+		
+	def buscarServicio(String nombre){
+		
+		var cont=0
+		while(cont<=listaServicios.size){
+						
+			if(listaServicios.get(cont).getNombre() == nombre){
+				
+				return listaServicios.get(cont)
+			}	
+			cont++
+		}
+		return null
+				
+	}
+		
+	def buscarDiaDelServicio(ServicioCGP servicio,String dia){
+		
+		val List<String> lista = servicio.diasAbierto
+		var cont=0
+		while(cont<=lista.size){
+			
+			if(lista.get(cont) == dia){
+				return true
+			}	
+			cont++
+		}
+		return false
+	}
+														//     22           30
+	def evaluarRangoHorario(ServicioCGP servicio,int horaActual,int minActual){
+		//             Inicio   Fin      Inicio   Fin  (TODO DEL MISMO DIA)
+		//EJEMPLO ==>  11:05    16:00    19:00   21:30
+		var cont=0			
+		val List<String> lista = servicio.horario
+		val int[] x = newIntArrayOfSize(lista.size)		
+		var DateTime dt
+		val horario = horaActual*100+minActual
+				
+		while(cont<lista.size){		
+			
+			dt = new DateTime(lista.get(cont))					
+			x.set(cont,dt.getHourOfDay()*100+dt.getMinuteOfHour())			
+			cont++			
+					
+		}
+				
+		for(var i=0 ; i < x.size ;i++){			
+			
+			if(x.get(i)<=horario && horario<=x.get(i+1)){				
+					return true										
+			}else{					
+				i++
+			}			
+			
+		}
+		
+		return false
+		
+		
+	}
+	
+	def buscarAlMenosUnServicioDisponible(int hora, int min, String nombreDia){
+		
+		var cont=1	
+		var ServicioCGP servicioEncontrado = new ServicioCGP()			
+			
+		while(cont<=listaServicios.size){			
+									
+			if (buscarDiaDelServicio(listaServicios.get(cont), nombreDia)) {
+																					
+				if(evaluarRangoHorario(servicioEncontrado, hora, min)){
+					return true
+				}										
+			}
+					
+			cont++	
+		}
+		
+		return false		
+		
+	}
+		
 	def estaDisponible (String fecha, String nombre){		
 		
 		val DateTime dt = new DateTime(fecha)
@@ -49,9 +135,25 @@ class CGP extends POI {
 		val int min = dt.getMinuteOfHour()
 		val int seg = dt.getSecondOfMinute()
 		val DateTime.Property nom = dt.dayOfWeek()		
-		val String nombreDia= nom.getAsText()
+		val String nombreDia= nom.getAsText()		
+		var ServicioCGP servicioEncontrado = new ServicioCGP()
 		
-		//println(anio+"/"+mes+"/"+dia+" - "+hora+":"+min+":"+seg)
+		if(nombre!=null){			
+			if((servicioEncontrado = buscarServicio(nombre)) != null){			
+				if (buscarDiaDelServicio(servicioEncontrado, nombreDia)) {	
+								
+					
+												
+					evaluarRangoHorario(servicioEncontrado, hora, min)	
+									
+				}
+			
+			}			
+		}else{
+			buscarAlMenosUnServicioDisponible(hora,min,nombreDia)			
+			
+		}
+		
 		
 	}
 }
@@ -79,6 +181,19 @@ class ServicioCGP {
 	String nombre
 	List<String> horario = new ArrayList<String>()
 	List<String> diasAbierto = new ArrayList<String>()
+	
+	
+	new() {
+		super()
+	}
+
+	new(String servicio, List<String> horario, List<String> diasAbierto) {
+		this()
+		this.nombre = servicio
+		this.horario = horario
+		this.diasAbierto = diasAbierto
+	}
+	
 	
 }
 

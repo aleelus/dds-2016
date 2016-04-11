@@ -19,4 +19,6 @@ class POI {
 	def obtenerDatos() {
 		this.getNombre()
 	}
+	
+	
 }

@@ -11,4 +11,4 @@ class Mapa {
 		ListaPOI.filter[puntoInteres|puntoInteres.obtenerDatos().contains(input)]
 	}
 	
-	}
+}
