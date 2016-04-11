@@ -72,37 +72,7 @@ class CGP extends POI {
 		return false
 	}
 														//     22           30
-	def evaluarRangoHorario(ServicioCGP servicio,int horaActual,int minActual){
-		//             Inicio   Fin      Inicio   Fin  (TODO DEL MISMO DIA)
-		//EJEMPLO ==>  11:05    16:00    19:00   21:30
-		var cont=0			
-		val List<String> lista = servicio.horario
-		val int[] x = newIntArrayOfSize(lista.size)		
-		var DateTime dt
-		val horario = horaActual*100+minActual
-				
-		while(cont<lista.size){		
-			
-			dt = new DateTime(lista.get(cont))					
-			x.set(cont,dt.getHourOfDay()*100+dt.getMinuteOfHour())			
-			cont++			
-					
-		}
-				
-		for(var i=0 ; i < x.size ;i++){			
-			
-			if(x.get(i)<=horario && horario<=x.get(i+1)){				
-					return true										
-			}else{					
-				i++
-			}			
-			
-		}
-		
-		return false
-		
-		
-	}
+
 	
 	def buscarAlMenosUnServicioDisponible(int hora, int min, String nombreDia){
 		
@@ -113,7 +83,7 @@ class CGP extends POI {
 									
 			if (buscarDiaDelServicio(listaServicios.get(cont), nombreDia)) {
 																					
-				if(evaluarRangoHorario(servicioEncontrado, hora, min)){
+				if(evaluarRangoHorario(servicioEncontrado.getHorario(), hora, min)){
 					return true
 				}										
 			}
@@ -124,16 +94,13 @@ class CGP extends POI {
 		return false		
 		
 	}
-		
 	def estaDisponible (String fecha, String nombre){		
 		
 		val DateTime dt = new DateTime(fecha)
-		val int anio = dt.getYear()
-		val int mes = dt.getMonthOfYear()
-		val int dia = dt.getDayOfMonth()
+
 		val int hora = dt.getHourOfDay()
 		val int min = dt.getMinuteOfHour()
-		val int seg = dt.getSecondOfMinute()
+
 		val DateTime.Property nom = dt.dayOfWeek()		
 		val String nombreDia= nom.getAsText()		
 		var ServicioCGP servicioEncontrado = new ServicioCGP()
@@ -144,7 +111,7 @@ class CGP extends POI {
 								
 					
 												
-					evaluarRangoHorario(servicioEncontrado, hora, min)	
+					evaluarRangoHorario(servicioEncontrado.getHorario(), hora, min)	
 									
 				}
 			
@@ -156,6 +123,9 @@ class CGP extends POI {
 		
 		
 	}
+	
+		
+	
 }
 
 @Accessors
