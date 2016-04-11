@@ -80,4 +80,9 @@ class Rubro {
 		this.horario = horario
 		this.diasAbierto = diasAbierto
 	}
+		new(String nombre,double radio){
+		this()
+		this.nombre = nombre
+		this.radioCercania = radio
+	}
 }

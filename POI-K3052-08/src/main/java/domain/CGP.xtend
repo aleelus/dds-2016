@@ -41,6 +41,11 @@ class CGP extends POI {
 		this.listaServicios = lista
 	}
 	
+	new(Comuna comuna) {
+		this()
+		this.comunaPerteneciente = comuna		
+	}
+	
 	
 		
 	def buscarServicio(String nombre){

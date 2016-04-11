@@ -21,6 +21,11 @@ class SucursalBanco extends POI {
 		this.horario = horario
 		this.diasAbierto = diasAbierto
 	}
+	new(double latitud, double longitud) {
+		this()
+		this.latitud = latitud
+		this.longitud = longitud
+	}
 	
 	def estaDisponible (String fecha, String nombre){		
 		
