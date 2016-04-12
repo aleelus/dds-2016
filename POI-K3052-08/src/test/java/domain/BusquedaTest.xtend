@@ -65,5 +65,4 @@ class BusquedaTest {
 	def testBusquedaFail() {
 		Assert.assertTrue(mapa.buscar("Hospital").isEmpty)
 	}
-
 }
