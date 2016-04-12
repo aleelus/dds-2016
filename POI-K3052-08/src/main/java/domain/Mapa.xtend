@@ -6,8 +6,12 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class Mapa {
+	/**Lista de puntos de interés del mapa. */
 	List<POI> ListaPOI = new ArrayList()
 
+	/**Método para buscar puntos de interés dentro del mapa
+	 * en base a un texto libre.
+	 */
 	def buscar(String input) {
 		val Iterable<POI> listaResultado = ListaPOI.filter[obtenerDatos().contains(input)]
 		if (listaResultado.size == 0) {

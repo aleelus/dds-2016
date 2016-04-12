@@ -9,7 +9,7 @@ import org.joda.time.DateTime
 
 @Accessors
 class LocalComercial extends POI {
-	/**Rubro del local */
+	/**Representa el tipo de local */
 	Rubro rubro
 
 	// Constructores
@@ -30,7 +30,7 @@ class LocalComercial extends POI {
 		this.nombre = nombre
 	}
 
-	/**Método que indica si un CGP está cerca de una latitud y
+	/**Método que indica si un Local está cerca de una latitud y
 	 * longitud determinados.
 	 */
 	override estaCerca(double latitudUser, double longitudUser) {
