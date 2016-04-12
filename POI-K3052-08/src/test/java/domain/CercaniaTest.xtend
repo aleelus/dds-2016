@@ -1,11 +1,9 @@
 package domain
 
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.uqbar.geodds.Point
-import org.junit.Assert
-import org.joda.time.DateTime
-
 
 class CercaniaTest {
 	CGP cgpCerca
@@ -20,7 +18,7 @@ class CercaniaTest {
 
 	@Before
 	def void setUp() {
-		// Punto del usuari
+		// Punto del usuario
 		puntoUsuario = new Point(1, 1)
 		// Puntos del CGP
 		val Comuna comuna1 = new Comuna(new Point(0, 0), new Point(0, 2), new Point(2, 2), new Point(2, 0))
@@ -35,8 +33,8 @@ class CercaniaTest {
 		// Ubicación paradas
 		paradaCercana = new ParadaColectivo(1, 1.05)
 		paradaLejana = new ParadaColectivo(2, 0)
-		bancoCercano = new SucursalBanco(1.2,0.7)
-		bancoLejano = new SucursalBanco(0,1)
+		bancoCercano = new SucursalBanco(1.2, 0.7)
+		bancoLejano = new SucursalBanco(0, 1)
 	}
 
 	@Test
@@ -78,7 +76,5 @@ class CercaniaTest {
 	def testCercaniaPOILejano() {
 		Assert.assertFalse(bancoLejano.estaCerca(puntoUsuario.latitude, puntoUsuario.longitude))
 	}
-	
-	
-	
+
 }

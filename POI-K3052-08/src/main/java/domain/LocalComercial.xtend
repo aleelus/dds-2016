@@ -23,8 +23,7 @@ class LocalComercial extends POI {
 	}
 
 	override obtenerDatos() {
-		val nombre_rubro = new String()
-		nombre_rubro.concat(rubro.tipo)
+		val nombre_rubro = new String(rubro.nombre)
 		nombre_rubro.concat(" ")
 		nombre_rubro.concat(nombre)
 	}
@@ -35,6 +34,12 @@ class LocalComercial extends POI {
 		this.rubro = rubro
 		this.latitud = latitud
 		this.longitud = longitud
+	}
+	
+	new(Rubro rubro, String nombre) {
+		this()
+		this.rubro = rubro
+		this.nombre = nombre
 	}
 	
 	def estaDisponible (String fecha, String nombre){		
@@ -65,7 +70,6 @@ class LocalComercial extends POI {
 @Accessors
 class Rubro {
 	double radioCercania
-	String tipo
 	String nombre
 	List<String> horario = new ArrayList<String>()
 	List<String> diasAbierto = new ArrayList<String>()

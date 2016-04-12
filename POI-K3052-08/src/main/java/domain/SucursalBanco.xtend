@@ -26,6 +26,10 @@ class SucursalBanco extends POI {
 		this.latitud = latitud
 		this.longitud = longitud
 	}
+	new (String nombre){
+		this()
+		this.nombre=nombre
+	}
 	
 	def estaDisponible (String fecha, String nombre){		
 		
