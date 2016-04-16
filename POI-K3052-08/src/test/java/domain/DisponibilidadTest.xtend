@@ -6,6 +6,7 @@ import org.uqbar.geodds.Point
 import org.junit.Assert
 import java.util.ArrayList
 import java.util.List
+import org.joda.time.DateTime
 
 class DisponibilidadTest {
 	
@@ -14,18 +15,24 @@ class DisponibilidadTest {
 	LocalComercial local
 	SucursalBanco banco
 	List<ServicioCGP> listaServicios = new ArrayList<ServicioCGP>()
-	List<String> horarios = new ArrayList<String>()
+	List<DateTime> horarios = new ArrayList<DateTime>()
 	List<String> diasAbierto = new ArrayList<String>()
 	
 	
 	@Before
 	def void setUp() {
 		
+		var DateTime dt
+		
 		// Horarios del servicio Rentas
-		horarios.add("2016-04-10T11:05:00")
-		horarios.add("2016-04-10T15:00:00")
-		horarios.add("2016-04-10T17:00:00")
-		horarios.add("2016-04-10T21:30:00")
+		dt = new DateTime("2016-04-10T11:05:00")
+		horarios.add(dt)
+		dt = new DateTime("2016-04-10T15:00:00")
+		horarios.add(dt)
+		dt = new DateTime("2016-04-10T17:00:00")
+		horarios.add(dt)
+		dt = new DateTime("2016-04-10T21:30:00")
+		horarios.add(dt)
 		//Dias del servicio Rentas
 		diasAbierto.add("lunes")
 		diasAbierto.add("martes")
@@ -35,12 +42,14 @@ class DisponibilidadTest {
 		val ServicioCGP unServicio = new ServicioCGP("Rentas",horarios,diasAbierto)
 		listaServicios.add(unServicio)
 				
-		horarios = new ArrayList<String>()
+		horarios = new ArrayList<DateTime>()
 		diasAbierto = new ArrayList<String>()
 		
 		// Horarios del servicio Educacion
-		horarios.add("2016-04-10T09:00:00")
-		horarios.add("2016-04-10T14:00:00")
+		dt = new DateTime("2016-04-10T09:00:00")
+		horarios.add(dt)
+		dt = new DateTime("2016-04-10T14:00:00")
+		horarios.add(dt)
 		//Dias del servicio Educacion
 		diasAbierto.add("lunes")
 		diasAbierto.add("martes")
@@ -50,12 +59,14 @@ class DisponibilidadTest {
 		val ServicioCGP otroServicio = new ServicioCGP("Educacion",horarios,diasAbierto)
 		listaServicios.add(otroServicio)
 		
-		horarios = new ArrayList<String>()
+		horarios = new ArrayList<DateTime>()
 		diasAbierto = new ArrayList<String>()
 		
 		// Horarios del Banco
-		horarios.add("2016-04-10T10:00:00")
-		horarios.add("2016-04-10T15:00:00")
+		dt = new DateTime("2016-04-10T10:00:00")
+		horarios.add(dt)
+		dt = new DateTime("2016-04-10T15:00:00")
+		horarios.add(dt)
 		diasAbierto.add("lunes")
 		diasAbierto.add("martes")
 		diasAbierto.add("miercoles")
@@ -65,14 +76,18 @@ class DisponibilidadTest {
 		
 		
 		
-		horarios = new ArrayList<String>()
+		horarios = new ArrayList<DateTime>()
 		diasAbierto = new ArrayList<String>()
 		
 		// Horarios del Comercio
-		horarios.add("2016-04-10T10:00:00")
-		horarios.add("2016-04-10T13:00:00")
-		horarios.add("2016-04-10T17:00:00")
-		horarios.add("2016-04-10T20:30:00")
+		dt = new DateTime("2016-04-10T10:00:00")
+		horarios.add(dt)
+		dt = new DateTime("2016-04-10T13:00:00")
+		horarios.add(dt)
+		dt = new DateTime("2016-04-10T17:00:00")
+		horarios.add(dt)
+		dt = new DateTime("2016-04-10T20:30:00")
+		horarios.add(dt)
 		diasAbierto.add("lunes")
 		diasAbierto.add("martes")
 		diasAbierto.add("miercoles")
@@ -91,7 +106,8 @@ class DisponibilidadTest {
 		
 		
 		// Ubicación paradas
-		colectivo = new ParadaColectivo(1, 1.05)		
+		colectivo = new ParadaColectivo(1, 1.05)	
+		
 		
 		
 		
@@ -101,48 +117,50 @@ class DisponibilidadTest {
 	
 	@Test
 	def testDisponibilidadColectivos() {
-		Assert.assertTrue(colectivo.estaDisponible("2016-04-10T20:30:00","Rentas"))
+		val DateTime dt = new DateTime("2016-04-10T20:30:00")	
+		
+		Assert.assertTrue(colectivo.estaDisponible(dt,"Rentas"))
 	}
 	
 	@Test
 	def testDisponibilidadParaUnCGP_RentasDentroDelHorario() {				
-			
-		Assert.assertTrue(cgp.estaDisponible("2016-04-11T11:50:00","Rentas"))
+		val DateTime dt = new DateTime("2016-04-11T11:50:00")	
+		Assert.assertTrue(cgp.estaDisponible(dt,"Rentas"))
 		
 	}
 	
 	@Test
 	def testDisponibilidadParaUnCGP_RentasFueraDelHorario() {			
-					
-		Assert.assertFalse(cgp.estaDisponible("2016-04-11T09:50:00","Rentas"))
+		val DateTime dt = new DateTime("2016-04-11T09:50:00")		
+		Assert.assertFalse(cgp.estaDisponible(dt,"Rentas"))
 		
 	}
 	
 	@Test
 	def testDisponibilidadParaBanco_DentroDelHorario() {			
-					
-		Assert.assertTrue(banco.estaDisponible("2016-04-11T11:50:00","Banco Frances"))
+		val DateTime dt = new DateTime("2016-04-11T11:50:00")			
+		Assert.assertTrue(banco.estaDisponible(dt,"Banco Frances"))
 		
 	}
 	
 	@Test
 	def testDisponibilidadParaBanco_FueraDelHorario() {			
-					
-		Assert.assertFalse(banco.estaDisponible("2016-04-11T08:50:00","Banco Frances"))
+		val DateTime dt = new DateTime("2016-04-11T08:50:00")				
+		Assert.assertFalse(banco.estaDisponible(dt,"Banco Frances"))
 		
 	}
 	
 	@Test
 	def testDisponibilidadParaLocalComercialCarrousel_DentroDelHorario() {			
-					
-		Assert.assertTrue(local.estaDisponible("2016-04-11T11:20:00","Carrousel"))
+		val DateTime dt = new DateTime("2016-04-11T11:20:00")		
+		Assert.assertTrue(local.estaDisponible(dt,"Carrousel"))
 		
 	}
 	
 	@Test
 	def testDisponibilidadParaLocalComercialCarrousel_FueraDelHorario() {			
-					
-		Assert.assertFalse(local.estaDisponible("2016-04-11T16:46:00","Carrousel"))
+		val DateTime dt = new DateTime("2016-04-11T16:46:00")		
+		Assert.assertFalse(local.estaDisponible(dt,"Carrousel"))
 		
 	}
 	

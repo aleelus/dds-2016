@@ -8,7 +8,7 @@ import org.joda.time.DateTime
 class SucursalBanco extends POI {
 
 	/**Horarios de apertura del banco */
-	List<String> horario = new ArrayList<String>()
+	List<DateTime> horario = new ArrayList<DateTime>()
 	/**Días de apertura del banco */
 	List<String> diasAbierto = new ArrayList<String>()
 
@@ -17,7 +17,7 @@ class SucursalBanco extends POI {
 		super()
 	}
 
-	new(double latitud, double longitud, List<String> horario, List<String> diasAbierto) {
+	new(double latitud, double longitud, List<DateTime> horario, List<String> diasAbierto) {
 		this()
 		this.latitud = latitud
 		this.longitud = longitud
@@ -36,16 +36,14 @@ class SucursalBanco extends POI {
 		this.nombre = nombre
 	}
 
-	def estaDisponible(String fecha, String nombre) {
-		setNombre(nombre)
-		val DateTime dt = new DateTime(fecha)
-		val int hora = dt.getHourOfDay()
-		val int min = dt.getMinuteOfHour()
+	def estaDisponible(DateTime dt, String nombre) {
+		setNombre(nombre)		
 		val DateTime.Property nom = dt.dayOfWeek()
 		val String nombreDia = nom.getAsText()
+		
 		if (buscarDia(diasAbierto, nombreDia)) {
 			// BANCOS DE LUNES A VIERNES DE 10:00 a 15:00
-			evaluarRangoHorario(horario, hora, min)
+			evaluarRangoHorario(horario,  dt.getHourOfDay(), dt.getMinuteOfHour())
 		}
 	}
 }

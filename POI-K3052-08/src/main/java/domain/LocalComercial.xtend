@@ -45,15 +45,13 @@ class LocalComercial extends POI {
 		nombre_rubro.concat(" "+nombre)
 	}
 
-	def estaDisponible(String fecha, String nombre) {
-		setNombre(nombre)
-		val DateTime dt = new DateTime(fecha)
-		val int hora = dt.getHourOfDay()
-		val int min = dt.getMinuteOfHour()
+	def estaDisponible(DateTime dt, String nombre) {
+		setNombre(nombre)	 
 		val DateTime.Property nom = dt.dayOfWeek()
 		val String nombreDia = nom.getAsText()
+		
 		if (buscarDia(rubro.diasAbierto, nombreDia)) {
-			evaluarRangoHorario(rubro.horario, hora, min)
+			evaluarRangoHorario(rubro.horario, dt.getHourOfDay(), dt.getMinuteOfHour())
 		}
 	}
 }
@@ -68,7 +66,7 @@ class Rubro {
 	/**Determina el nombre del rubro */
 	String nombre
 	/**Determina el horario del rubro */
-	List<String> horario = new ArrayList<String>()
+	List<DateTime> horario = new ArrayList<DateTime>()
 	/**Determina los días de apertura del rubro */
 	List<String> diasAbierto = new ArrayList<String>()
 
@@ -77,7 +75,7 @@ class Rubro {
 		super()
 	}
 
-	new(String nombre, double radio, List<String> horario, List<String> diasAbierto) {
+	new(String nombre, double radio, List<DateTime> horario, List<String> diasAbierto) {
 		this()
 		this.nombre = nombre
 		this.radioCercania = radio

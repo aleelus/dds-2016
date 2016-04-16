@@ -27,27 +27,18 @@ class POI {
 		this.getNombre()
 	}
 
-	def buscarDia(List<String> lista, String dia) {
-		var cont = 0
-		while (cont <= lista.size) {
-			if (lista.get(cont) == dia) {
-				return true
-			}
-			cont++
-		}
-		return false
+	def buscarDia(List<String> lista, String dia) {	
+		if(lista.findFirst[ diaLista | diaLista == dia]!=null)
+			return true
 	}
 
-	def evaluarRangoHorario(List<String> lista, int horaActual, int minActual) {
-		var cont = 0
-		val int[] x = newIntArrayOfSize(lista.size)
-		var DateTime dt
+	def evaluarRangoHorario(List<DateTime> lista, int horaActual, int minActual) {
+		
+		val int[] x = newIntArrayOfSize(lista.size)		
 		val horario = horaActual * 100 + minActual
-		while (cont < lista.size) {
-			dt = new DateTime(lista.get(cont))
-			x.set(cont, dt.getHourOfDay() * 100 + dt.getMinuteOfHour())
-			cont++
-		}
+
+		lista.forEach[dt , c  | x.set(c,dt.getHourOfDay() * 100 + dt.getMinuteOfHour())] 
+					
 		for (var i = 0; i < x.size; i++) {
 			if (x.get(i) <= horario && horario <= x.get(i + 1)) {
 				return true

@@ -1,6 +1,7 @@
 package domain
 
 import org.uqbar.geodds.Point
+import org.joda.time.DateTime
 
 class ParadaColectivo extends POI {
 	
@@ -30,7 +31,7 @@ class ParadaColectivo extends POI {
 		puntoPOI.distance(puntoUsuario) / 10 <= 1
 	}
 	
-	def estaDisponible(String fecha, String nombre) {
+	def estaDisponible(DateTime dt, String nombre) {
 
 		// VER ESTO DESPUES ( NO ME PEGUEN SOY GIORDANO (?) )
 		return true
