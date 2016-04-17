@@ -22,9 +22,9 @@ class POI {
 		val Point puntoPOI = new Point(latitud, longitud)
 		puntoPOI.distance(puntoUsuario) / 10 <= 5
 	}
-	/**Método que devuelve los datos de un punto de interés genérico */
-	def obtenerDatos() {
-		this.getNombre()
+	/**Método que verifica si un input está contenido en el POI */
+	def contieneTexto(String input) {
+		nombre.contains(input)
 	}
 
 	def buscarDia(List<String> lista, String dia) {	

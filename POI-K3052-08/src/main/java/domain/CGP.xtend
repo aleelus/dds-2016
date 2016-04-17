@@ -49,14 +49,9 @@ class CGP extends POI {
 		comunaCGP.poseeA(puntoUsuario)
 	}
 
-	/**Método para obtener el nombre del CGP seguido de todos
-	 * sus serviscios.*/
-	override obtenerDatos() {
-		val StringBuilder builder = new StringBuilder()
-		builder.append(this.nombre)
-		listaServicios.forEach[servicio|builder.append(servicio.nombre + " ")]
-		val nombre_servicios = builder.toString()
-		return nombre_servicios
+	/**Método que devuelve si un texto está presente en el nombre o en el nombre de los servicios.*/
+	override contieneTexto(String input) {
+		nombre.contains(input) || listaServicios.exists[servicio | servicio.contiene(input)]
 	}
 
 	def buscarServicio(String nombre) {	
@@ -172,5 +167,8 @@ class ServicioCGP {
 		this()
 		this.nombre = nombre
 	}
-
+	
+	def contiene(String input){
+		nombre.contains(input)
+	}
 }

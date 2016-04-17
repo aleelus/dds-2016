@@ -13,11 +13,15 @@ class Mapa {
 	 * en base a un texto libre.
 	 */
 	def buscar(String input) {
-		val Iterable<POI> listaResultado = ListaPOI.filter[obtenerDatos().contains(input)]
+		val Iterable<POI> listaResultado = ListaPOI.filter[contieneTexto(input)]
 		if (listaResultado.size == 0) {
 			throw new Exception("No se encontraron resultados!")
 		}
 		listaResultado.toList()
+	}
+	
+	def agregarPOI(POI puntoInteres) {
+		ListaPOI.add(puntoInteres)
 	}
 
 }

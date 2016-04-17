@@ -39,10 +39,9 @@ class LocalComercial extends POI {
 		puntoPOI.distance(puntoUsuario) / 10 <= rubro.radioCercania
 	}
 	
-	/**Método que obtiene el rubro seguido del nombre */
-	override obtenerDatos() {
-		val nombre_rubro = new String(rubro.nombre)
-		nombre_rubro.concat(" "+nombre)
+	/**Método que retorna si el String está en el nombre o en el rubro */
+	override contieneTexto(String input) {
+		nombre.contains(input) || rubro.contiene(input)
 	}
 
 	def estaDisponible(DateTime dt, String nombre) {
@@ -88,4 +87,9 @@ class Rubro {
 		this.nombre = nombre
 		this.radioCercania = radio
 	}
+	
+	def contiene(String input) {
+		nombre.contains(input)
+	}
+	
 }

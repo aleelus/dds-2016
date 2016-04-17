@@ -35,10 +35,10 @@ class BusquedaTest {
 		// Un banco
 		banco = new SucursalBanco("Banco Santander")
 		// Los agrego al mapa
-		mapa.listaPOI.add(cgp)
-		mapa.listaPOI.add(localComercial)
-		mapa.listaPOI.add(parada)
-		mapa.listaPOI.add(banco)
+		mapa.agregarPOI(cgp)
+		mapa.agregarPOI(localComercial)
+		mapa.agregarPOI(parada)
+		mapa.agregarPOI(banco)
 	}
 
 	@Test
