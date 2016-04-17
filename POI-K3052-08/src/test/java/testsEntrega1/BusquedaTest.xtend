@@ -1,10 +1,17 @@
-package domain
+package testsEntrega1
 
+import domain.CGP
+import domain.LocalComercial
+import domain.Mapa
+import domain.ParadaColectivo
+import domain.Rubro
+import domain.ServicioCGP
+import domain.SucursalBanco
 import java.util.ArrayList
 import java.util.List
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.junit.Assert
 
 class BusquedaTest {
 	Mapa mapa

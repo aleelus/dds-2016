@@ -1,12 +1,19 @@
-package domain
+package testsEntrega1
 
-import org.junit.Before
-import org.junit.Test
-import org.uqbar.geodds.Point
-import org.junit.Assert
+import domain.CGP
+import domain.Comuna
+import domain.LocalComercial
+import domain.ParadaColectivo
+import domain.Rubro
+import domain.ServicioCGP
+import domain.SucursalBanco
 import java.util.ArrayList
 import java.util.List
 import org.joda.time.DateTime
+import org.junit.Assert
+import org.junit.Before
+import org.junit.Test
+import org.uqbar.geodds.Point
 
 class DisponibilidadTest {
 	

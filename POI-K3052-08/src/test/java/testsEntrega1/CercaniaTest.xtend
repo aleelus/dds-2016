@@ -1,5 +1,11 @@
-package domain
+package testsEntrega1
 
+import domain.CGP
+import domain.Comuna
+import domain.LocalComercial
+import domain.ParadaColectivo
+import domain.Rubro
+import domain.SucursalBanco
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
