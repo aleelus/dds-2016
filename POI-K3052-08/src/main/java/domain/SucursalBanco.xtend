@@ -4,20 +4,21 @@ import domain.POI
 import java.util.ArrayList
 import java.util.List
 import org.joda.time.DateTime
+import domain.CGP.Dias
 
 class SucursalBanco extends POI {
 
 	/**Horarios de apertura del banco */
 	List<DateTime> horario = new ArrayList<DateTime>()
 	/**Días de apertura del banco */
-	List<String> diasAbierto = new ArrayList<String>()
+	List<Dias> diasAbierto = new ArrayList<Dias>()
 
 	// Constructores
 	new() {
 		super()
 	}
 
-	new(double latitud, double longitud, List<DateTime> horario, List<String> diasAbierto) {
+	new(double latitud, double longitud, List<DateTime> horario, List<Dias> diasAbierto) {
 		this()
 		this.latitud = latitud
 		this.longitud = longitud
@@ -41,7 +42,7 @@ class SucursalBanco extends POI {
 		val DateTime.Property nom = dt.dayOfWeek()
 		val String nombreDia = nom.getAsText()
 		
-		if (buscarDia(diasAbierto, nombreDia)) {
+		if (buscarDia(diasAbierto, Dias.valueOf(nombreDia))) {
 			// BANCOS DE LUNES A VIERNES DE 10:00 a 15:00
 			evaluarRangoHorario(horario,  dt.getHourOfDay(), dt.getMinuteOfHour())
 		}

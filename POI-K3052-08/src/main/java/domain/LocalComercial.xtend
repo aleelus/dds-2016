@@ -6,6 +6,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 import java.util.ArrayList
 import org.joda.time.DateTime
+import domain.POI.Dias
 
 @Accessors
 class LocalComercial extends POI {
@@ -49,7 +50,7 @@ class LocalComercial extends POI {
 		val DateTime.Property nom = dt.dayOfWeek()
 		val String nombreDia = nom.getAsText()
 		
-		if (buscarDia(rubro.diasAbierto, nombreDia)) {
+		if (buscarDia(rubro.diasAbierto, Dias.valueOf(nombreDia))) {
 			evaluarRangoHorario(rubro.horario, dt.getHourOfDay(), dt.getMinuteOfHour())
 		}
 	}
@@ -67,14 +68,14 @@ class Rubro {
 	/**Determina el horario del rubro */
 	List<DateTime> horario = new ArrayList<DateTime>()
 	/**Determina los días de apertura del rubro */
-	List<String> diasAbierto = new ArrayList<String>()
+	List<Dias> diasAbierto = new ArrayList<Dias>()
 
 	//Constructores
 	new() {
 		super()
 	}
 
-	new(String nombre, double radio, List<DateTime> horario, List<String> diasAbierto) {
+	new(String nombre, double radio, List<DateTime> horario, List<Dias> diasAbierto) {
 		this()
 		this.nombre = nombre
 		this.radioCercania = radio

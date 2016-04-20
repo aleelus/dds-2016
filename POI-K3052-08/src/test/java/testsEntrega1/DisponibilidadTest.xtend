@@ -14,6 +14,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.uqbar.geodds.Point
+import domain.CGP.Dias
 
 class DisponibilidadTest {
 	
@@ -23,14 +24,16 @@ class DisponibilidadTest {
 	SucursalBanco banco
 	List<ServicioCGP> listaServicios = new ArrayList<ServicioCGP>()
 	List<DateTime> horarios = new ArrayList<DateTime>()
-	List<String> diasAbierto = new ArrayList<String>()
+	List<Dias> diasAbierto = new ArrayList<Dias>()
 	
+
 	
 	@Before
 	def void setUp() {
 		
 		var DateTime dt
 		
+			
 		// Horarios del servicio Rentas
 		dt = new DateTime("2016-04-10T11:05:00")
 		horarios.add(dt)
@@ -41,16 +44,16 @@ class DisponibilidadTest {
 		dt = new DateTime("2016-04-10T21:30:00")
 		horarios.add(dt)
 		//Dias del servicio Rentas
-		diasAbierto.add("lunes")
-		diasAbierto.add("martes")
-		diasAbierto.add("miercoles")
-		diasAbierto.add("jueves")
-		diasAbierto.add("viernes")		
+		diasAbierto.add(Dias.lunes)
+		diasAbierto.add(Dias.martes)
+		diasAbierto.add(Dias.miercoles)
+		diasAbierto.add(Dias.jueves)
+		diasAbierto.add(Dias.viernes)		
 		val ServicioCGP unServicio = new ServicioCGP("Rentas",horarios,diasAbierto)
 		listaServicios.add(unServicio)
 				
 		horarios = new ArrayList<DateTime>()
-		diasAbierto = new ArrayList<String>()
+		diasAbierto = new ArrayList<Dias>()
 		
 		// Horarios del servicio Educacion
 		dt = new DateTime("2016-04-10T09:00:00")
@@ -58,33 +61,33 @@ class DisponibilidadTest {
 		dt = new DateTime("2016-04-10T14:00:00")
 		horarios.add(dt)
 		//Dias del servicio Educacion
-		diasAbierto.add("lunes")
-		diasAbierto.add("martes")
-		diasAbierto.add("miercoles")
-		diasAbierto.add("jueves")
-		diasAbierto.add("viernes")		
+		diasAbierto.add(Dias.lunes)
+		diasAbierto.add(Dias.martes)
+		diasAbierto.add(Dias.miercoles)
+		diasAbierto.add(Dias.jueves)
+		diasAbierto.add(Dias.viernes)		
 		val ServicioCGP otroServicio = new ServicioCGP("Educacion",horarios,diasAbierto)
 		listaServicios.add(otroServicio)
 		
 		horarios = new ArrayList<DateTime>()
-		diasAbierto = new ArrayList<String>()
+		diasAbierto = new ArrayList<Dias>()
 		
 		// Horarios del Banco
 		dt = new DateTime("2016-04-10T10:00:00")
 		horarios.add(dt)
 		dt = new DateTime("2016-04-10T15:00:00")
 		horarios.add(dt)
-		diasAbierto.add("lunes")
-		diasAbierto.add("martes")
-		diasAbierto.add("miercoles")
-		diasAbierto.add("jueves")
-		diasAbierto.add("viernes")
+		diasAbierto.add(Dias.lunes)
+		diasAbierto.add(Dias.martes)
+		diasAbierto.add(Dias.miercoles)
+		diasAbierto.add(Dias.jueves)
+		diasAbierto.add(Dias.viernes)
 		banco = new SucursalBanco(1.2,0.7,horarios,diasAbierto)
 		
 		
 		
 		horarios = new ArrayList<DateTime>()
-		diasAbierto = new ArrayList<String>()
+		diasAbierto = new ArrayList<Dias>()
 		
 		// Horarios del Comercio
 		dt = new DateTime("2016-04-10T10:00:00")
@@ -95,12 +98,12 @@ class DisponibilidadTest {
 		horarios.add(dt)
 		dt = new DateTime("2016-04-10T20:30:00")
 		horarios.add(dt)
-		diasAbierto.add("lunes")
-		diasAbierto.add("martes")
-		diasAbierto.add("miercoles")
-		diasAbierto.add("jueves")
-		diasAbierto.add("viernes")
-		diasAbierto.add("sabados")
+		diasAbierto.add(Dias.lunes)
+		diasAbierto.add(Dias.martes)
+		diasAbierto.add(Dias.miercoles)
+		diasAbierto.add(Dias.jueves)
+		diasAbierto.add(Dias.viernes)
+		diasAbierto.add(Dias.sabado)
 		
 		val Rubro carrousel = new Rubro("Librería", 5,horarios,diasAbierto)
 		
@@ -124,8 +127,8 @@ class DisponibilidadTest {
 	
 	@Test
 	def testDisponibilidadColectivos() {
-		val DateTime dt = new DateTime("2016-04-10T20:30:00")	
-		
+		val DateTime dt = new DateTime("2016-04-10T20:30:00")
+			
 		Assert.assertTrue(colectivo.estaDisponible(dt,"Rentas"))
 	}
 	
@@ -138,7 +141,7 @@ class DisponibilidadTest {
 	
 	@Test
 	def testDisponibilidadParaUnCGP_RentasFueraDelHorario() {			
-		val DateTime dt = new DateTime("2016-04-11T09:50:00")		
+		val DateTime dt = new DateTime("2016-04-10T09:50:00")		
 		Assert.assertFalse(cgp.estaDisponible(dt,"Rentas"))
 		
 	}

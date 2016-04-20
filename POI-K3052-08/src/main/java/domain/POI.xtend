@@ -4,6 +4,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.geodds.Point
 import org.joda.time.DateTime
 import java.util.List
+import domain.CGP.Dias
 
 @Accessors
 class POI {
@@ -13,6 +14,18 @@ class POI {
 	double latitud
 	/**Longitud del punto de interés */
 	double longitud
+	
+	enum Dias{
+		
+		lunes,
+		martes,
+		miercoles,
+		jueves,
+		viernes,
+		sabado,
+		domingo		
+	}
+	
 	
 	/**Método que indica si una punto de interés genérico
 	 * está cerca de una latitud y longitud determinados.
@@ -27,7 +40,7 @@ class POI {
 		nombre.contains(input)
 	}
 
-	def buscarDia(List<String> lista, String dia) {	
+	def buscarDia(List<Dias> lista, Dias dia) {	
 		if(lista.findFirst[ diaLista | diaLista == dia]!=null)
 			return true
 	}

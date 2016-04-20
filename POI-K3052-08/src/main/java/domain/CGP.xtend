@@ -6,6 +6,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.geodds.Point
 import org.uqbar.geodds.Polygon
+import domain.POI.Dias
 
 @Accessors
 class CGP extends POI {
@@ -17,6 +18,9 @@ class CGP extends POI {
 	 * de la clase ServicioCGP.
 	 */
 	List<ServicioCGP> listaServicios = new ArrayList<ServicioCGP>()
+
+
+
 
 	//Constructores
 	new() {
@@ -60,8 +64,8 @@ class CGP extends POI {
 
 	}
 
-	def buscarDiaDelServicio(ServicioCGP servicio, String dia) {
-		val List<String> lista = servicio.diasAbierto
+	def buscarDiaDelServicio(ServicioCGP servicio, Dias dia) {
+		val List<Dias> lista = servicio.diasAbierto
 
 		
 		if(lista.findFirst[ diaLista | diaLista == dia] !=null)
@@ -70,7 +74,7 @@ class CGP extends POI {
 	}
 
 	// 22           30
-	def buscarAlMenosUnServicioDisponible(int hora, int min, String nombreDia) {
+	def buscarAlMenosUnServicioDisponible(int hora, int min, Dias nombreDia) {
 		
 		 val Iterable<ServicioCGP> servicioEncontrado = listaServicios.filter[servicio | buscarDiaDelServicio(servicio,nombreDia)]
 		 
@@ -82,40 +86,24 @@ class CGP extends POI {
 
 	/**Método que comprueba si un CGP está disponible en cierta fecha
 	 * para cierto servicio.
-	 */
-	/*def estaDisponible(String fecha, String nombre) {
-		val DateTime dt = new DateTime(fecha)
-		val int hora = dt.getHourOfDay()
-		val int min = dt.getMinuteOfHour()
-		val DateTime.Property nom = dt.dayOfWeek()
-		val String nombreDia = nom.getAsText()
-		var ServicioCGP servicioEncontrado = new ServicioCGP()
-		if (nombre != null) {
-			if ((servicioEncontrado = buscarServicio(nombre)) != null) {
-				if (buscarDiaDelServicio(servicioEncontrado, nombreDia)) {
-					evaluarRangoHorario(servicioEncontrado.getHorario(), hora, min)
-				}
-			}
-		} else {
-			buscarAlMenosUnServicioDisponible(hora, min, nombreDia)
-		}
-	}*/
-	
-	
+	 */	
 	def estaDisponible(DateTime dt, String nombre) {
 			
 		val DateTime.Property nom = dt.dayOfWeek()
 		val String nombreDia = nom.getAsText()
 		
+		
+		
 		var ServicioCGP servicioEncontrado = new ServicioCGP()
 		if (nombre != null) {
-			if ((servicioEncontrado = buscarServicio(nombre)) != null) {
-				if (buscarDiaDelServicio(servicioEncontrado, nombreDia)) {
+			if ((servicioEncontrado = buscarServicio(nombre)) != null) {			
+				
+				if (buscarDiaDelServicio(servicioEncontrado, Dias.valueOf(nombreDia))) {
 					evaluarRangoHorario(servicioEncontrado.getHorario(), dt.getHourOfDay(), dt.getMinuteOfHour())
 				}
 			}
 		} else {
-			buscarAlMenosUnServicioDisponible(dt.getHourOfDay(), dt.getMinuteOfHour(), nombreDia)
+			buscarAlMenosUnServicioDisponible(dt.getHourOfDay(), dt.getMinuteOfHour(), Dias.valueOf(nombreDia))
 		}
 	}
 	
@@ -149,14 +137,14 @@ class ServicioCGP {
 	/**Horario de apertura */
 	List<DateTime> horario = new ArrayList<DateTime>()
 	/**Días de apertura */
-	List<String> diasAbierto = new ArrayList<String>()
+	List<Dias> diasAbierto = new ArrayList<Dias>()
 
 	// Constructores
 	new() {
 		super()
 	}
 
-	new(String servicio, List<DateTime> horario, List<String> diasAbierto) {
+	new(String servicio, List<DateTime> horario, List<Dias> diasAbierto) {
 		this()
 		this.nombre = servicio
 		this.horario = horario
