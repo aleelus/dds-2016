@@ -3,13 +3,11 @@ language: java
 jdk:
   - oraclejdk8
   
-#before_install:
-#  cd POI-K3052-08 #solo si no tienen el pom en el raíz del repositorio
+before_install:
+  cd POI-K3052-08 #solo si no tienen el pom en el raíz del repositorio
 
-#notifications:
-#  email:
-#    recipients:
-#      - coirotomas@gmail.com
-#      - juan.contardo@gmail.com
-#      - aleelus@hotmail.com
-#      - agustincipriano@hotmail.com
+notifications:
+  email:
+    recipients:
+      - coirotomas@gmail.com
+
