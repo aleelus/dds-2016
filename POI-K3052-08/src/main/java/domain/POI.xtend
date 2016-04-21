@@ -4,7 +4,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.geodds.Point
 import org.joda.time.DateTime
 import java.util.List
-import domain.CGP.Dias
 
 @Accessors
 class POI {

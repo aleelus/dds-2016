@@ -5,7 +5,7 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-class Mapa {
+class RepoPOI {
 	/**Lista de puntos de interés del mapa. */
 	List<POI> ListaPOI = new ArrayList()
 

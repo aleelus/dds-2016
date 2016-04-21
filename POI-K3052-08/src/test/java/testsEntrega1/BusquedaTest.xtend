@@ -2,8 +2,8 @@ package testsEntrega1
 
 import domain.CGP
 import domain.LocalComercial
-import domain.Mapa
 import domain.ParadaColectivo
+import domain.RepoPOI
 import domain.Rubro
 import domain.ServicioCGP
 import domain.SucursalBanco
@@ -14,7 +14,7 @@ import org.junit.Before
 import org.junit.Test
 
 class BusquedaTest {
-	Mapa mapa
+	RepoPOI mapa
 	CGP cgp
 	LocalComercial localComercial
 	ParadaColectivo parada
@@ -24,7 +24,7 @@ class BusquedaTest {
 	def void SetUp() {
 
 		// Mapa principal
-		mapa = new Mapa()
+		mapa = new RepoPOI()
 		// Un CGP
 		val List<ServicioCGP> listaServicios = new ArrayList<ServicioCGP>
 		val ServicioCGP rentas = new ServicioCGP("Rentas")
