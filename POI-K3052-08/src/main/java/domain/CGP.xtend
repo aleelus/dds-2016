@@ -1,12 +1,13 @@
 package domain
 
+import domain.POI.Dias
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.geodds.Point
 import org.uqbar.geodds.Polygon
-import domain.POI.Dias
+import java.util.Locale
 
 @Accessors
 class CGP extends POI {
@@ -88,10 +89,11 @@ class CGP extends POI {
 	 * para cierto servicio.
 	 */	
 	def estaDisponible(DateTime dt, String nombre) {
-			
-		val DateTime.Property nom = dt.dayOfWeek()
-		val String nombreDia = nom.getAsText()
 		
+		val Locale localidad = new Locale("ES","ar")
+		val DateTime.Property nom = dt.dayOfWeek()
+		val String nombreDia = nom.getAsText(localidad)
+		System.out.println(nombreDia)
 		
 		
 		var ServicioCGP servicioEncontrado = new ServicioCGP()

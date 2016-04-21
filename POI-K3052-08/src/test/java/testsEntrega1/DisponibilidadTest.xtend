@@ -35,6 +35,7 @@ class DisponibilidadTest {
 		
 			
 		// Horarios del servicio Rentas
+		
 		dt = new DateTime("2016-04-10T11:05:00")
 		horarios.add(dt)
 		dt = new DateTime("2016-04-10T15:00:00")
