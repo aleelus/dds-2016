@@ -5,7 +5,7 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-class Mapa {
+class RepoPOI {
 	/**Lista de puntos de interés del mapa. */
 	List<POI> ListaPOI = new ArrayList()
 
@@ -22,6 +22,14 @@ class Mapa {
 	
 	def agregarPOI(POI puntoInteres) {
 		ListaPOI.add(puntoInteres)
+	}
+	
+	def removerPOI(POI puntoInteres) {
+		ListaPOI.remove(puntoInteres)
+	}
+	
+	def modificarPOI(POI puntoInteresConNuevosDatos){
+		(ListaPOI.filter[POI | POI.ID==puntoInteresConNuevosDatos.ID]).map[POIMismoID | POIMismoID.setearDatos(puntoInteresConNuevosDatos)]
 	}
 
 }

@@ -1,11 +1,9 @@
 package domain
 
-import domain.POI
 import java.util.ArrayList
 import java.util.List
-import org.joda.time.DateTime
-import domain.CGP.Dias
 import java.util.Locale
+import org.joda.time.DateTime
 
 class SucursalBanco extends POI {
 
@@ -39,10 +37,10 @@ class SucursalBanco extends POI {
 	}
 
 	def estaDisponible(DateTime dt, String nombre) {
-		val Locale localidad = new Locale("ES","ar")
+		val Locale lenguaYPais = new Locale("ES","ar")
 		setNombre(nombre)		
 		val DateTime.Property nom = dt.dayOfWeek()
-		val String nombreDia = nom.getAsText(localidad)
+		val String nombreDia = nom.getAsText(lenguaYPais)
 		
 		if (buscarDia(diasAbierto, Dias.valueOf(nombreDia))) {
 			// BANCOS DE LUNES A VIERNES DE 10:00 a 15:00

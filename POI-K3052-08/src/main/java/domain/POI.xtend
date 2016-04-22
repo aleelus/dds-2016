@@ -1,12 +1,16 @@
 package domain
 
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.geodds.Point
-import org.joda.time.DateTime
 import java.util.List
+import java.util.concurrent.atomic.AtomicLong
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.joda.time.DateTime
+import org.uqbar.geodds.Point
 
 @Accessors
 class POI {
+	static AtomicLong ULTIMO_ID = new AtomicLong(0) 
+	/**Identificador del punto de interés */
+	long ID = ULTIMO_ID.getAndIncrement()
 	/**Nombre del punto de interés */
 	String nombre
 	/**Latitud del punto de interés */
@@ -60,4 +64,20 @@ class POI {
 		}
 		return false
 	}
+	
+	def setearDatos(POI poi) {
+		nombre = poi.nombre
+		latitud = poi.latitud
+		longitud = poi.longitud
+	}
+	
+//	override equals(Object arg0) {
+//		val POI puntoAComparar = arg0 as POI
+//		ID==puntoAComparar.ID
+//	}
+//	
+//	override hashCode() {
+//		super.hashCode()
+//	}
+	
 }

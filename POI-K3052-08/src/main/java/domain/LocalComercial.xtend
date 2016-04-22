@@ -1,13 +1,12 @@
 package domain
 
-import domain.POI
-import org.uqbar.geodds.Point
-import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.List
-import java.util.ArrayList
-import org.joda.time.DateTime
 import domain.POI.Dias
+import java.util.ArrayList
+import java.util.List
 import java.util.Locale
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.joda.time.DateTime
+import org.uqbar.geodds.Point
 
 @Accessors
 class LocalComercial extends POI {
@@ -48,9 +47,9 @@ class LocalComercial extends POI {
 
 	def estaDisponible(DateTime dt, String nombre) {
 		setNombre(nombre)
-		val Locale localidad = new Locale("ES","ar")	 
+		val Locale lenguaYPais = new Locale("ES","ar")	 
 		val DateTime.Property nom = dt.dayOfWeek()
-		val String nombreDia = nom.getAsText(localidad)
+		val String nombreDia = nom.getAsText(lenguaYPais)
 		
 		if (buscarDia(rubro.diasAbierto, Dias.valueOf(nombreDia))) {
 			evaluarRangoHorario(rubro.horario, dt.getHourOfDay(), dt.getMinuteOfHour())
