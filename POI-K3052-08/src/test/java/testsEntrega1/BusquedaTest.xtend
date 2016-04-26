@@ -50,26 +50,26 @@ class BusquedaTest {
 
 	@Test
 	def testBusquedaCGPOK() {
-		Assert.assertTrue(mapa.buscar("Rentas").contains(cgp))
+		Assert.assertTrue(mapa.search("Rentas").contains(cgp))
 	}
 
 	@Test
 	def testBusquedaLocalOK() {
-		Assert.assertTrue(mapa.buscar("Librería").contains(localComercial))
+		Assert.assertTrue(mapa.search("Librería").contains(localComercial))
 	}
 
 	@Test
 	def testBusquedaBancoOK() {
-		Assert.assertTrue(mapa.buscar("Santander").contains(banco))
+		Assert.assertTrue(mapa.search("Santander").contains(banco))
 	}
 
 	@Test
 	def testBusquedaParadaOK() {
-		Assert.assertTrue(mapa.buscar("124").contains(parada))
+		Assert.assertTrue(mapa.search("124").contains(parada))
 	}
 
 	@Test(expected=Exception)
 	def testBusquedaFail() {
-		Assert.assertTrue(mapa.buscar("Hospital").isEmpty)
+		Assert.assertTrue(mapa.search("Hospital").isEmpty)
 	}
 }

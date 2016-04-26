@@ -1,35 +1,35 @@
 package domain
 
 import java.util.List
-import java.util.concurrent.atomic.AtomicLong
+import java.util.concurrent.atomic.AtomicInteger
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
+import org.uqbar.commons.model.Entity
 import org.uqbar.geodds.Point
 
 @Accessors
-class POI {
-	static AtomicLong ULTIMO_ID = new AtomicLong(0) 
+class POI extends Entity {
+	static AtomicInteger ULTIMO_ID = new AtomicInteger(0)
 	/**Identificador del punto de interés */
-	long ID = ULTIMO_ID.getAndIncrement()
+	int ID = ULTIMO_ID.getAndIncrement()
 	/**Nombre del punto de interés */
 	String nombre
 	/**Latitud del punto de interés */
 	double latitud
 	/**Longitud del punto de interés */
 	double longitud
-	
-	enum Dias{
-		
+
+	enum Dias {
+
 		lunes,
 		martes,
 		miercoles,
 		jueves,
 		viernes,
 		sabado,
-		domingo		
+		domingo
 	}
-	
-	
+
 	/**Método que indica si una punto de interés genérico
 	 * está cerca de una latitud y longitud determinados.
 	 */
@@ -38,23 +38,24 @@ class POI {
 		val Point puntoPOI = new Point(latitud, longitud)
 		puntoPOI.distance(puntoUsuario) / 10 <= 5
 	}
+
 	/**Método que verifica si un input está contenido en el POI */
 	def contieneTexto(String input) {
 		nombre.contains(input)
 	}
 
-	def buscarDia(List<Dias> lista, Dias dia) {	
-		if(lista.findFirst[ diaLista | diaLista == dia]!=null)
+	def buscarDia(List<Dias> lista, Dias dia) {
+		if (lista.findFirst[diaLista|diaLista == dia] != null)
 			return true
 	}
 
 	def evaluarRangoHorario(List<DateTime> lista, int horaActual, int minActual) {
-		
-		val int[] x = newIntArrayOfSize(lista.size)		
+
+		val int[] x = newIntArrayOfSize(lista.size)
 		val horario = horaActual * 100 + minActual
 
-		lista.forEach[dt , c  | x.set(c,dt.getHourOfDay() * 100 + dt.getMinuteOfHour())] 
-					
+		lista.forEach[dt, c|x.set(c, dt.getHourOfDay() * 100 + dt.getMinuteOfHour())]
+
 		for (var i = 0; i < x.size; i++) {
 			if (x.get(i) <= horario && horario <= x.get(i + 1)) {
 				return true
@@ -64,20 +65,11 @@ class POI {
 		}
 		return false
 	}
-	
+
 	def setearDatos(POI poi) {
 		nombre = poi.nombre
 		latitud = poi.latitud
 		longitud = poi.longitud
 	}
-	
-//	override equals(Object arg0) {
-//		val POI puntoAComparar = arg0 as POI
-//		ID==puntoAComparar.ID
-//	}
-//	
-//	override hashCode() {
-//		super.hashCode()
-//	}
-	
+
 }
