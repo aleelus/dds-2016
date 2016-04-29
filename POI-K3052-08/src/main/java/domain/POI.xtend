@@ -9,9 +9,11 @@ import org.uqbar.geodds.Point
 
 @Accessors
 class POI extends Entity {
-	static AtomicInteger ULTIMO_ID = new AtomicInteger(0)
-	/**Identificador del punto de interés */
-	int ID = ULTIMO_ID.getAndIncrement()
+
+	//Campos
+	
+	/**Variable global que posee el último ID usado */
+	static AtomicInteger ULTIMO_ID = new AtomicInteger(1)
 	/**Nombre del punto de interés */
 	String nombre
 	/**Latitud del punto de interés */
@@ -29,7 +31,16 @@ class POI extends Entity {
 		sabado,
 		domingo
 	}
+	
+	//Constructores
+	
+	new(){
+		super()
+		this.id = ULTIMO_ID.andIncrement
+	}
 
+	//Métodos
+	
 	/**Método que indica si una punto de interés genérico
 	 * está cerca de una latitud y longitud determinados.
 	 */
@@ -70,6 +81,16 @@ class POI extends Entity {
 		nombre = poi.nombre
 		latitud = poi.latitud
 		longitud = poi.longitud
+	}
+
+	/**Método que verifica si un punto puede ser creado */
+	override validateCreate() {
+		super.validateCreate()
+	}
+
+	/**Método que verifica si un punto puede ser eliminado */
+	override validateDelete() {
+		super.validateDelete()
 	}
 
 }

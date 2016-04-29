@@ -5,6 +5,7 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.CollectionBasedRepo
 import org.apache.commons.collections15.Predicate
+import org.apache.commons.collections15.functors.AndPredicate
 
 @Accessors
 class RepoPOI extends CollectionBasedRepo<POI> {
@@ -43,7 +44,7 @@ class RepoPOI extends CollectionBasedRepo<POI> {
 	}
 
 	def modificarPOI(POI puntoInteresConNuevosDatos) {
-		(ListaPOI.filter[POI|POI.ID == puntoInteresConNuevosDatos.ID]).map [POIMismoID |
+		(ListaPOI.filter[POI|POI.id == puntoInteresConNuevosDatos.id]).map [ POIMismoID |
 			POIMismoID.setearDatos(puntoInteresConNuevosDatos)
 		]
 	}
@@ -61,6 +62,21 @@ class RepoPOI extends CollectionBasedRepo<POI> {
 	}
 
 	override protected Predicate<POI> getCriterio(POI puntoInteres) {
+		var resultado = this.criterioTodas
+		if (puntoInteres.id != null) {
+			resultado = new AndPredicate(resultado, this.getCriterioPorId(puntoInteres.id))
+		}
+		resultado
 	}
+
+	override protected getCriterioTodas() {
+		[POI punto|true] as Predicate<POI>
+	}
+
+	override protected getCriterioPorId(Integer id) {
+		[POI punto|punto.id.equals(id)]
+	}
+	
+	
 
 }
