@@ -2,7 +2,6 @@
 	Integrantes:
 	- Agustín Cipriano
 	- Alejandro Elustondo
-	- Sebastián Zapata
 	Tutores:
 	- Tomas Coiro
 	- Juan Contardo" 
