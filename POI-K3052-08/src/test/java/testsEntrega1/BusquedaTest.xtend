@@ -13,12 +13,14 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import domain.POI
+import net.sf.oval.constraint.AssertTrue
 
 class BusquedaTest {
 	RepoPOI mapa
 	CGP cgp
 	LocalComercial localComercial
 	ParadaColectivo parada
+	ParadaColectivo parada2
 	SucursalBanco banco
 	SucursalBanco banco2
 	SucursalBanco banco3
@@ -27,7 +29,7 @@ class BusquedaTest {
 	@Before
 	def void SetUp() {
 
-		// Mapa principal
+		// Orígenes de datos
 		mapa = new RepoPOI()
 		stubBusquedaBanco = new StubBusquedaExternaBanco()
 		// Un CGP
@@ -39,44 +41,68 @@ class BusquedaTest {
 		val ServicioCGP jubilacion = new ServicioCGP("Atención al Jubilado")
 		listaServicios.add(jubilacion)
 		cgp = new CGP("Centro Flores", listaServicios)
+		mapa.create(cgp)
 		// Un local
 		val Rubro libreria = new Rubro("Librería", 5)
 		localComercial = new LocalComercial(libreria, "Don José")
-		// Una parada
+		mapa.create(localComercial)
+		// Paradas
 		parada = new ParadaColectivo("124")
-		// Un banco
-		
+		parada2 = new ParadaColectivo("110")
+		mapa.create(parada)
+		// Bancos
 		var List<String> listaServ = new ArrayList<String>
 		listaServ.add("cobros cheques")
 		listaServ.add("depositos")
 		listaServ.add("transferencias")
 		listaServ.add("extracciones")
-		banco = new SucursalBanco(30, 40,"Santander", "Once",listaServ , "Mirtha Legrand")
-		
-		 listaServ = new ArrayList<String>
+		banco = new SucursalBanco(30, 40, "Santander", "Once", listaServ, "Mirtha Legrand")
+
+		listaServ = new ArrayList<String>
 		listaServ.add("cobros cheques")
-		listaServ.add("depositos")		
-		banco2 = new SucursalBanco(30, 40, "Banco Nacion","Once",listaServ , "Mirtha Legrand")
-		
-		listaServ = new ArrayList<String>		
-		listaServ.add("seguros")		
-		banco3 = new SucursalBanco(50, 60, "Santander","Palermo",listaServ , "Christian de Lugano")
-		
+		listaServ.add("depositos")
+		banco2 = new SucursalBanco(30, 40, "Banco Nacion", "Once", listaServ, "Mirtha Legrand")
+
+		listaServ = new ArrayList<String>
+		listaServ.add("seguros")
+		banco3 = new SucursalBanco(50, 60, "Santander", "Palermo", listaServ, "Christian de Lugano")
+
 		var List<POI> listaPOI = new ArrayList<POI>
-		
+
 		listaPOI.add(banco)
 		listaPOI.add(banco2)
 		listaPOI.add(banco3)
-		
+		// Simulador del servicio externo para consulta de bancos
 		stubBusquedaBanco = new StubBusquedaExternaBanco(listaPOI)
-		
-		// Los agrego al mapa
-//		mapa.agregarPOI(cgp)
-//		mapa.agregarPOI(localComercial)
-//		mapa.agregarPOI(parada)
-//		mapa.agregarPOI(banco)
+
 	}
 
+	@Test
+	def testCreacionPOI() {
+		mapa.create(parada2)
+		val ultimoID = mapa.allInstances.last.id
+		Assert.assertTrue(mapa.allInstances.contains(parada2))
+		Assert.assertEquals(parada2.id, ultimoID)
+	}
+
+	@Test
+	def testEliminacionPOI() {
+		mapa.delete(parada2)
+		Assert.assertFalse(mapa.allInstances.contains(parada2))
+	}
+
+	@Test
+	def testModificacionPOIExistente(){
+		parada.nombre = "34"
+		mapa.update(parada)
+		Assert.assertTrue(mapa.searchByExample(parada).exists[punto | punto.nombre=="34"])
+	}
+	
+	@Test (expected=Exception)
+	def testModificacionPOIInvalido(){
+		mapa.update(banco)
+	}
+	
 	@Test
 	def testBusquedaCGPOK() {
 		Assert.assertTrue(mapa.search("Rentas").contains(cgp))
@@ -91,6 +117,7 @@ class BusquedaTest {
 	def testBusquedaBancoOK() {
 		Assert.assertTrue(stubBusquedaBanco.search("Santander").contains(banco))
 	}
+
 	@Test
 	def testBusquedaBanco_NO_OK() {
 		Assert.assertFalse(stubBusquedaBanco.search("Santander").contains(banco2))
@@ -100,9 +127,14 @@ class BusquedaTest {
 	def testBusquedaParadaOK() {
 		Assert.assertTrue(mapa.search("124").contains(parada))
 	}
+	
+	@Test
+	def testBusquedaPorID(){
+		Assert.assertEquals(mapa.searchById(1),cgp)
+	}
 
-	@Test(expected=Exception)
-	def testBusquedaFail() {
+	@Test
+	def testBusquedaVacia() {
 		Assert.assertTrue(mapa.search("Hospital").isEmpty)
 	}
 }

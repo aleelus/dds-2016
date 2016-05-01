@@ -1,7 +1,6 @@
 package domain
 
 import java.util.List
-import java.util.concurrent.atomic.AtomicInteger
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.commons.model.Entity
@@ -10,10 +9,7 @@ import org.uqbar.geodds.Point
 @Accessors
 class POI extends Entity {
 
-	//Campos
-	
-	/**Variable global que posee el último ID usado */
-	static AtomicInteger ULTIMO_ID = new AtomicInteger(1)
+	// Campos
 	/**Nombre del punto de interés */
 	String nombre
 	/**Latitud del punto de interés */
@@ -31,16 +27,8 @@ class POI extends Entity {
 		sabado,
 		domingo
 	}
-	
-	//Constructores
-	
-	new(){
-		super()
-		this.id = ULTIMO_ID.andIncrement
-	}
 
-	//Métodos
-	
+	// Métodos
 	/**Método que indica si una punto de interés genérico
 	 * está cerca de una latitud y longitud determinados.
 	 */
@@ -82,11 +70,4 @@ class POI extends Entity {
 		latitud = poi.latitud
 		longitud = poi.longitud
 	}
-
-	/**Método que verifica si un punto puede ser creado */
-	override validateCreate() {
-		super.validateCreate()
-		//Definir validación
-	}
-
 }

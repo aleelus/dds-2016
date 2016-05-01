@@ -9,42 +9,23 @@ import org.uqbar.commons.model.CollectionBasedRepo
 class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
 //	/**Lista de puntos de interés del mapa. */
 //	List<POI> ListaPOI = new ArrayList()
-
 	/**Método para buscar puntos de interés dentro del mapa
 	 * en base a un texto libre.
 	 */
 	override search(String input) {
-		allInstances.filter[punto | punto.contieneTexto(input)].toList
-		}
-
-	override searchById(int ID) {
-		super.searchById(ID)
+		allInstances.filter[punto|punto.contieneTexto(input)].toList
 	}
-
-//	def agregarPOI(POI puntoInteres) {
-//		ListaPOI.add(puntoInteres)
-//	}
 
 	override create(POI puntoInteres) {
 		super.create(puntoInteres)
 	}
 
-//	def removerPOI(POI puntoInteres) {
-//		ListaPOI.remove(puntoInteres)
-//	}
-
 	override delete(POI puntoInteres) {
 		super.delete(puntoInteres)
 	}
 
-//	def modificarPOI(POI puntoInteresConNuevosDatos) {
-//		(ListaPOI.filter[POI|POI.id == puntoInteresConNuevosDatos.id]).map [ POIMismoID |
-//			POIMismoID.setearDatos(puntoInteresConNuevosDatos)
-//		]
-//	}
-
 	override update(POI puntoInteres) {
-		if (!allInstances.contains(puntoInteres)){
+		if (!allInstances.contains(puntoInteres)) {
 			throw new Exception("El Punto de interés especificado no existe")
 		}
 		puntoInteres.validateCreate()
@@ -64,6 +45,9 @@ class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
 		if (puntoInteres.id != null) {
 			resultado = new AndPredicate(resultado, this.getCriterioPorId(puntoInteres.id))
 		}
+		if (puntoInteres.nombre != null) {
+			resultado = new AndPredicate(resultado, this.getCriterioPorNombre(puntoInteres.nombre))
+		}
 		resultado
 	}
 
@@ -74,7 +58,9 @@ class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
 	override protected getCriterioPorId(Integer id) {
 		[POI punto|punto.id.equals(id)]
 	}
-	
-	
+
+	def getCriterioPorNombre(String nombre) {
+		[POI punto|punto.nombre.equals(nombre)]
+	}
 
 }
