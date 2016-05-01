@@ -15,6 +15,7 @@ class CGP extends POI {
 	 * Representa la comuna del CGP.
 	 */
 	Comuna comunaCGP
+	
 	/**Representa la lista de servicios del CGP. Contiene elementos
 	 * de la clase ServicioCGP.
 	 */

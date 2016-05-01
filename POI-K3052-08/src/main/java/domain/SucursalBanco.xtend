@@ -22,10 +22,11 @@ class SucursalBanco extends POI {
 		super()
 	}
 
-	new(double latitud, double longitud, String sucursal, List<String> servicios, String gerente) {
+	new(double latitud, double longitud,String nombreBanco, String sucursal, List<String> servicios, String gerente) {
 		this()
 		this.latitud = latitud
 		this.longitud = longitud
+		this.nombre  = nombreBanco
 		this.nombreSucursal = sucursal
 		this.servicios = servicios
 		this.gerente = gerente
