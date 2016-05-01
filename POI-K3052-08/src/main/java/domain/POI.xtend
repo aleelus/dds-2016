@@ -50,7 +50,7 @@ class POI extends Entity {
 		puntoPOI.distance(puntoUsuario) / 10 <= 5
 	}
 
-	/**Método que verifica si un input está contenido en el POI */
+	/**Método que verifica si un input está contenido en el nombre del POI */
 	def contieneTexto(String input) {
 		nombre.contains(input)
 	}
@@ -86,11 +86,7 @@ class POI extends Entity {
 	/**Método que verifica si un punto puede ser creado */
 	override validateCreate() {
 		super.validateCreate()
-	}
-
-	/**Método que verifica si un punto puede ser eliminado */
-	override validateDelete() {
-		super.validateDelete()
+		//Definir validación
 	}
 
 }

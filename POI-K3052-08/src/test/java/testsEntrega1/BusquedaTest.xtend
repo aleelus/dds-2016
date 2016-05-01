@@ -19,12 +19,14 @@ class BusquedaTest {
 	LocalComercial localComercial
 	ParadaColectivo parada
 	SucursalBanco banco
+	StubBusquedaExternaBanco stubBusquedaBanco
 
 	@Before
 	def void SetUp() {
 
 		// Mapa principal
 		mapa = new RepoPOI()
+		stubBusquedaBanco = new StubBusquedaExternaBanco()
 		// Un CGP
 		val List<ServicioCGP> listaServicios = new ArrayList<ServicioCGP>
 		val ServicioCGP rentas = new ServicioCGP("Rentas")
@@ -42,10 +44,10 @@ class BusquedaTest {
 		// Un banco
 		banco = new SucursalBanco("Banco Santander")
 		// Los agrego al mapa
-		mapa.agregarPOI(cgp)
-		mapa.agregarPOI(localComercial)
-		mapa.agregarPOI(parada)
-		mapa.agregarPOI(banco)
+//		mapa.agregarPOI(cgp)
+//		mapa.agregarPOI(localComercial)
+//		mapa.agregarPOI(parada)
+//		mapa.agregarPOI(banco)
 	}
 
 	@Test
@@ -60,7 +62,7 @@ class BusquedaTest {
 
 	@Test
 	def testBusquedaBancoOK() {
-		Assert.assertTrue(mapa.search("Santander").contains(banco))
+		Assert.assertTrue(stubBusquedaBanco.search("Santander").contains(banco))
 	}
 
 	@Test

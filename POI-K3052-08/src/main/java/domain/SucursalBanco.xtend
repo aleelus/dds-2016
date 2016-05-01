@@ -11,10 +11,24 @@ class SucursalBanco extends POI {
 	List<DateTime> horario = new ArrayList<DateTime>()
 	/**Días de apertura del banco */
 	List<Dias> diasAbierto = new ArrayList<Dias>()
+	/**Nombre dado a la sucursal */
+	String nombreSucursal
+	/**Servicios proporcionados por el banco */
+	List<String> servicios
+	String gerente
 
 	// Constructores
 	new() {
 		super()
+	}
+
+	new(double latitud, double longitud, String sucursal, List<String> servicios, String gerente) {
+		this()
+		this.latitud = latitud
+		this.longitud = longitud
+		this.nombreSucursal = sucursal
+		this.servicios = servicios
+		this.gerente = gerente
 	}
 
 	new(double latitud, double longitud, List<DateTime> horario, List<Dias> diasAbierto) {
@@ -37,14 +51,14 @@ class SucursalBanco extends POI {
 	}
 
 	def estaDisponible(DateTime dt, String nombre) {
-		val Locale lenguaYPais = new Locale("ES","ar")
-		setNombre(nombre)		
+		val Locale lenguaYPais = new Locale("ES", "ar")
+		setNombre(nombre)
 		val DateTime.Property nom = dt.dayOfWeek()
 		val String nombreDia = nom.getAsText(lenguaYPais)
-		
+
 		if (buscarDia(diasAbierto, Dias.valueOf(nombreDia))) {
 			// BANCOS DE LUNES A VIERNES DE 10:00 a 15:00
-			evaluarRangoHorario(horario,  dt.getHourOfDay(), dt.getMinuteOfHour())
+			evaluarRangoHorario(horario, dt.getHourOfDay(), dt.getMinuteOfHour())
 		}
 	}
 }

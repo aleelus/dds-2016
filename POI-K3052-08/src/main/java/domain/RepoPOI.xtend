@@ -1,55 +1,53 @@
 package domain
 
-import java.util.ArrayList
-import java.util.List
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.CollectionBasedRepo
 import org.apache.commons.collections15.Predicate
 import org.apache.commons.collections15.functors.AndPredicate
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.CollectionBasedRepo
 
 @Accessors
-class RepoPOI extends CollectionBasedRepo<POI> {
-	/**Lista de puntos de interés del mapa. */
-	List<POI> ListaPOI = new ArrayList()
+class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
+//	/**Lista de puntos de interés del mapa. */
+//	List<POI> ListaPOI = new ArrayList()
 
 	/**Método para buscar puntos de interés dentro del mapa
 	 * en base a un texto libre.
 	 */
-	def search(String input) {
-		val Iterable<POI> listaResultado = ListaPOI.filter[contieneTexto(input)]
-		if (listaResultado.size == 0) {
-			throw new Exception("No se encontraron resultados!")
+	override search(String input) {
+		allInstances.filter[punto | punto.contieneTexto(input)].toList
 		}
-		listaResultado.toList()
-	}
 
 	override searchById(int ID) {
 		super.searchById(ID)
 	}
 
-	def agregarPOI(POI puntoInteres) {
-		ListaPOI.add(puntoInteres)
-	}
+//	def agregarPOI(POI puntoInteres) {
+//		ListaPOI.add(puntoInteres)
+//	}
 
 	override create(POI puntoInteres) {
 		super.create(puntoInteres)
 	}
 
-	def removerPOI(POI puntoInteres) {
-		ListaPOI.remove(puntoInteres)
-	}
+//	def removerPOI(POI puntoInteres) {
+//		ListaPOI.remove(puntoInteres)
+//	}
 
 	override delete(POI puntoInteres) {
 		super.delete(puntoInteres)
 	}
 
-	def modificarPOI(POI puntoInteresConNuevosDatos) {
-		(ListaPOI.filter[POI|POI.id == puntoInteresConNuevosDatos.id]).map [ POIMismoID |
-			POIMismoID.setearDatos(puntoInteresConNuevosDatos)
-		]
-	}
+//	def modificarPOI(POI puntoInteresConNuevosDatos) {
+//		(ListaPOI.filter[POI|POI.id == puntoInteresConNuevosDatos.id]).map [ POIMismoID |
+//			POIMismoID.setearDatos(puntoInteresConNuevosDatos)
+//		]
+//	}
 
 	override update(POI puntoInteres) {
+		if (!allInstances.contains(puntoInteres)){
+			throw new Exception("El Punto de interés especificado no existe")
+		}
+		puntoInteres.validateCreate()
 		super.update(puntoInteres)
 	}
 
