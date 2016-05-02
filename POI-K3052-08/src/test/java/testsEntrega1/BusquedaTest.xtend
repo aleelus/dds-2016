@@ -108,6 +108,13 @@ class BusquedaTest {
 		Assert.assertTrue(mapa.searchByExample(parada).exists[punto | punto.nombre=="34"])
 	}
 	
+	@Test
+	def testModificacionSucursalSrvExt(){
+		banco3.nombre="Banco Rio"
+		adaptadorBanco.update(banco3)
+		Assert.assertFalse(adaptadorBanco.search("Rio").isEmpty)
+	}
+	
 	@Test (expected=Exception)
 	def testModificacionPOIInvalido(){
 		mapa.update(banco)

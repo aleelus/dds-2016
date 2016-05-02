@@ -7,4 +7,5 @@ interface OrigenDatos<T> {
 	def List<POI> search(String input)
 	def void create(T punto)
 	def void delete(T punto)
+	def void update(T punto)
 }
