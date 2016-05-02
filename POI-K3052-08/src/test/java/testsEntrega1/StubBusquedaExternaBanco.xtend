@@ -1,30 +1,27 @@
 package testsEntrega1
 
 import domain.OrigenDatos
-import java.util.List
-import java.util.ArrayList
 import domain.POI
+import java.util.ArrayList
+import java.util.List
 
 class StubBusquedaExternaBanco implements OrigenDatos {
-	
-	//Campos
+
+	// Campos
 	List<POI> listaSucursales = new ArrayList<POI>
-	
-	//Constructores
-	new(){
+
+	// Constructores
+	new() {
 		super()
 	}
-	
-	new(List<POI> lista){
+
+	new(List<POI> lista) {
 		this()
-		this.listaSucursales=lista
+		this.listaSucursales = lista
 	}
-	
+
 	override search(String input) {
-	
-		listaSucursales.filter[ banco | banco.nombre.contains(input)].toList	
-	
-		
+		listaSucursales.filter[banco|banco.nombre.contains(input)].toList
 	}
-	
+
 }

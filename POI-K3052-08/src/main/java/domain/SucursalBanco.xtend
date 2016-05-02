@@ -4,7 +4,9 @@ import java.util.ArrayList
 import java.util.List
 import java.util.Locale
 import org.joda.time.DateTime
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class SucursalBanco extends POI {
 
 	/**Horarios de apertura del banco */
@@ -15,6 +17,7 @@ class SucursalBanco extends POI {
 	String nombreSucursal
 	/**Servicios proporcionados por el banco */
 	List<String> servicios
+	/**Nombre del gerente de la sucursal */
 	String gerente
 
 	// Constructores

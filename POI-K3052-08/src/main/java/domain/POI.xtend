@@ -62,7 +62,7 @@ class POI extends Entity {
 				i++
 			}
 		}
-		return false
+		false
 	}
 
 	def setearDatos(POI poi) {
