@@ -65,4 +65,5 @@ class SucursalBanco extends POI {
 			evaluarRangoHorario(horario, dt.getHourOfDay(), dt.getMinuteOfHour())
 		}
 	}
+	
 }

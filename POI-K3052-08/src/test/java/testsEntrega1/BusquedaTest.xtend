@@ -1,8 +1,8 @@
 package testsEntrega1
 
+import domain.AdaptadorServicioExterno
 import domain.CGP
 import domain.LocalComercial
-import domain.POI
 import domain.ParadaColectivo
 import domain.RepoPOI
 import domain.Rubro
@@ -24,13 +24,13 @@ class BusquedaTest {
 	SucursalBanco banco2
 	SucursalBanco banco3
 	StubBusquedaExternaBanco stubBusquedaBanco
+	AdaptadorServicioExterno adaptadorBanco
 
 	@Before
 	def void SetUp() {
 
 		// Orígenes de datos
 		mapa = new RepoPOI()
-		stubBusquedaBanco = new StubBusquedaExternaBanco()
 		// Un CGP
 		val List<ServicioCGP> listaServicios = new ArrayList<ServicioCGP>
 		val ServicioCGP rentas = new ServicioCGP("Rentas")
@@ -66,13 +66,14 @@ class BusquedaTest {
 		listaServ.add("seguros")
 		banco3 = new SucursalBanco(50, 60, "Santander", "Palermo", listaServ, "Christian de Lugano")
 
-		var List<POI> listaPOI = new ArrayList<POI>
+		var List<SucursalBanco> listaBancos = new ArrayList<SucursalBanco>
 
-		listaPOI.add(banco)
-		listaPOI.add(banco2)
-		listaPOI.add(banco3)
+		listaBancos.add(banco)
+		listaBancos.add(banco2)
+		listaBancos.add(banco3)
 		// Simulador del servicio externo para consulta de bancos
-		stubBusquedaBanco = new StubBusquedaExternaBanco(listaPOI)
+		stubBusquedaBanco = new StubBusquedaExternaBanco(listaBancos)
+		adaptadorBanco = new AdaptadorServicioExterno(stubBusquedaBanco)
 
 	}
 
@@ -114,12 +115,12 @@ class BusquedaTest {
 
 	@Test
 	def testBusquedaBancoOK() {
-		Assert.assertTrue(stubBusquedaBanco.search("Santander").contains(banco))
+		Assert.assertTrue(adaptadorBanco.search("Santander").forall[banco |banco.nombre == banco.nombre])
 	}
 
 	@Test
 	def testBusquedaBanco_NO_OK() {
-		Assert.assertFalse(stubBusquedaBanco.search("Santander").contains(banco2))
+		Assert.assertFalse(adaptadorBanco.search("Santander").contains(banco2))
 	}
 
 	@Test

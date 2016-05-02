@@ -1,25 +1,41 @@
 package domain
 
-import com.eclipsesource.json.Json
 import com.eclipsesource.json.JsonArray
 import com.eclipsesource.json.JsonValue
 import java.util.List
+import testsEntrega1.StubBusquedaExternaBanco
+import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.ArrayList
 
-class AdaptadorServicioExterno {
-	
-	String parser
+@Accessors
+class AdaptadorServicioExterno implements OrigenDatos {
 
-	def convertir(String resultadoServicioExterno) {
+	StubBusquedaExternaBanco srvExtBanco
 	
+	//Constructores
+	new() {
+		super()
+	}
+
+	new(StubBusquedaExternaBanco srvExterno) {
+		this.srvExtBanco = srvExterno
+	}
+	
+	//Métodos
+	override search(String input) {
+		val JsonArray resultado = srvExtBanco.consultar(input)
+		this.convertirALista(resultado)
+	}
+
+	/**Método que convierte un String JSON a una lista de sucursales bancarias */
+	def convertirALista(JsonArray resultadoServicioExterno) {
+
 		var SucursalBanco sucursal
 		var JsonArray arrayServicios
-		var List<String> listaServicios
-		var List<SucursalBanco> listaSucursales
-	
-		val JsonArray arraySucursales = Json.parse(resultadoServicioExterno).asArray()
-		
-		
-		for (JsonValue valor : arraySucursales) {
+		var List<String> listaServicios = new ArrayList<String>()
+		var List<POI> listaSucursales = new ArrayList<POI>()
+
+		for (JsonValue valor : resultadoServicioExterno) {
 			sucursal = new SucursalBanco()
 			sucursal.nombre = valor.asObject.getString("banco", "Banco desconocido")
 			sucursal.latitud = valor.asObject.getDouble("x", 0)
@@ -27,43 +43,13 @@ class AdaptadorServicioExterno {
 			sucursal.nombreSucursal = valor.asObject.getString("sucursal", "Sucursal desconocido")
 			sucursal.gerente = valor.asObject.getString("gerente", "Gerente desconocido")
 			arrayServicios = valor.asObject.get("servicios").asArray
-			for (JsonValue servicio : arraySucursales) {
-				listaServicios.add(servicio.asString)
+			for (JsonValue servicio : arrayServicios) {
+				listaServicios.add(servicio.toString)
 			}
 			sucursal.servicios = listaServicios
 			listaSucursales.add(sucursal)
 		}
 		listaSucursales
 	}
-	
-	//Recibe la lista ya filtrada
-	def  trabajarLista(List<SucursalBanco> lista){	
-				 
-		parser = "["		
-		lista.forEach[ banco | 
-			
-			parser.concat("{\"banco\":")
-			parser.concat("\""+banco.nombre+"\"")
-			parser.concat(",\"x\":")
-			parser.concat(banco.latitud.toString)
-			parser.concat(",\"y\":")
-			parser.concat(banco.longitud.toString)
-			parser.concat(",\"sucursal\":")
-			parser.concat("\""+banco.nombreSucursal+"\"")
-			parser.concat(",\"gerente\":")
-			parser.concat("\""+banco.gerente+"\"")
-			parser.concat(",\"servicios\":[")
-			banco.servicios.forEach[serv | parser.concat("\""+serv+"\",")]
-			parser.concat("\"\"]")			
-			
-		]				
-		parser.concat("]")	
-		
-		parser
-		
-	}
-
-	
-	
 
 }

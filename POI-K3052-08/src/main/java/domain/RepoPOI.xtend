@@ -7,8 +7,7 @@ import org.uqbar.commons.model.CollectionBasedRepo
 
 @Accessors
 class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
-//	/**Lista de puntos de interés del mapa. */
-//	List<POI> ListaPOI = new ArrayList()
+
 	/**Método para buscar puntos de interés dentro del mapa
 	 * en base a un texto libre.
 	 */

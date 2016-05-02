@@ -1,27 +1,71 @@
 package testsEntrega1
 
-import domain.OrigenDatos
-import domain.POI
-import java.util.ArrayList
+import com.eclipsesource.json.Json
+import com.eclipsesource.json.JsonArray
+import com.eclipsesource.json.JsonObject
+import domain.SucursalBanco
 import java.util.List
 
-class StubBusquedaExternaBanco implements OrigenDatos {
+class StubBusquedaExternaBanco{
 
 	// Campos
-	List<POI> listaSucursales = new ArrayList<POI>
-
-	// Constructores
-	new() {
+	List<SucursalBanco> listaSucursales
+	String parser
+	
+	//Constructores
+	new(){
 		super()
 	}
-
-	new(List<POI> lista) {
+	
+	new(List<SucursalBanco> listaBancos){
 		this()
-		this.listaSucursales = lista
+		this.listaSucursales = listaBancos
 	}
-
-	override search(String input) {
-		listaSucursales.filter[banco|banco.nombre.contains(input)].toList
+	
+	def consultar(String input){
+		this.convertirAJSON(listaSucursales.filter[punto | punto.contieneTexto(input)].toList)
 	}
+	
+	/**Método que convierte una lista de sucursales bancarias a un String JSON*/
+	def convertirAJSONOld(List<SucursalBanco> lista) {
 
+		parser = "["
+		lista.forEach [ banco |
+
+			parser.concat("{\"banco\":")
+			parser.concat("\"" + banco.nombre + "\"")
+			parser.concat(",\"x\":")
+			parser.concat(banco.latitud.toString)
+			parser.concat(",\"y\":")
+			parser.concat(banco.longitud.toString)
+			parser.concat(",\"sucursal\":")
+			parser.concat("\"" + banco.nombreSucursal+ "\"")
+			parser.concat(",\"gerente\":")
+			parser.concat("\"" + banco.gerente + "\"")
+			parser.concat(",\"servicios\":[")
+			banco.servicios.forEach[serv|parser.concat("\"" + serv + "\",")]
+			parser.concat("\"\"]")
+
+		]
+		parser.concat("]")
+		parser
+
+	}
+	
+	def convertirAJSON(List<SucursalBanco> lista) {
+		val JsonArray arraySucursales = Json.array().asArray
+		lista.forEach[ sucursal |
+			var JsonObject sucursalJSON = Json.object()
+			sucursalJSON.add("banco",sucursal.nombre)
+			sucursalJSON.add("x",sucursal.longitud)
+			sucursalJSON.add("y",sucursal.latitud)
+			sucursalJSON.add("sucursal",sucursal.nombreSucursal)
+			sucursalJSON.add("gerente",sucursal.gerente)
+			sucursalJSON.add("banco",sucursal.nombre)
+			var JsonArray arrayServicios = Json.array(sucursal.servicios)
+			sucursalJSON.add("servicios", arrayServicios)
+			arraySucursales.add(sucursalJSON)
+		]
+		arraySucursales
+	}
 }
