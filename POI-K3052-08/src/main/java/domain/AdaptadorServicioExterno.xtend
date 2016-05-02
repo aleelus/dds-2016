@@ -8,7 +8,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.ArrayList
 
 @Accessors
-class AdaptadorServicioExterno implements OrigenDatos {
+class AdaptadorServicioExterno implements OrigenDatos<SucursalBanco> {
 
 	StubBusquedaExternaBanco srvExtBanco
 	
@@ -26,6 +26,12 @@ class AdaptadorServicioExterno implements OrigenDatos {
 	override search(String input) {
 		val JsonArray resultado = srvExtBanco.consultar(input)
 		this.convertirALista(resultado)
+	}
+	
+	/**Método que agrega una sucursal al servicio externo */
+	override create(SucursalBanco sucursal) {
+		sucursal.validateCreate()
+		srvExtBanco.agregarSucursal(sucursal)
 	}
 
 	/**Método que convierte un String JSON a una lista de sucursales bancarias */
@@ -51,6 +57,11 @@ class AdaptadorServicioExterno implements OrigenDatos {
 			listaSucursales.add(sucursal)
 		}
 		listaSucursales
+	}
+	
+	override delete(SucursalBanco sucursal) {
+		sucursal.validateDelete()
+		srvExtBanco.eliminarSucursal(sucursal)
 	}
 
 }

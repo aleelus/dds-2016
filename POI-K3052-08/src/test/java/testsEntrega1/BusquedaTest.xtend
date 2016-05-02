@@ -65,20 +65,17 @@ class BusquedaTest {
 		listaServ = new ArrayList<String>
 		listaServ.add("seguros")
 		banco3 = new SucursalBanco(50, 60, "Santander", "Palermo", listaServ, "Christian de Lugano")
-
-		var List<SucursalBanco> listaBancos = new ArrayList<SucursalBanco>
-
-		listaBancos.add(banco)
-		listaBancos.add(banco2)
-		listaBancos.add(banco3)
 		// Simulador del servicio externo para consulta de bancos
-		stubBusquedaBanco = new StubBusquedaExternaBanco(listaBancos)
+		stubBusquedaBanco = new StubBusquedaExternaBanco()
 		adaptadorBanco = new AdaptadorServicioExterno(stubBusquedaBanco)
+		adaptadorBanco.create(banco)
+		adaptadorBanco.create(banco2)
+		adaptadorBanco.create(banco3)
 
 	}
 
 	@Test
-	def testCreacionPOI() {
+	def testCreacionPOILocal() {
 		mapa.create(parada2)
 		val ultimoID = mapa.allInstances.last.id
 		Assert.assertTrue(mapa.allInstances.contains(parada2))
@@ -86,9 +83,22 @@ class BusquedaTest {
 	}
 
 	@Test
+	def testCreacionSucursalSrvExt(){
+		val SucursalBanco bancoRio = new SucursalBanco(50, 20, "Banco Rio", "Barracas", new ArrayList<String>, "Claudio Ranieri")
+		adaptadorBanco.create(bancoRio)
+		Assert.assertFalse(adaptadorBanco.search("Rio").isEmpty)
+	}
+
+	@Test
 	def testEliminacionPOI() {
 		mapa.delete(parada2)
 		Assert.assertFalse(mapa.allInstances.contains(parada2))
+	}
+	
+	@Test
+	def testEliminacionSucursalSrvExt(){
+		adaptadorBanco.delete(banco2)
+		Assert.assertTrue(adaptadorBanco.search("Nacion").isEmpty)
 	}
 
 	@Test
