@@ -6,27 +6,30 @@ import com.eclipsesource.json.JsonObject
 import domain.SucursalBanco
 import java.util.List
 
-class StubBusquedaExternaBanco{
+class StubBusquedaExternaBanco {
 
 	// Campos
 	List<SucursalBanco> listaSucursales
 	String parser
-	
-	//Constructores
-	new(){
+
+	// Constructores
+	new() {
 		super()
 	}
-	
-	new(List<SucursalBanco> listaBancos){
+
+	new(List<SucursalBanco> listaBancos) {
 		this()
 		this.listaSucursales = listaBancos
 	}
-	
-	def consultar(String input){
-		this.convertirAJSON(listaSucursales.filter[punto | punto.contieneTexto(input)].toList)
+
+	//Métodos
+	/**Método que obtiene las sucursales que cumplen con lo buscado y convierte el resultado a un String JSON */
+	def consultar(String input) {
+		this.convertirAJSON(listaSucursales.filter[punto|punto.contieneTexto(input)].toList)
 	}
-	
+
 	/**Método que convierte una lista de sucursales bancarias a un String JSON*/
+	@Deprecated
 	def convertirAJSONOld(List<SucursalBanco> lista) {
 
 		parser = "["
@@ -39,7 +42,7 @@ class StubBusquedaExternaBanco{
 			parser.concat(",\"y\":")
 			parser.concat(banco.longitud.toString)
 			parser.concat(",\"sucursal\":")
-			parser.concat("\"" + banco.nombreSucursal+ "\"")
+			parser.concat("\"" + banco.nombreSucursal + "\"")
 			parser.concat(",\"gerente\":")
 			parser.concat("\"" + banco.gerente + "\"")
 			parser.concat(",\"servicios\":[")
@@ -51,17 +54,17 @@ class StubBusquedaExternaBanco{
 		parser
 
 	}
-	
+	/**Método que convierte una lista de sucursales bancarias a un String JSON*/
 	def convertirAJSON(List<SucursalBanco> lista) {
 		val JsonArray arraySucursales = Json.array().asArray
-		lista.forEach[ sucursal |
+		lista.forEach [ sucursal |
 			var JsonObject sucursalJSON = Json.object()
-			sucursalJSON.add("banco",sucursal.nombre)
-			sucursalJSON.add("x",sucursal.longitud)
-			sucursalJSON.add("y",sucursal.latitud)
-			sucursalJSON.add("sucursal",sucursal.nombreSucursal)
-			sucursalJSON.add("gerente",sucursal.gerente)
-			sucursalJSON.add("banco",sucursal.nombre)
+			sucursalJSON.add("banco", sucursal.nombre)
+			sucursalJSON.add("x", sucursal.longitud)
+			sucursalJSON.add("y", sucursal.latitud)
+			sucursalJSON.add("sucursal", sucursal.nombreSucursal)
+			sucursalJSON.add("gerente", sucursal.gerente)
+			sucursalJSON.add("banco", sucursal.nombre)
 			var JsonArray arrayServicios = Json.array(sucursal.servicios)
 			sucursalJSON.add("servicios", arrayServicios)
 			arraySucursales.add(sucursalJSON)

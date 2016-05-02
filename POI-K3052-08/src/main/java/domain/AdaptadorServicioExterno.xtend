@@ -22,6 +22,7 @@ class AdaptadorServicioExterno implements OrigenDatos {
 	}
 	
 	//Métodos
+	/**Método que busca en el servicio externo y luego convierte el restultad a una lista de POI's */
 	override search(String input) {
 		val JsonArray resultado = srvExtBanco.consultar(input)
 		this.convertirALista(resultado)
