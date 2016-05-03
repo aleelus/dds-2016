@@ -6,7 +6,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.CollectionBasedRepo
 
 @Accessors
-class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
+class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos<POI> {
 
 	/**Método para buscar puntos de interés dentro del mapa
 	 * en base a un texto libre.

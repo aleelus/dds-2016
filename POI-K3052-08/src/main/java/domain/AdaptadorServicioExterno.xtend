@@ -7,7 +7,7 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-class AdaptadorServicioExterno implements OrigenDatos {
+class AdaptadorServicioExterno implements OrigenDatos<SucursalBanco> {
 
 	InterfazConsultaBancaria srvExtBanco
 	
@@ -19,12 +19,18 @@ class AdaptadorServicioExterno implements OrigenDatos {
 	new(InterfazConsultaBancaria srvExterno) {
 		this.srvExtBanco = srvExterno
 	}
-	
-	//Métodos
+
+	// Métodos
 	/**Método que busca en el servicio externo y luego convierte el restultad a una lista de POI's */
 	override search(String input) {
 		val JsonArray resultado = srvExtBanco.consultar(input)
 		this.convertirALista(resultado)
+	}
+
+	/**Método que agrega una sucursal al servicio externo */
+	override create(SucursalBanco sucursal) {
+		sucursal.validateCreate()
+		srvExtBanco.agregarSucursal(sucursal)
 	}
 
 	/**Método que convierte un String JSON a una lista de sucursales bancarias */
@@ -50,6 +56,20 @@ class AdaptadorServicioExterno implements OrigenDatos {
 			listaSucursales.add(sucursal)
 		}
 		listaSucursales
+	}
+
+	override delete(SucursalBanco sucursal) {
+		sucursal.validateDelete()
+		srvExtBanco.eliminarSucursal(sucursal)
+	}
+
+	override update(SucursalBanco sucursal) {
+		if (srvExtBanco.consultar(sucursal.nombre).isEmpty) {
+			throw new Exception("No existe la sucursal indicada")
+		} else {
+			this.delete(sucursal)
+			this.create(sucursal)
+		}
 	}
 
 }

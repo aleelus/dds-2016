@@ -6,16 +6,17 @@ import com.eclipsesource.json.JsonObject
 import domain.SucursalBanco
 import java.util.List
 import domain.InterfazConsultaBancaria
+import java.util.ArrayList
 
 class StubBusquedaExternaBanco implements InterfazConsultaBancaria{
 
 	// Campos
 	List<SucursalBanco> listaSucursales
-	String parser
 
 	// Constructores
 	new() {
 		super()
+		this.listaSucursales = new ArrayList<SucursalBanco>()
 	}
 
 	new(List<SucursalBanco> listaBancos) {
@@ -23,38 +24,12 @@ class StubBusquedaExternaBanco implements InterfazConsultaBancaria{
 		this.listaSucursales = listaBancos
 	}
 
-	//Métodos
+	// Métodos
 	/**Método que obtiene las sucursales que cumplen con lo buscado y convierte el resultado a un String JSON */
 	override consultar(String input) {
 		this.convertirAJSON(listaSucursales.filter[punto|punto.contieneTexto(input)].toList)
 	}
 
-	/**Método que convierte una lista de sucursales bancarias a un String JSON*/
-	@Deprecated
-	def convertirAJSONOld(List<SucursalBanco> lista) {
-
-		parser = "["
-		lista.forEach [ banco |
-
-			parser.concat("{\"banco\":")
-			parser.concat("\"" + banco.nombre + "\"")
-			parser.concat(",\"x\":")
-			parser.concat(banco.latitud.toString)
-			parser.concat(",\"y\":")
-			parser.concat(banco.longitud.toString)
-			parser.concat(",\"sucursal\":")
-			parser.concat("\"" + banco.nombreSucursal + "\"")
-			parser.concat(",\"gerente\":")
-			parser.concat("\"" + banco.gerente + "\"")
-			parser.concat(",\"servicios\":[")
-			banco.servicios.forEach[serv|parser.concat("\"" + serv + "\",")]
-			parser.concat("\"\"]")
-
-		]
-		parser.concat("]")
-		parser
-
-	}
 	/**Método que convierte una lista de sucursales bancarias a un String JSON*/
 	def convertirAJSON(List<SucursalBanco> lista) {
 		val JsonArray arraySucursales = Json.array().asArray
@@ -72,4 +47,15 @@ class StubBusquedaExternaBanco implements InterfazConsultaBancaria{
 		]
 		arraySucursales
 	}
+
+	/**Método que agrega una sucursal a la lista de sucursales  */
+	override agregarSucursal(SucursalBanco sucursal) {
+		listaSucursales.add(sucursal)
+	}
+
+	/**Método que elimina una sucursal de la lista de sucursales  */
+	override eliminarSucursal(SucursalBanco sucursal) {
+		listaSucursales.remove(sucursal)
+	}
+
 }
