@@ -5,8 +5,9 @@ import com.eclipsesource.json.JsonArray
 import com.eclipsesource.json.JsonObject
 import domain.SucursalBanco
 import java.util.List
+import domain.InterfazConsultaBancaria
 
-class StubBusquedaExternaBanco {
+class StubBusquedaExternaBanco implements InterfazConsultaBancaria{
 
 	// Campos
 	List<SucursalBanco> listaSucursales
@@ -24,7 +25,7 @@ class StubBusquedaExternaBanco {
 
 	//Métodos
 	/**Método que obtiene las sucursales que cumplen con lo buscado y convierte el resultado a un String JSON */
-	def consultar(String input) {
+	override consultar(String input) {
 		this.convertirAJSON(listaSucursales.filter[punto|punto.contieneTexto(input)].toList)
 	}
 

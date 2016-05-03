@@ -2,22 +2,21 @@ package domain
 
 import com.eclipsesource.json.JsonArray
 import com.eclipsesource.json.JsonValue
-import java.util.List
-import testsEntrega1.StubBusquedaExternaBanco
-import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.ArrayList
+import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class AdaptadorServicioExterno implements OrigenDatos {
 
-	StubBusquedaExternaBanco srvExtBanco
+	InterfazConsultaBancaria srvExtBanco
 	
 	//Constructores
 	new() {
 		super()
 	}
 
-	new(StubBusquedaExternaBanco srvExterno) {
+	new(InterfazConsultaBancaria srvExterno) {
 		this.srvExtBanco = srvExterno
 	}
 	
