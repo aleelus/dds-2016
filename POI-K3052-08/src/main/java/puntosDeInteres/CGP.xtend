@@ -29,9 +29,11 @@ class CGP extends POI {
 		super()
 	}
 
-	new(String nombre, List<ServicioCGP> lista) {
+	new(String nombre, List<ServicioCGP> lista, double latitud, double longitud) {
 		this()
 		this.nombre = nombre
+		this.latitud = latitud
+		this.longitud = longitud
 		this.listaServicios = lista
 	}
 

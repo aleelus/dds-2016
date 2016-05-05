@@ -102,13 +102,13 @@ class DisponibilidadTest {
 
 		val Rubro carrousel = new Rubro("Librería", 5, horarios, diasAbierto)
 
-		local = new LocalComercial(carrousel, 0.9, 1.3)
+		local = new LocalComercial(carrousel, "Carrusel Minguito", 0.9, 1.3)
 
 		val Comuna comuna1 = new Comuna(new Point(0, 0), new Point(0, 2), new Point(2, 2), new Point(2, 0))
 		cgp = new CGP(comuna1, listaServicios)
 
 		// Ubicación paradas
-		colectivo = new ParadaColectivo(1, 1.05)
+		colectivo = new ParadaColectivo("34",1, 1.05)
 
 	}
 

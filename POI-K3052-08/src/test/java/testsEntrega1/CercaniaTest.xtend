@@ -34,11 +34,11 @@ class CercaniaTest {
 		// Rubros del local
 		val Rubro libreria = new Rubro("Librería", 5)
 		val Rubro kiosco = new Rubro("Kiosco", 2)
-		localCercano = new LocalComercial(libreria, 0.9, 1.3)
-		localLejano = new LocalComercial(kiosco, 1.2, 1.7)
+		localCercano = new LocalComercial(libreria, "Librería PPT", 0.9, 1.3)
+		localLejano = new LocalComercial(kiosco,"Kiosco DOC", 1.2, 1.7)
 		// Ubicación paradas
-		paradaCercana = new ParadaColectivo(1, 1.05)
-		paradaLejana = new ParadaColectivo(2, 0)
+		paradaCercana = new ParadaColectivo("110",1, 1.05)
+		paradaLejana = new ParadaColectivo("124",2, 0)
 		bancoCercano = new SucursalBanco(1.2, 0.7)
 		bancoLejano = new SucursalBanco(0, 1)
 	}

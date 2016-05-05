@@ -1,6 +1,5 @@
 package testsEntrega1
 
-
 import java.util.ArrayList
 import java.util.List
 import org.junit.Assert
@@ -14,6 +13,11 @@ import puntosDeInteres.SucursalBanco
 import repositoriosYAdaptadores.AdaptadorServicioExterno
 import puntosDeInteres.ServicioCGP
 import puntosDeInteres.Rubro
+import repositoriosYAdaptadores.InterfazConsultaBancaria
+import static org.mockito.Mockito.*
+import com.eclipsesource.json.JsonArray
+import com.eclipsesource.json.JsonObject
+import com.eclipsesource.json.Json
 
 class BusquedaTest {
 	RepoPOI mapa
@@ -24,7 +28,7 @@ class BusquedaTest {
 	SucursalBanco banco
 	SucursalBanco banco2
 	SucursalBanco banco3
-	StubBusquedaExternaBanco stubBusquedaBanco
+	// StubBusquedaExternaBanco stubBusquedaBanco
 	AdaptadorServicioExterno adaptadorBanco
 
 	@Before
@@ -40,16 +44,17 @@ class BusquedaTest {
 		listaServicios.add(licencia)
 		val ServicioCGP jubilacion = new ServicioCGP("Atención al Jubilado")
 		listaServicios.add(jubilacion)
-		cgp = new CGP("Centro Flores", listaServicios)
+		cgp = new CGP("Centro Flores", listaServicios, 15, 20)
 		mapa.create(cgp)
 		// Un local
 		val Rubro libreria = new Rubro("Librería", 5)
-		localComercial = new LocalComercial(libreria, "Don José")
+		localComercial = new LocalComercial(libreria, "Don José", 5, 10)
 		mapa.create(localComercial)
 		// Paradas
-		parada = new ParadaColectivo("124")
-		parada2 = new ParadaColectivo("110")
+		parada = new ParadaColectivo("124", 15, 15)
+		parada2 = new ParadaColectivo("110", 40, 10)
 		mapa.create(parada)
+		mapa.create(parada2)
 		// Bancos
 		var List<String> listaServ = new ArrayList<String>
 		listaServ.add("cobros cheques")
@@ -57,18 +62,45 @@ class BusquedaTest {
 		listaServ.add("transferencias")
 		listaServ.add("extracciones")
 		banco = new SucursalBanco(30, 40, "Santander", "Once", listaServ, "Mirtha Legrand")
+		banco.id = mapa.allInstances.last.id + 1
 
 		listaServ = new ArrayList<String>
 		listaServ.add("cobros cheques")
 		listaServ.add("depositos")
 		banco2 = new SucursalBanco(30, 40, "Banco Nacion", "Once", listaServ, "Mirtha Legrand")
+		banco2.id = banco.id + 1
 
 		listaServ = new ArrayList<String>
 		listaServ.add("seguros")
 		banco3 = new SucursalBanco(50, 60, "Santander", "Palermo", listaServ, "Christian de Lugano")
+		banco3.id = banco2.id + 1
 		// Simulador del servicio externo para consulta de bancos
-		stubBusquedaBanco = new StubBusquedaExternaBanco()
-		adaptadorBanco = new AdaptadorServicioExterno(stubBusquedaBanco)
+		// stubBusquedaBanco = new StubBusquedaExternaBanco()
+		val InterfazConsultaBancaria mockSrvExt = mock(InterfazConsultaBancaria)
+		val List<SucursalBanco> listaFiltradaMock = new ArrayList<SucursalBanco>
+		listaFiltradaMock.add(banco)
+		listaFiltradaMock.add(banco3)
+		when(mockSrvExt.search("Santander")).thenReturn(listaFiltradaMock.convertirAJSON)
+
+		adaptadorBanco = new AdaptadorServicioExterno(mockSrvExt)
+	}
+
+	/**Método que convierte una lista de sucursales bancarias a un String JSON*/
+	def convertirAJSON(List<SucursalBanco> lista) {
+		val JsonArray arraySucursales = Json.array().asArray
+		lista.forEach [ sucursal |
+			var JsonObject sucursalJSON = Json.object()
+			sucursalJSON.add("banco", sucursal.nombre)
+			sucursalJSON.add("x", sucursal.longitud)
+			sucursalJSON.add("y", sucursal.latitud)
+			sucursalJSON.add("sucursal", sucursal.nombreSucursal)
+			sucursalJSON.add("gerente", sucursal.gerente)
+			sucursalJSON.add("banco", sucursal.nombre)
+			var JsonArray arrayServicios = Json.array(sucursal.servicios)
+			sucursalJSON.add("servicios", arrayServicios)
+			arraySucursales.add(sucursalJSON)
+		]
+		arraySucursales
 	}
 
 	@Test
@@ -85,11 +117,17 @@ class BusquedaTest {
 		Assert.assertFalse(mapa.allInstances.contains(parada2))
 	}
 
+	@Test(expected=Exception)
+	def testEliminacionPOIInvalido() {
+		mapa.delete(banco)
+	}
+
 	@Test
 	def testModificacionPOIExistente() {
-		parada.nombre = "34"
-		mapa.update(parada)
-		Assert.assertTrue(mapa.searchByExample(parada).exists[punto|punto.nombre == "34"])
+		val ParadaColectivo paradaNueva = new ParadaColectivo("34", 10, 20)
+		paradaNueva.id = parada.id
+		mapa.update(paradaNueva)
+		Assert.assertTrue(mapa.searchById(paradaNueva.id).nombre == "34")
 	}
 
 	@Test(expected=Exception)
@@ -109,7 +147,7 @@ class BusquedaTest {
 
 	@Test
 	def testBusquedaBancoOK() {
-		Assert.assertTrue(adaptadorBanco.search("Santander").forall[banco|banco.nombre == banco.nombre])
+		Assert.assertTrue(adaptadorBanco.search("Santander").contains(banco))
 	}
 
 	@Test

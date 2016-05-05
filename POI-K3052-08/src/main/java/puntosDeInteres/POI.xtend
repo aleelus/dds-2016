@@ -74,24 +74,19 @@ class POI extends Entity {
 	override validateCreate() {
 		if (nombre.nullOrEmpty) {
 			throw new Exception("Por favor introducir un nombre para el Punto de Interés")
-		} else
-			(latitud.naN || longitud.naN )
-		{
-			throw new Exception("Por favor introducir latitud y longitud para el Punto de Interés")
+		}
+		if (this.latitud == 0 && this.longitud == 0) {
+			throw new Exception("Por favor introducir una latitud y longitud para el Punto de Interés")
 		}
 	}
 
 	override equals(Object arg0) {
-		if (arg0 instanceof POI) {
-			val POI puntoAComparar = arg0 as POI
-			id.equals(puntoAComparar.id)
-		} else {
-			false
-		}
+		val POI puntoAComparar = arg0 as POI
+		id.equals(puntoAComparar.id)
 	}
-	
+
 	override hashCode() {
 		id
 	}
-	
+
 }

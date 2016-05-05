@@ -10,15 +10,11 @@ class ParadaColectivo extends POI {
 		super()
 	}
 
-	new(double latitud, double longitud) {
-		this()
-		this.latitud = latitud
-		this.longitud = longitud
-	}
-
-	new(String nombre) {
+	new(String nombre, double latitud, double longitud) {
 		this()
 		this.nombre = nombre
+		this.latitud = latitud
+		this.longitud = longitud
 	}
 
 	/**Método que indica si una Parada está cerca de una latitud y

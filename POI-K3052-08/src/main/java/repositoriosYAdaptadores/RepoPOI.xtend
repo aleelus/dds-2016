@@ -21,6 +21,9 @@ class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos<POI> {
 	}
 
 	override delete(POI puntoInteres) {
+		if (!allInstances.contains(puntoInteres)) {
+			throw new Exception("El Punto de interés especificado no existe")
+		}
 		super.delete(puntoInteres)
 	}
 
@@ -42,9 +45,9 @@ class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos<POI> {
 
 	override protected Predicate<POI> getCriterio(POI puntoInteres) {
 		var resultado = this.criterioTodas
-		if (puntoInteres.id != null) {
-			resultado = new AndPredicate(resultado, this.getCriterioPorId(puntoInteres.id))
-		}
+//		if (puntoInteres.id != null) {
+//			resultado = new AndPredicate(resultado, this.getCriterioPorId(puntoInteres.id))
+//		}
 		if (puntoInteres.nombre != null) {
 			resultado = new AndPredicate(resultado, this.getCriterioPorNombre(puntoInteres.nombre))
 		}
@@ -55,9 +58,9 @@ class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos<POI> {
 		[POI punto|true] as Predicate<POI>
 	}
 
-	override protected getCriterioPorId(Integer id) {
-		[POI punto|punto.id.equals(id)]
-	}
+//	override protected getCriterioPorId(Integer id) {
+//		[POI punto|punto.id.equals(id)]
+//	}
 
 	def getCriterioPorNombre(String nombre) {
 		[POI punto|punto.nombre.equals(nombre)]

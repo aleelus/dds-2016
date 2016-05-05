@@ -63,7 +63,12 @@ class SucursalBanco extends POI {
 		if (buscarDia(diasAbierto, Dias.valueOf(nombreDia))) {
 			// BANCOS DE LUNES A VIERNES DE 10:00 a 15:00
 			evaluarRangoHorario(horario, dt.getHourOfDay(), dt.getMinuteOfHour())
-		}
+		}		
+	}
+	
+	override equals(Object arg0) {
+		val SucursalBanco puntoAComparar = arg0 as SucursalBanco
+		nombre.equals(puntoAComparar.nombre)
 	}
 	
 }
