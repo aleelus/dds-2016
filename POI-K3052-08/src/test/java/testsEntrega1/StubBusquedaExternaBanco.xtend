@@ -3,10 +3,10 @@ package testsEntrega1
 import com.eclipsesource.json.Json
 import com.eclipsesource.json.JsonArray
 import com.eclipsesource.json.JsonObject
-import domain.SucursalBanco
 import java.util.List
-import domain.InterfazConsultaBancaria
 import java.util.ArrayList
+import repositoriosYAdaptadores.InterfazConsultaBancaria
+import puntosDeInteres.SucursalBanco
 
 class StubBusquedaExternaBanco implements InterfazConsultaBancaria{
 

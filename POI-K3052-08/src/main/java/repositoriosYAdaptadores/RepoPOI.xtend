@@ -1,9 +1,10 @@
-package domain
+package repositoriosYAdaptadores
 
 import org.apache.commons.collections15.Predicate
 import org.apache.commons.collections15.functors.AndPredicate
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.CollectionBasedRepo
+import puntosDeInteres.POI
 
 @Accessors
 class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos<POI> {

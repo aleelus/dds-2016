@@ -1,18 +1,19 @@
 package testsEntrega1
 
-import domain.AdaptadorServicioExterno
-import domain.CGP
-import domain.LocalComercial
-import domain.ParadaColectivo
-import domain.RepoPOI
-import domain.Rubro
-import domain.ServicioCGP
-import domain.SucursalBanco
+
 import java.util.ArrayList
 import java.util.List
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import repositoriosYAdaptadores.RepoPOI
+import puntosDeInteres.CGP
+import puntosDeInteres.LocalComercial
+import puntosDeInteres.ParadaColectivo
+import puntosDeInteres.SucursalBanco
+import repositoriosYAdaptadores.AdaptadorServicioExterno
+import puntosDeInteres.ServicioCGP
+import puntosDeInteres.Rubro
 
 class BusquedaTest {
 	RepoPOI mapa
@@ -68,10 +69,6 @@ class BusquedaTest {
 		// Simulador del servicio externo para consulta de bancos
 		stubBusquedaBanco = new StubBusquedaExternaBanco()
 		adaptadorBanco = new AdaptadorServicioExterno(stubBusquedaBanco)
-		adaptadorBanco.create(banco)
-		adaptadorBanco.create(banco2)
-		adaptadorBanco.create(banco3)
-
 	}
 
 	@Test
@@ -83,43 +80,23 @@ class BusquedaTest {
 	}
 
 	@Test
-	def testCreacionSucursalSrvExt(){
-		val SucursalBanco bancoRio = new SucursalBanco(50, 20, "Banco Rio", "Barracas", new ArrayList<String>, "Claudio Ranieri")
-		adaptadorBanco.create(bancoRio)
-		Assert.assertFalse(adaptadorBanco.search("Rio").isEmpty)
-	}
-
-	@Test
 	def testEliminacionPOI() {
 		mapa.delete(parada2)
 		Assert.assertFalse(mapa.allInstances.contains(parada2))
 	}
-	
-	@Test
-	def testEliminacionSucursalSrvExt(){
-		adaptadorBanco.delete(banco2)
-		Assert.assertTrue(adaptadorBanco.search("Nacion").isEmpty)
-	}
 
 	@Test
-	def testModificacionPOIExistente(){
+	def testModificacionPOIExistente() {
 		parada.nombre = "34"
 		mapa.update(parada)
-		Assert.assertTrue(mapa.searchByExample(parada).exists[punto | punto.nombre=="34"])
+		Assert.assertTrue(mapa.searchByExample(parada).exists[punto|punto.nombre == "34"])
 	}
-	
-	@Test
-	def testModificacionSucursalSrvExt(){
-		banco3.nombre="Banco Rio"
-		adaptadorBanco.update(banco3)
-		Assert.assertFalse(adaptadorBanco.search("Rio").isEmpty)
-	}
-	
-	@Test (expected=Exception)
-	def testModificacionPOIInvalido(){
+
+	@Test(expected=Exception)
+	def testModificacionPOIInvalido() {
 		mapa.update(banco)
 	}
-	
+
 	@Test
 	def testBusquedaCGPOK() {
 		Assert.assertTrue(mapa.search("Rentas").contains(cgp))
@@ -132,7 +109,7 @@ class BusquedaTest {
 
 	@Test
 	def testBusquedaBancoOK() {
-		Assert.assertTrue(adaptadorBanco.search("Santander").forall[banco |banco.nombre == banco.nombre])
+		Assert.assertTrue(adaptadorBanco.search("Santander").forall[banco|banco.nombre == banco.nombre])
 	}
 
 	@Test
@@ -144,10 +121,10 @@ class BusquedaTest {
 	def testBusquedaParadaOK() {
 		Assert.assertTrue(mapa.search("124").contains(parada))
 	}
-	
+
 	@Test
-	def testBusquedaPorID(){
-		Assert.assertEquals(mapa.searchById(1),cgp)
+	def testBusquedaPorID() {
+		Assert.assertEquals(mapa.searchById(1), cgp)
 	}
 
 	@Test

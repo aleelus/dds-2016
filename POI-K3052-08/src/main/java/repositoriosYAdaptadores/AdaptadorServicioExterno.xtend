@@ -1,10 +1,12 @@
-package domain
+package repositoriosYAdaptadores
 
 import com.eclipsesource.json.JsonArray
 import com.eclipsesource.json.JsonValue
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import puntosDeInteres.SucursalBanco
+import puntosDeInteres.POI
 
 @Accessors
 class AdaptadorServicioExterno implements OrigenDatos<SucursalBanco> {
@@ -25,12 +27,6 @@ class AdaptadorServicioExterno implements OrigenDatos<SucursalBanco> {
 	override search(String input) {
 		val JsonArray resultado = srvExtBanco.consultar(input)
 		this.convertirALista(resultado)
-	}
-
-	/**Método que agrega una sucursal al servicio externo */
-	override create(SucursalBanco sucursal) {
-		sucursal.validateCreate()
-		srvExtBanco.agregarSucursal(sucursal)
 	}
 
 	/**Método que convierte un String JSON a una lista de sucursales bancarias */
@@ -57,19 +53,4 @@ class AdaptadorServicioExterno implements OrigenDatos<SucursalBanco> {
 		}
 		listaSucursales
 	}
-
-	override delete(SucursalBanco sucursal) {
-		sucursal.validateDelete()
-		srvExtBanco.eliminarSucursal(sucursal)
-	}
-
-	override update(SucursalBanco sucursal) {
-		if (srvExtBanco.consultar(sucursal.nombre).isEmpty) {
-			throw new Exception("No existe la sucursal indicada")
-		} else {
-			this.delete(sucursal)
-			this.create(sucursal)
-		}
-	}
-
 }

@@ -1,6 +1,7 @@
-package domain
+package repositoriosYAdaptadores
 
 import com.eclipsesource.json.JsonArray
+import puntosDeInteres.SucursalBanco
 
 interface InterfazConsultaBancaria {
 	

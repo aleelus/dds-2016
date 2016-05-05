@@ -1,4 +1,4 @@
-package domain
+package puntosDeInteres
 
 import org.joda.time.DateTime
 import org.uqbar.geodds.Point

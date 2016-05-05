@@ -1,4 +1,4 @@
-package domain
+package puntosDeInteres
 
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -70,4 +70,28 @@ class POI extends Entity {
 		latitud = poi.latitud
 		longitud = poi.longitud
 	}
+
+	override validateCreate() {
+		if (nombre.nullOrEmpty) {
+			throw new Exception("Por favor introducir un nombre para el Punto de Interés")
+		} else
+			(latitud.naN || longitud.naN )
+		{
+			throw new Exception("Por favor introducir latitud y longitud para el Punto de Interés")
+		}
+	}
+
+	override equals(Object arg0) {
+		if (arg0 instanceof POI) {
+			val POI puntoAComparar = arg0 as POI
+			id.equals(puntoAComparar.id)
+		} else {
+			false
+		}
+	}
+	
+	override hashCode() {
+		id
+	}
+	
 }

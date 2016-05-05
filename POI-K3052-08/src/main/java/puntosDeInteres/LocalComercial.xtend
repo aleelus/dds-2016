@@ -1,12 +1,12 @@
-package domain
+package puntosDeInteres
 
-import domain.POI.Dias
 import java.util.ArrayList
 import java.util.List
 import java.util.Locale
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.geodds.Point
+import puntosDeInteres.POI.Dias
 
 @Accessors
 class LocalComercial extends POI {
