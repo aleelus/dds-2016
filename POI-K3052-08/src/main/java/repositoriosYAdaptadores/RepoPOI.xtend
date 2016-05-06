@@ -45,9 +45,6 @@ class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
 
 	override protected Predicate<POI> getCriterio(POI puntoInteres) {
 		var resultado = this.criterioTodas
-//		if (puntoInteres.id != null) {
-//			resultado = new AndPredicate(resultado, this.getCriterioPorId(puntoInteres.id))
-//		}
 		if (puntoInteres.nombre != null) {
 			resultado = new AndPredicate(resultado, this.getCriterioPorNombre(puntoInteres.nombre))
 		}
@@ -58,9 +55,6 @@ class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
 		[POI punto|true] as Predicate<POI>
 	}
 
-//	override protected getCriterioPorId(Integer id) {
-//		[POI punto|punto.id.equals(id)]
-//	}
 
 	def getCriterioPorNombre(String nombre) {
 		[POI punto|punto.nombre.equals(nombre)]
