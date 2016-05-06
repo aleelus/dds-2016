@@ -7,7 +7,7 @@ import org.uqbar.commons.model.CollectionBasedRepo
 import puntosDeInteres.POI
 
 @Accessors
-class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos<POI> {
+class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
 
 	/**Método para buscar puntos de interés dentro del mapa
 	 * en base a un texto libre.

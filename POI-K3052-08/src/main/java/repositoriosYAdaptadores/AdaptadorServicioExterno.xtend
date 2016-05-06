@@ -9,7 +9,7 @@ import puntosDeInteres.SucursalBanco
 import puntosDeInteres.POI
 
 @Accessors
-class AdaptadorServicioExterno implements OrigenDatos<SucursalBanco> {
+class AdaptadorServicioExterno implements OrigenDatos {
 
 	InterfazConsultaBancaria srvExtBanco
 	

@@ -28,7 +28,6 @@ class BusquedaTest {
 	SucursalBanco banco
 	SucursalBanco banco2
 	SucursalBanco banco3
-	// StubBusquedaExternaBanco stubBusquedaBanco
 	AdaptadorServicioExterno adaptadorBanco
 
 	@Before

@@ -2,6 +2,7 @@
 	Integrantes:
 	- Agustín Cipriano
 	- Alejandro Elustondo
+	- Daniel Marcelletti
 	Tutores:
 	- Tomas Coiro
 	- Juan Contardo" 
