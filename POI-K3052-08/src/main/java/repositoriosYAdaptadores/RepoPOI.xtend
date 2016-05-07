@@ -5,17 +5,30 @@ import org.apache.commons.collections15.functors.AndPredicate
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.CollectionBasedRepo
 import puntosDeInteres.POI
+import java.util.List
+import java.util.ArrayList
 
 @Accessors
 class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
+
+	List<OrigenDatos> reposExterno = new ArrayList<OrigenDatos>
 
 	/**Método para buscar puntos de interés dentro del mapa
 	 * en base a un texto libre.
 	 */
 	override search(String input) {
-		allInstances.filter[punto|punto.contieneTexto(input)].toList
-	}
 
+		val List<POI> datosLocales = allInstances.filter[punto|punto.contieneTexto(input)].toList
+		val List<POI> datosExternos = new ArrayList<POI>
+		reposExterno.forEach[repo| datosExternos.addAll(repo.search(input))]
+		datosLocales.addAll(datosExternos)
+		datosLocales
+	}
+	
+	def agregarSrv(OrigenDatos repoExterno){
+		reposExterno.add(repoExterno)
+	}
+	
 	override create(POI puntoInteres) {
 		super.create(puntoInteres)
 	}
@@ -54,7 +67,6 @@ class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
 	override protected getCriterioTodas() {
 		[POI punto|true] as Predicate<POI>
 	}
-
 
 	def getCriterioPorNombre(String nombre) {
 		[POI punto|punto.nombre.equals(nombre)]

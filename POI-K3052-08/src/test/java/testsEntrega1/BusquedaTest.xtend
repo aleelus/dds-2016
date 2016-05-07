@@ -68,22 +68,24 @@ class BusquedaTest {
 		listaServ.add("depositos")
 		banco2 = new SucursalBanco(30, 40, "Banco Nacion", "Once", listaServ, "Mirtha Legrand")
 		banco2.id = banco.id + 1
-
+		
 		listaServ = new ArrayList<String>
 		listaServ.add("seguros")
 		banco3 = new SucursalBanco(50, 60, "Santander", "Palermo", listaServ, "Christian de Lugano")
 		banco3.id = banco2.id + 1
-		// Simulador del servicio externo para consulta de bancos
-		// stubBusquedaBanco = new StubBusquedaExternaBanco()
 		val InterfazConsultaBancaria mockSrvExt = mock(InterfazConsultaBancaria)
 		val List<SucursalBanco> listaFiltradaMock = new ArrayList<SucursalBanco>
 		listaFiltradaMock.add(banco)
 		listaFiltradaMock.add(banco3)
 		when(mockSrvExt.search("Santander")).thenReturn(listaFiltradaMock.convertirAJSON)
-
+		when(mockSrvExt.search("Hospital")).thenReturn(new JsonArray)
+		when(mockSrvExt.search("Librería")).thenReturn(new JsonArray)
+		when(mockSrvExt.search("124")).thenReturn(new JsonArray)
+		when(mockSrvExt.search("Rentas")).thenReturn(new JsonArray)
 		adaptadorBanco = new AdaptadorServicioExterno(mockSrvExt)
+		mapa.agregarSrv(adaptadorBanco)
 	}
-
+	
 	/**Método que convierte una lista de sucursales bancarias a un String JSON*/
 	def convertirAJSON(List<SucursalBanco> lista) {
 		val JsonArray arraySucursales = Json.array().asArray
@@ -146,12 +148,13 @@ class BusquedaTest {
 
 	@Test
 	def testBusquedaBancoOK() {
-		Assert.assertTrue(adaptadorBanco.search("Santander").contains(banco))
+		mapa.search("Santander").forEach[punto | System.out.println(punto.nombre)]
+		Assert.assertTrue(mapa.search("Santander").contains(banco))
 	}
 
 	@Test
 	def testBusquedaBanco_NO_OK() {
-		Assert.assertFalse(adaptadorBanco.search("Santander").contains(banco2))
+		Assert.assertFalse(mapa.search("Santander").contains(banco2))
 	}
 
 	@Test
