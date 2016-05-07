@@ -148,7 +148,6 @@ class BusquedaTest {
 
 	@Test
 	def testBusquedaBancoOK() {
-		mapa.search("Santander").forEach[punto | System.out.println(punto.nombre)]
 		Assert.assertTrue(mapa.search("Santander").contains(banco))
 	}
 
