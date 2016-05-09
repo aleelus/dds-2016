@@ -20,40 +20,6 @@ class SucursalBanco extends POI {
 	/**Nombre del gerente de la sucursal */
 	String gerente
 
-	// Constructores
-	new() {
-		super()
-	}
-
-	new(double latitud, double longitud,String nombreBanco, String sucursal, List<String> servicios, String gerente) {
-		this()
-		this.latitud = latitud
-		this.longitud = longitud
-		this.nombre  = nombreBanco
-		this.nombreSucursal = sucursal
-		this.servicios = servicios
-		this.gerente = gerente
-	}
-
-	new(double latitud, double longitud, List<DateTime> horario, List<Dias> diasAbierto) {
-		this()
-		this.latitud = latitud
-		this.longitud = longitud
-		this.horario = horario
-		this.diasAbierto = diasAbierto
-	}
-
-	new(double latitud, double longitud) {
-		this()
-		this.latitud = latitud
-		this.longitud = longitud
-	}
-
-	new(String nombre) {
-		this()
-		this.nombre = nombre
-	}
-
 	def estaDisponible(DateTime dt, String nombre) {
 		val Locale lenguaYPais = new Locale("ES", "ar")
 		setNombre(nombre)
@@ -63,12 +29,12 @@ class SucursalBanco extends POI {
 		if (buscarDia(diasAbierto, Dias.valueOf(nombreDia))) {
 			// BANCOS DE LUNES A VIERNES DE 10:00 a 15:00
 			evaluarRangoHorario(horario, dt.getHourOfDay(), dt.getMinuteOfHour())
-		}		
+		}
 	}
-	
+
 	override equals(Object arg0) {
 		val SucursalBanco puntoAComparar = arg0 as SucursalBanco
 		nombre.equals(puntoAComparar.nombre)
 	}
-	
+
 }

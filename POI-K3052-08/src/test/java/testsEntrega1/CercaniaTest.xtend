@@ -1,8 +1,8 @@
 package testsEntrega1
 
+import builders.BancoBuilder
 import builders.CGPBuilder
 import builders.LocalComBuilder
-import java.util.ArrayList
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -25,16 +25,16 @@ class CercaniaTest {
 
 	@Before
 	def void setUp() {
-		//Builders
+		// Builders
 		val CGPBuilder builderCGP = new CGPBuilder()
 		val LocalComBuilder builderLocal = new LocalComBuilder()
-		
+		val BancoBuilder builderBanco = new BancoBuilder()
+
 		// Punto del usuario
 		puntoUsuario = new Point(1, 1)
-		
+
 		// Creación del CGP
 		builderCGP => [
-			agregarServicios(new ArrayList())
 			setNombre("Centro Flores")
 			setLongitud(15)
 			setLatitud(30)
@@ -45,8 +45,8 @@ class CercaniaTest {
 			setComuna(new Point(2, 2), new Point(2, 4), new Point(4, 4), new Point(4, 2))
 		]
 		cgpLejos = builderCGP.build()
-		 
-		//Creación de Local Comercial
+
+		// Creación de Local Comercial
 		builderLocal => [
 			setNombre("Librería PPT")
 			setLongitud(0.9)
@@ -63,10 +63,23 @@ class CercaniaTest {
 		localLejano = builderLocal.build()
 
 		// Ubicación paradas
-		paradaCercana = new ParadaColectivo("110",1, 1.05)
-		paradaLejana = new ParadaColectivo("124",2, 0)
-		bancoCercano = new SucursalBanco(1.2, 0.7)
-		bancoLejano = new SucursalBanco(0, 1)
+		paradaCercana = new ParadaColectivo("110", 1, 1.05)
+		paradaLejana = new ParadaColectivo("124", 2, 0)
+
+		// Creación de bancos
+		builderBanco => [
+			setNombre("Santander")
+			setLongitud(1.2)
+			setLatitud(0.7)
+		]
+		bancoCercano = builderBanco.build()
+
+		builderBanco => [
+			setNombre("Santander")
+			setLongitud(0)
+			setLatitud(1)
+		]
+		bancoLejano = builderBanco.build()
 	}
 
 	@Test

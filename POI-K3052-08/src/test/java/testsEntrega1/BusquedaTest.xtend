@@ -1,12 +1,12 @@
 package testsEntrega1
 
+import builders.BancoBuilder
 import builders.CGPBuilder
 import builders.ListaServiciosBuilder
 import builders.LocalComBuilder
 import com.eclipsesource.json.Json
 import com.eclipsesource.json.JsonArray
 import com.eclipsesource.json.JsonObject
-import java.util.ArrayList
 import java.util.List
 import org.junit.Assert
 import org.junit.Before
@@ -39,22 +39,22 @@ class BusquedaTest {
 		// Origen de datos
 		mapa = new RepoPOI()
 		// mapa = RepoPOI.instancia
-		
-		//Builders
+		// Builders
 		val CGPBuilder builderCGP = new CGPBuilder()
 		val ListaServiciosBuilder builderServicios = new ListaServiciosBuilder()
 		val LocalComBuilder builderLocal = new LocalComBuilder()
-		
+		val BancoBuilder builderBanco = new BancoBuilder()
+
 		// Un CGP
 		builderCGP => [
 			agregarServicios(builderServicios.crearServicios("Rentas", "Licencia de manejo", "Atención al jubilado"))
 			setNombre("Centro Flores")
 			setLongitud(15)
 			setLatitud(30)
-			setComuna(new Point(0,0), new Point(50,0), new Point(50,50), new Point(0,50))
+			setComuna(new Point(0, 0), new Point(50, 0), new Point(50, 50), new Point(0, 50))
 		]
 		cgp = builderCGP.build()
-		
+
 		// Un local
 		builderLocal => [
 			setNombre("Don José")
@@ -63,50 +63,65 @@ class BusquedaTest {
 			setRubro("Librería", 5)
 		]
 		localComercial = builderLocal.build()
-		
+
 		// Paradas
 		parada = new ParadaColectivo("124", 15, 15)
 		parada2 = new ParadaColectivo("110", 40, 10)
-		
-		//Agrego los POI's al repositorio externo
+
+		// Agrego los POI's al repositorio externo
 		mapa.create(cgp)
 		mapa.create(localComercial)
 		mapa.create(parada)
 		mapa.create(parada2)
 
 		// Bancos
-		var List<String> listaServ = new ArrayList<String>
-		listaServ.add("cobros cheques")
-		listaServ.add("depositos")
-		listaServ.add("transferencias")
-		listaServ.add("extracciones")
-		banco = new SucursalBanco(30, 40, "Santander", "Once", listaServ, "Mirtha Legrand")
+		builderBanco => [
+			setNombre("Santander")
+			setLongitud(30)
+			setLatitud(40)
+			setSucursal("Once")
+			setServicios(newArrayList("cobros cheques", "depositos", "transferencias", "extracciones"))
+			setGerente("Mirtha Legrand")
+		]
+		banco = builderBanco.build()
 		banco.id = mapa.allInstances.last.id + 1
 
-		listaServ = new ArrayList<String>
-		listaServ.add("cobros cheques")
-		listaServ.add("depositos")
-		banco2 = new SucursalBanco(30, 40, "Banco Nacion", "Once", listaServ, "Mirtha Legrand")
+		builderBanco => [
+			setNombre("Banco Nacion")
+			setLongitud(40)
+			setLatitud(60)
+			setSucursal("Once")
+			setServicios(newArrayList("cobros cheques", "depositos"))
+			setGerente("Mirtha Legrand")
+		]
+		banco2 = builderBanco.build()
 		banco2.id = banco.id + 1
-		
-		listaServ = new ArrayList<String>
-		listaServ.add("seguros")
-		banco3 = new SucursalBanco(50, 60, "Santander", "Palermo", listaServ, "Christian de Lugano")
+
+		builderBanco => [
+			setNombre("Santander")
+			setLongitud(50)
+			setLatitud(60)
+			setSucursal("Palermo")
+			setServicios(newArrayList("seguros"))
+			setGerente("Christian de Lugano")
+		]
+		banco3 = builderBanco.build()
 		banco3.id = banco2.id + 1
 		
+		//Mockeo del servicio externo
 		val InterfazConsultaBancaria mockSrvExt = mock(InterfazConsultaBancaria)
-		val List<SucursalBanco> listaFiltradaMock = new ArrayList<SucursalBanco>
-		listaFiltradaMock.add(banco)
-		listaFiltradaMock.add(banco3)
+		val List<SucursalBanco> listaFiltradaMock = newArrayList(banco,banco3)
 		when(mockSrvExt.search("Santander")).thenReturn(listaFiltradaMock.convertirAJSON)
-		when(mockSrvExt.search("Hospital")).thenReturn(new JsonArray)
-		when(mockSrvExt.search("Librería")).thenReturn(new JsonArray)
-		when(mockSrvExt.search("124")).thenReturn(new JsonArray)
-		when(mockSrvExt.search("Rentas")).thenReturn(new JsonArray)
+		busquedasVacias(mockSrvExt, "Hospital", "Librería", "124", "Rentas")
 		adaptadorBanco = new AdaptadorServicioExterno(mockSrvExt)
 		mapa.agregarSrv(adaptadorBanco)
 	}
 	
+	/**Método donde se definen las búsquedas vacías del mock */
+	def busquedasVacias(InterfazConsultaBancaria mock, String... busquedas) {
+		busquedas.forEach[busqueda|when(mock.search(busqueda)).thenReturn(new JsonArray)]
+	}
+
 	/**Método que convierte una lista de sucursales bancarias a un String JSON*/
 	def convertirAJSON(List<SucursalBanco> lista) {
 		val JsonArray arraySucursales = Json.array().asArray

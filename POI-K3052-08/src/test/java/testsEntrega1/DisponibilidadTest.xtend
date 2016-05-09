@@ -15,6 +15,7 @@ import puntosDeInteres.POI.Dias
 import puntosDeInteres.ParadaColectivo
 import puntosDeInteres.ServicioCGP
 import puntosDeInteres.SucursalBanco
+import builders.BancoBuilder
 
 class DisponibilidadTest {
 
@@ -32,6 +33,7 @@ class DisponibilidadTest {
 		//Builders
 		val builderLocal = new LocalComBuilder()
 		val CGPBuilder builderCGP = new CGPBuilder()
+		val BancoBuilder builderBanco = new BancoBuilder()
 
 		var DateTime dt
 
@@ -85,7 +87,14 @@ class DisponibilidadTest {
 		diasAbierto.add(Dias.miercoles)
 		diasAbierto.add(Dias.jueves)
 		diasAbierto.add(Dias.viernes)
-		banco = new SucursalBanco(1.2, 0.7, horarios, diasAbierto)
+		
+		//Creación de la sucursal bancaria
+		builderBanco => [
+			setNombre("Banco Rio")
+			setHorarioAbierto(horarios)
+			setDiasAbierto(diasAbierto)
+		]
+		banco = builderBanco.build()
 
 		horarios = new ArrayList<DateTime>()
 		diasAbierto = new ArrayList<Dias>()
