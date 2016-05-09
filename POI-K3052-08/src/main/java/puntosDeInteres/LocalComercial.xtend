@@ -13,19 +13,6 @@ class LocalComercial extends POI {
 	/**Representa el tipo de local */
 	Rubro rubro
 
-	// Constructores
-	new() {
-		super()
-	}
-
-	new(Rubro rubro, String nombre, double latitud, double longitud) {
-		this()
-		this.rubro = rubro
-		this.nombre = nombre
-		this.latitud = latitud
-		this.longitud = longitud
-	}
-
 	/**Método que indica si un Local está cerca de una latitud y
 	 * longitud determinados.
 	 */

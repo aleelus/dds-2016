@@ -1,5 +1,7 @@
 package testsEntrega1
 
+import builders.CGPBuilder
+import builders.LocalComBuilder
 import java.util.ArrayList
 import java.util.List
 import org.joda.time.DateTime
@@ -8,13 +10,11 @@ import org.junit.Before
 import org.junit.Test
 import org.uqbar.geodds.Point
 import puntosDeInteres.CGP
-import puntosDeInteres.ParadaColectivo
 import puntosDeInteres.LocalComercial
-import puntosDeInteres.SucursalBanco
-import puntosDeInteres.ServicioCGP
 import puntosDeInteres.POI.Dias
-import puntosDeInteres.Rubro
-import puntosDeInteres.Comuna
+import puntosDeInteres.ParadaColectivo
+import puntosDeInteres.ServicioCGP
+import puntosDeInteres.SucursalBanco
 
 class DisponibilidadTest {
 
@@ -28,6 +28,10 @@ class DisponibilidadTest {
 
 	@Before
 	def void setUp() {
+		
+		//Builders
+		val builderLocal = new LocalComBuilder()
+		val CGPBuilder builderCGP = new CGPBuilder()
 
 		var DateTime dt
 
@@ -40,6 +44,7 @@ class DisponibilidadTest {
 		horarios.add(dt)
 		dt = new DateTime("2016-04-10T21:30:00")
 		horarios.add(dt)
+
 		// Dias del servicio Rentas
 		diasAbierto.add(Dias.lunes)
 		diasAbierto.add(Dias.martes)
@@ -57,6 +62,7 @@ class DisponibilidadTest {
 		horarios.add(dt)
 		dt = new DateTime("2016-04-10T14:00:00")
 		horarios.add(dt)
+
 		// Dias del servicio Educacion
 		diasAbierto.add(Dias.lunes)
 		diasAbierto.add(Dias.martes)
@@ -99,16 +105,28 @@ class DisponibilidadTest {
 		diasAbierto.add(Dias.jueves)
 		diasAbierto.add(Dias.viernes)
 		diasAbierto.add(Dias.sabado)
-
-		val Rubro carrousel = new Rubro("Librería", 5, horarios, diasAbierto)
-
-		local = new LocalComercial(carrousel, "Carrusel Minguito", 0.9, 1.3)
-
-		val Comuna comuna1 = new Comuna(new Point(0, 0), new Point(0, 2), new Point(2, 2), new Point(2, 0))
-		cgp = new CGP(comuna1, listaServicios)
+		
+		//Creación de Local Comercial
+		builderLocal => [
+			setNombre("Carrusel Minguito")
+			setLongitud(0.9)
+			setLatitud(1.3)
+			setRubro("Carrousel", 1, horarios, diasAbierto)
+		]
+		local = builderLocal.build()
+		
+		//Creación de CGP
+		builderCGP => [
+			agregarServicios(listaServicios)
+			setNombre("Centro Flores")
+			setLongitud(15)
+			setLatitud(30)
+			setComuna(new Point(0, 0), new Point(0, 2), new Point(2, 2), new Point(2, 0))
+		]
+		cgp = builderCGP.build()
 
 		// Ubicación paradas
-		colectivo = new ParadaColectivo("34",1, 1.05)
+		colectivo = new ParadaColectivo("34", 1, 1.05)
 
 	}
 

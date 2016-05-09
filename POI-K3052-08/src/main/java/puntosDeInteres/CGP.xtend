@@ -1,6 +1,5 @@
 package puntosDeInteres
 
-import puntosDeInteres.POI.Dias
 import java.util.ArrayList
 import java.util.List
 import java.util.Locale
@@ -8,6 +7,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.geodds.Point
 import org.uqbar.geodds.Polygon
+import puntosDeInteres.POI.Dias
 
 @Accessors
 class CGP extends POI {
@@ -20,33 +20,6 @@ class CGP extends POI {
 	 * de la clase ServicioCGP.
 	 */
 	List<ServicioCGP> listaServicios = new ArrayList<ServicioCGP>()
-
-
-
-
-	//Constructores
-	new() {
-		super()
-	}
-
-	new(String nombre, List<ServicioCGP> lista, double latitud, double longitud) {
-		this()
-		this.nombre = nombre
-		this.latitud = latitud
-		this.longitud = longitud
-		this.listaServicios = lista
-	}
-
-	new(Comuna comuna, List<ServicioCGP> lista) {
-		this()
-		this.comunaCGP = comuna
-		this.listaServicios = lista
-	}
-
-	new(Comuna comuna) {
-		this()
-		this.comunaCGP = comuna
-	}
 
 	/**
 	 * Método que indica si un CGP está cerca de una latitud y

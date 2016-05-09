@@ -1,23 +1,26 @@
 package testsEntrega1
 
+import builders.CGPBuilder
+import builders.ListaServiciosBuilder
+import builders.LocalComBuilder
+import com.eclipsesource.json.Json
+import com.eclipsesource.json.JsonArray
+import com.eclipsesource.json.JsonObject
 import java.util.ArrayList
 import java.util.List
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import repositoriosYAdaptadores.RepoPOI
+import org.uqbar.geodds.Point
 import puntosDeInteres.CGP
 import puntosDeInteres.LocalComercial
 import puntosDeInteres.ParadaColectivo
 import puntosDeInteres.SucursalBanco
 import repositoriosYAdaptadores.AdaptadorServicioExterno
-import puntosDeInteres.ServicioCGP
-import puntosDeInteres.Rubro
 import repositoriosYAdaptadores.InterfazConsultaBancaria
+import repositoriosYAdaptadores.RepoPOI
+
 import static org.mockito.Mockito.*
-import com.eclipsesource.json.JsonArray
-import com.eclipsesource.json.JsonObject
-import com.eclipsesource.json.Json
 
 class BusquedaTest {
 	RepoPOI mapa
@@ -33,27 +36,44 @@ class BusquedaTest {
 	@Before
 	def void SetUp() {
 
-		// Orígenes de datos
+		// Origen de datos
 		mapa = new RepoPOI()
+		// mapa = RepoPOI.instancia
+		
+		//Builders
+		val CGPBuilder builderCGP = new CGPBuilder()
+		val ListaServiciosBuilder builderServicios = new ListaServiciosBuilder()
+		val LocalComBuilder builderLocal = new LocalComBuilder()
+		
 		// Un CGP
-		val List<ServicioCGP> listaServicios = new ArrayList<ServicioCGP>
-		val ServicioCGP rentas = new ServicioCGP("Rentas")
-		listaServicios.add(rentas)
-		val ServicioCGP licencia = new ServicioCGP("Licencia de Manejo")
-		listaServicios.add(licencia)
-		val ServicioCGP jubilacion = new ServicioCGP("Atención al Jubilado")
-		listaServicios.add(jubilacion)
-		cgp = new CGP("Centro Flores", listaServicios, 15, 20)
-		mapa.create(cgp)
+		builderCGP => [
+			agregarServicios(builderServicios.crearServicios("Rentas", "Licencia de manejo", "Atención al jubilado"))
+			setNombre("Centro Flores")
+			setLongitud(15)
+			setLatitud(30)
+			setComuna(new Point(0,0), new Point(50,0), new Point(50,50), new Point(0,50))
+		]
+		cgp = builderCGP.build()
+		
 		// Un local
-		val Rubro libreria = new Rubro("Librería", 5)
-		localComercial = new LocalComercial(libreria, "Don José", 5, 10)
-		mapa.create(localComercial)
+		builderLocal => [
+			setNombre("Don José")
+			setLongitud(5)
+			setLatitud(10)
+			setRubro("Librería", 5)
+		]
+		localComercial = builderLocal.build()
+		
 		// Paradas
 		parada = new ParadaColectivo("124", 15, 15)
 		parada2 = new ParadaColectivo("110", 40, 10)
+		
+		//Agrego los POI's al repositorio externo
+		mapa.create(cgp)
+		mapa.create(localComercial)
 		mapa.create(parada)
 		mapa.create(parada2)
+
 		// Bancos
 		var List<String> listaServ = new ArrayList<String>
 		listaServ.add("cobros cheques")
@@ -73,6 +93,7 @@ class BusquedaTest {
 		listaServ.add("seguros")
 		banco3 = new SucursalBanco(50, 60, "Santander", "Palermo", listaServ, "Christian de Lugano")
 		banco3.id = banco2.id + 1
+		
 		val InterfazConsultaBancaria mockSrvExt = mock(InterfazConsultaBancaria)
 		val List<SucursalBanco> listaFiltradaMock = new ArrayList<SucursalBanco>
 		listaFiltradaMock.add(banco)

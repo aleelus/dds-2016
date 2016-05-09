@@ -11,8 +11,22 @@ import java.util.ArrayList
 @Accessors
 class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
 
+	/**Lista de repositorios externos */
 	List<OrigenDatos> reposExterno = new ArrayList<OrigenDatos>
-
+	/**Instancia que convierte al repositorio en Singleton */
+//	static RepoPOI instancia = null
+//
+//	/**Evita la construcción de nuevos objetos de la misma clase */
+//	private new(){}
+//	
+//	/**Método para obtener la única instancia del repositorio */
+//	static def RepoPOI getInstancia(){
+//		if (instancia==null){
+//			instancia = new RepoPOI
+//		}
+//		instancia
+//	}
+	
 	/**Método para buscar puntos de interés dentro del mapa
 	 * en base a un texto libre.
 	 */
