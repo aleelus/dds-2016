@@ -6,6 +6,7 @@ import org.joda.time.DateTime
 import org.uqbar.commons.model.Entity
 import org.uqbar.geodds.Point
 
+
 @Accessors
 class POI extends Entity {
 

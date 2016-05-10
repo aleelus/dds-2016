@@ -44,7 +44,6 @@ class BusquedaTest {
 		val ListaServiciosBuilder builderServicios = new ListaServiciosBuilder()
 		val LocalComBuilder builderLocal = new LocalComBuilder()
 		val BancoBuilder builderBanco = new BancoBuilder()
-
 		// Un CGP
 		builderCGP => [
 			agregarServicios(builderServicios.crearServicios("Rentas", "Licencia de manejo", "Atención al jubilado"))

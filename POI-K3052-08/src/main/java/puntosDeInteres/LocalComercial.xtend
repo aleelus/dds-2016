@@ -8,6 +8,7 @@ import org.joda.time.DateTime
 import org.uqbar.geodds.Point
 import puntosDeInteres.POI.Dias
 
+
 @Accessors
 class LocalComercial extends POI {
 	/**Representa el tipo de local */
