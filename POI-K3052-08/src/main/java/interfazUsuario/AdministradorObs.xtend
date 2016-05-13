@@ -9,7 +9,7 @@ class AdministradorObs implements ObserverBusqueda {
 	List<String> listaEmailsAdmins = new ArrayList<String> 
 	
 
-	override update(Consulta observado, DatosBusqueda datosBusqueda) {
+	override update(Terminal observado, DatosBusqueda datosBusqueda) {
 		if (datosBusqueda.tiempoBusqueda > tiempoMaxBúsqueda) {
 			enviarEmailAAdmins()		
 		}

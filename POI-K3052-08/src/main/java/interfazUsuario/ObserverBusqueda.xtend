@@ -2,5 +2,5 @@ package interfazUsuario
 
 interface ObserverBusqueda{
 	
-	def void update(Consulta observado, DatosBusqueda datos)
+	def void update(Terminal observado, DatosBusqueda datos)
 }
