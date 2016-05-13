@@ -31,5 +31,13 @@ class Terminal {
 	def agregarObserver(ObserverBusqueda observer) {
 		listaObservers.add(observer)
 	}
-
+	
+	def obtenerReporteFecha(){
+		ReportePorFecha.obtenerDatosPorFecha()
+	}
+	
+	def obetenerReporteTerminal(){
+		ReportePorTerminal.obtenerDatosPorTerminal()
+	}
+	
 }
