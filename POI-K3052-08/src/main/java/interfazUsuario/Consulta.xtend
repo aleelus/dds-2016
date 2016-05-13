@@ -1,0 +1,29 @@
+package interfazUsuario
+
+import java.util.ArrayList
+import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
+import repositoriosYAdaptadores.RepoPOI
+
+@Accessors
+@Observable
+class Consulta{
+	
+	RepoPOI repositorio
+	List<ObserverBusqueda> listaObservers = new ArrayList<ObserverBusqueda>
+	
+	def search(String input){
+		val tiempoInicial=System.nanoTime()
+		val datosLocales = repositorio.search(input)
+		val tiempoFinal=System.nanoTime()
+		val datosBusqueda = new DatosBusqueda(tiempoFinal-tiempoInicial, datosLocales.size, datosLocales)
+		notificarObservadores(datosBusqueda)
+	}
+	
+	def notificarObservadores(DatosBusqueda datos) {
+		listaObservers.forEach[observer | observer.update(this, datos)]	
+	}
+	
+	
+}

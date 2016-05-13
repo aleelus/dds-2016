@@ -1,4 +1,4 @@
-package testsEntrega1
+package testsEntrega
 
 import builders.BancoBuilder
 import builders.CGPBuilder
@@ -22,8 +22,9 @@ import repositoriosYAdaptadores.RepoPOI
 
 import static org.mockito.Mockito.*
 
-class BusquedaTest {
-	RepoPOI mapa
+class BusquedaTest{
+	// Origen de datos
+	RepoPOI mapa = new RepoPOI()
 	CGP cgp
 	LocalComercial localComercial
 	ParadaColectivo parada
@@ -32,13 +33,9 @@ class BusquedaTest {
 	SucursalBanco banco2
 	SucursalBanco banco3
 	AdaptadorServicioExterno adaptadorBanco
-
+	
 	@Before
 	def void SetUp() {
-
-		// Origen de datos
-		mapa = new RepoPOI()
-		// mapa = RepoPOI.instancia
 		// Builders
 		val CGPBuilder builderCGP = new CGPBuilder()
 		val ListaServiciosBuilder builderServicios = new ListaServiciosBuilder()
@@ -117,12 +114,12 @@ class BusquedaTest {
 	}
 	
 	/**Método donde se definen las búsquedas vacías del mock */
-	def busquedasVacias(InterfazConsultaBancaria mock, String... busquedas) {
+	def static busquedasVacias(InterfazConsultaBancaria mock, String... busquedas) {
 		busquedas.forEach[busqueda|when(mock.search(busqueda)).thenReturn(new JsonArray)]
 	}
 
 	/**Método que convierte una lista de sucursales bancarias a un String JSON*/
-	def convertirAJSON(List<SucursalBanco> lista) {
+	def static convertirAJSON(List<SucursalBanco> lista) {
 		val JsonArray arraySucursales = Json.array().asArray
 		lista.forEach [ sucursal |
 			var JsonObject sucursalJSON = Json.object()
@@ -193,6 +190,7 @@ class BusquedaTest {
 
 	@Test
 	def testBusquedaParadaOK() {
+		
 		Assert.assertTrue(mapa.search("124").contains(parada))
 	}
 
@@ -205,4 +203,5 @@ class BusquedaTest {
 	def testBusquedaVacia() {
 		Assert.assertTrue(mapa.search("Hospital").isEmpty)
 	}
+	
 }

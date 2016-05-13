@@ -1,4 +1,4 @@
-package testsEntrega1
+package testsEntrega
 
 import builders.BancoBuilder
 import builders.CGPBuilder

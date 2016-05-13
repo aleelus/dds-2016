@@ -1,48 +1,50 @@
 package repositoriosYAdaptadores
 
+import java.util.ArrayList
+import java.util.List
 import org.apache.commons.collections15.Predicate
 import org.apache.commons.collections15.functors.AndPredicate
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.CollectionBasedRepo
 import puntosDeInteres.POI
-import java.util.List
-import java.util.ArrayList
 
 @Accessors
 class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
 
 	/**Lista de repositorios externos */
 	List<OrigenDatos> reposExterno = new ArrayList<OrigenDatos>
-	/**Instancia que convierte al repositorio en Singleton */
-//	static RepoPOI instancia = null
-//
+
+//	/**Instancia que convierte al repositorio en Singleton */
+//	private static RepoPOI instancia
+//	
 //	/**Evita la construcción de nuevos objetos de la misma clase */
 //	private new(){}
 //	
 //	/**Método para obtener la única instancia del repositorio */
-//	static def RepoPOI getInstancia(){
+//	def static RepoPOI getInstancia(){
 //		if (instancia==null){
-//			instancia = new RepoPOI
+//			instancia = new RepoPOI()
 //		}
 //		instancia
 //	}
-	
 	/**Método para buscar puntos de interés dentro del mapa
 	 * en base a un texto libre.
 	 */
 	override search(String input) {
-
 		val List<POI> datosLocales = allInstances.filter[punto|punto.contieneTexto(input)].toList
-		val List<POI> datosExternos = new ArrayList<POI>
-		reposExterno.forEach[repo| datosExternos.addAll(repo.search(input))]
-		datosLocales.addAll(datosExternos)
+		if (datosLocales.empty) {
+			val List<POI> datosExternos = new ArrayList<POI>
+			reposExterno.forEach[repo|datosExternos.addAll(repo.search(input))]
+			datosLocales.addAll(datosExternos)
+		}
 		datosLocales
 	}
-	
-	def agregarSrv(OrigenDatos repoExterno){
+
+	/**Método para agregar un servicio externo que implemente OrigenDeDatos a la lista */
+	def agregarSrv(OrigenDatos repoExterno) {
 		reposExterno.add(repoExterno)
 	}
-	
+
 	override create(POI puntoInteres) {
 		super.create(puntoInteres)
 	}
