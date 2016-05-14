@@ -36,11 +36,13 @@ class BusquedaTest{
 	
 	@Before
 	def void SetUp() {
+		
 		// Builders
 		val CGPBuilder builderCGP = new CGPBuilder()
 		val ListaServiciosBuilder builderServicios = new ListaServiciosBuilder()
 		val LocalComBuilder builderLocal = new LocalComBuilder()
 		val BancoBuilder builderBanco = new BancoBuilder()
+		
 		// Un CGP
 		builderCGP => [
 			agregarServicios(builderServicios.crearServicios("Rentas", "Licencia de manejo", "Atención al jubilado"))

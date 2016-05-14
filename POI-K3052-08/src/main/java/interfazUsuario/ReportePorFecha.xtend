@@ -11,11 +11,9 @@ class ReportePorFecha implements ObserverBusqueda {
 		elementos
 	}
 
-	override update(Terminal observado, DatosBusqueda datos) {
+	override update(DatosBusqueda datos) {
 		if (elementos.putIfAbsent(datos.fechaBusqueda, datos.cantidadResultados) != null) {
 			elementos.replace(datos.fechaBusqueda, datos.cantidadResultados, datos.cantidadResultados + 1)
 		}
-
 	}
-
 }

@@ -5,11 +5,11 @@ import java.util.List
 
 class AdministradorObs implements ObserverBusqueda {
 
-	int tiempoMaxBúsqueda = 5
+	static int tiempoMaxBúsqueda = 5
 	List<String> listaEmailsAdmins = new ArrayList<String> 
 	
 
-	override update(Terminal observado, DatosBusqueda datosBusqueda) {
+	override update(DatosBusqueda datosBusqueda) {
 		if (datosBusqueda.tiempoBusqueda > tiempoMaxBúsqueda) {
 			enviarEmailAAdmins()		
 		}

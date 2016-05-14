@@ -7,7 +7,7 @@ import java.util.Map
 class ReportePorTerminal implements ObserverBusqueda {
 	static Map<String, List<Integer>> elementos = new HashMap<String, List<Integer>>
 
-	override update(Terminal observado, DatosBusqueda datos) {
+	override update(DatosBusqueda datos) {
 		if (elementos.putIfAbsent(datos.nombreTerminal, newArrayList(datos.cantidadResultados)) != null) {
 			elementos.get(datos.nombreTerminal).add(datos.cantidadResultados)
 		}

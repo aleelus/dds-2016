@@ -25,7 +25,7 @@ class Terminal {
 	}
 
 	def notificarObservadores(DatosBusqueda datos) {
-		listaObservers.forEach[observer|observer.update(this, datos)]
+		listaObservers.forEach[observer|observer.update(datos)]
 	}
 
 	def agregarObserver(ObserverBusqueda observer) {
