@@ -1,12 +1,12 @@
 package interfazUsuario
 
-import java.time.LocalDate
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.joda.time.LocalDate
 import puntosDeInteres.POI
 
 @Accessors
-class DatosBusqueda {
+class DatosBusqueda{
 
 	String nombreTerminal
 	long tiempoBusqueda
@@ -15,6 +15,7 @@ class DatosBusqueda {
 	LocalDate fechaBusqueda
 
 	new(String nombre, LocalDate fecha, long tiempo, int cantidad, List<POI> puntos) {
+		this()
 		this.nombreTerminal = nombre
 		this.fechaBusqueda = fecha
 		this.tiempoBusqueda = tiempo
@@ -22,4 +23,8 @@ class DatosBusqueda {
 		this.listaResultados = puntos
 	}
 
+	new() {
+		super()
+	}
+	
 }

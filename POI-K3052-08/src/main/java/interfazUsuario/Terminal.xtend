@@ -1,11 +1,11 @@
 package interfazUsuario
 
-import java.time.LocalDate
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 import repositoriosYAdaptadores.RepoPOI
+import org.joda.time.LocalDate
 
 @Accessors
 @Observable
@@ -31,13 +31,17 @@ class Terminal {
 	def agregarObserver(ObserverBusqueda observer) {
 		listaObservers.add(observer)
 	}
-	
-	def obtenerReporteFecha(){
-		ReportePorFecha.obtenerDatosPorFecha()
+
+	def eliminarObserver(ObserverBusqueda observer) {
+		listaObservers.remove(observer)
+	}
+
+	def obtenerReporteFechaCantidad() {
+		Historial.instance.obtenerReporteFechaCantidad()
 	}
 	
-	def obetenerReporteTerminal(){
-		ReportePorTerminal.obtenerDatosPorTerminal()
+	def obtenerReporteTerminal(){
+		Historial.instance.obtenerReporteTerminal()
 	}
-	
+
 }
