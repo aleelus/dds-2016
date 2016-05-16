@@ -4,6 +4,7 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalDate
 import puntosDeInteres.POI
+import java.util.ArrayList
 
 @Accessors
 class DatosBusqueda{
@@ -28,3 +29,34 @@ class DatosBusqueda{
 	}
 	
 }
+
+@Accessors
+class ElementoReporteFechaCantidadBusq {
+	LocalDate fechaBusqueda
+	int cantidadResultados
+	
+	new(){
+		super()
+	}
+	
+	new(LocalDate fecha, int cantidad){
+		this()
+		this.fechaBusqueda=fecha
+		this.cantidadResultados=cantidad
+	}
+}
+
+@Accessors
+class ElementoReporteTerminal {
+	String nombreTerminal
+	List<Integer> resultadosParciales = new ArrayList<Integer>
+	
+	new(){
+		super()
+	}
+	
+	new(String nombre){
+		this()
+		this.nombreTerminal = nombre
+	}	
+}	

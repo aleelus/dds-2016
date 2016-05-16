@@ -1,22 +1,19 @@
 package interfazUsuario
 
-import java.util.ArrayList
-import java.util.List
-
 class AdministradorObs implements ObserverBusqueda {
 
-	static int tiempoMaxBúsqueda = 5
-	List<String> listaEmailsAdmins = new ArrayList<String> 
+	double tiempoMaxBúsqueda = 5
+	boolean enviado 
 	
-
-	override update(DatosBusqueda datosBusqueda) {
-		if (datosBusqueda.tiempoBusqueda > tiempoMaxBúsqueda) {
-			enviarEmailAAdmins()		
-		}
+	new(double tiempoMax){
+		this.tiempoMaxBúsqueda=tiempoMax
 	}
 	
-	def enviarEmailAAdmins() {
-		listaEmailsAdmins.forEach[admin | System.out.println("Mensaje enviado a "+admin)]
+	override update(DatosBusqueda datosBusqueda) {
+		enviado=false
+		if (datosBusqueda.tiempoBusqueda > tiempoMaxBúsqueda) {
+			enviado = true		
+		}
 	}
 
 }

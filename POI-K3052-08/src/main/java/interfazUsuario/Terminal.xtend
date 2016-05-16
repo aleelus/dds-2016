@@ -37,11 +37,15 @@ class Terminal {
 	}
 
 	def obtenerReporteFechaCantidad() {
-		Historial.instance.obtenerReporteFechaCantidad()
+		Historial.instance.generarReporteFecha()
 	}
-	
-	def obtenerReporteTerminal(){
-		Historial.instance.obtenerReporteTerminal()
+
+	def obtenerReporteTerminal() {
+		Historial.instance.generarReporteTerminal()
+	}
+
+	def obtenerReporteTotalesTerminal() {
+		Historial.instance.generarReporteTotalesTerminal
 	}
 
 }
