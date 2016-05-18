@@ -1,4 +1,4 @@
-package testsEntrega
+package tests
 
 import builders.CGPBuilder
 import builders.LocalComBuilder

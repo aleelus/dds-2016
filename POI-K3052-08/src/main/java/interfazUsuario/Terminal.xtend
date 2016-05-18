@@ -13,38 +13,45 @@ class Terminal {
 
 	String nombreTerminal
 	RepoPOI repositorio
-	List<ObserverBusqueda> listaObservers = new ArrayList<ObserverBusqueda>
+	List<ObserverBusqueda> listaObserversBus = new ArrayList<ObserverBusqueda>
 
+	new(String nombre, RepoPOI repo){
+		super()
+		this.nombreTerminal = nombre
+		this.repositorio = repo
+	}
+		
 	def search(String input) {
 		val tiempoInicial = System.nanoTime()
 		val datosLocales = repositorio.search(input)
 		val tiempoFinal = System.nanoTime()
-		val datosBusqueda = new DatosBusqueda(this.nombreTerminal, LocalDate.now, tiempoFinal - tiempoInicial,
+		val tiempoTotal = (tiempoFinal-tiempoInicial)/1000
+		val datosBusqueda = new DatosBusqueda(this.nombreTerminal, LocalDate.now, tiempoTotal,
 			datosLocales.size, datosLocales)
-		notificarObservadores(datosBusqueda)
+		notificarObservadoresBusqueda(datosBusqueda)
 	}
 
-	def notificarObservadores(DatosBusqueda datos) {
-		listaObservers.forEach[observer|observer.update(datos)]
+	def notificarObservadoresBusqueda(DatosBusqueda datos) {
+		listaObserversBus.forEach[observer|observer.update(datos)]
 	}
 
-	def agregarObserver(ObserverBusqueda observer) {
-		listaObservers.add(observer)
+	def agregarObserverBus(ObserverBusqueda observer) {
+		listaObserversBus.add(observer)
 	}
-
+	
 	def eliminarObserver(ObserverBusqueda observer) {
-		listaObservers.remove(observer)
+		listaObserversBus.remove(observer)
 	}
 
-	def obtenerReporteFechaCantidad() {
+	def generarReporteFecha() {
 		Historial.instance.generarReporteFecha()
 	}
 
-	def obtenerReporteTerminal() {
+	def generarReporteTerminal() {
 		Historial.instance.generarReporteTerminal()
 	}
 
-	def obtenerReporteTotalesTerminal() {
+	def generarReporteTotalesTerminal() {
 		Historial.instance.generarReporteTotalesTerminal
 	}
 

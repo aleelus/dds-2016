@@ -6,6 +6,7 @@ import org.joda.time.LocalDate
 import java.util.Map
 import java.util.stream.Collectors
 import java.util.List
+import puntosDeInteres.POI
 
 class Historial {
 	
@@ -25,6 +26,11 @@ class Historial {
 	def agregar(DatosBusqueda busqueda) {
 		datosBusqueda.add(busqueda)
 	}
+	
+	def contieneA(POI punto){
+		datosBusqueda.exists[busqueda | busqueda.listaResultados.contains(punto)]
+	}
+	
 	def generarReporteFecha() {
 		val Map<LocalDate, Integer> totalPorFecha = datosBusqueda.stream().collect(
 			Collectors.groupingBy([fechaBusqueda], Collectors.summingInt([cantidadResultados])))

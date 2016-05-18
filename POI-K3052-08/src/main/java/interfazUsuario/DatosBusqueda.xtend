@@ -10,7 +10,7 @@ import java.util.ArrayList
 class DatosBusqueda{
 
 	String nombreTerminal
-	long tiempoBusqueda
+	long tiempoBusqueda //en microsegundos
 	int cantidadResultados
 	List<POI> listaResultados
 	LocalDate fechaBusqueda
