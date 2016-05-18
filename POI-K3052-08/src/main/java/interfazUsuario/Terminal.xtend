@@ -44,15 +44,15 @@ class Terminal {
 	}
 
 	def generarReporteFecha() {
-		Historial.instance.generarReporteFecha()
+		Historial.instance.generarReporteFecha(this)	
 	}
 
 	def generarReporteTerminal() {
-		Historial.instance.generarReporteTerminal()
+		Historial.instance.generarReporteTerminal(this)
 	}
 
 	def generarReporteTotalesTerminal() {
-		Historial.instance.generarReporteTotalesTerminal
+		Historial.instance.generarReporteTotalesTerminal(this)
 	}
 
 }

@@ -81,6 +81,9 @@ class AccionesTest {
 		terminalAbasto.agregarObserverBus(observerHistorial)
 		terminalCaballito.agregarObserverBus(observerHistorial)
 		
+		//Validaciones
+		Historial.instance.agregarTerminalAutorizada(terminalAbasto)
+		
 	}
 
 	@Test
@@ -89,14 +92,14 @@ class AccionesTest {
 		Assert.assertTrue(Historial.instance.contieneA(cgp))
 	}
 
-	//@Test(expected=Exception)
+	@Test(expected=Exception)
 	def terminalNoAutorizadaReporteFecha() {
-		Assert.assertEquals(terminalAbasto.generarReporteFecha(), void)
+		Assert.assertEquals(terminalCaballito.generarReporteFecha(), void)
 	}
 
-	//@Test(expected=Exception)
+	@Test(expected=Exception)
 	def terminalNoAutorizadaReporteTerminal() {
-		Assert.assertEquals(terminalAbasto.generarReporteTerminal, void)
+		Assert.assertEquals(terminalCaballito.generarReporteTerminal, void)
 	}
 
 	@Test
@@ -119,7 +122,7 @@ class AccionesTest {
 		Assert.assertEquals(resultado.get(new LocalDate(2016, 05, 15)), 15)
 	}
 
-	//@Test(expected=Exception)
+	@Test(expected=Exception)
 	def terminalNoAutorizadaAReporteFecha() {
 		Assert.assertEquals(terminalCaballito.generarReporteFecha(), void)
 	}
@@ -130,7 +133,7 @@ class AccionesTest {
 		Assert.assertTrue(resultado.get("Abasto").containsAll(newArrayList(10, 8)))
 	}
 
-	//@Test(expected=Exception)
+	@Test(expected=Exception)
 	def terminalNoAutorizadaAReporteTerminal() {
 		Assert.assertEquals(terminalCaballito.generarReporteTerminal(), void)
 	}
