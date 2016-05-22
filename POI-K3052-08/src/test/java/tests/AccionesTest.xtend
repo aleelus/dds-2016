@@ -2,22 +2,28 @@ package tests
 
 import builders.CGPBuilder
 import builders.ListaServiciosBuilder
+import builders.LocalComBuilder
+import interfazUsuario.AdministradorObs
+import interfazUsuario.DatosBusqueda
+import interfazUsuario.HistorialObs
 import interfazUsuario.Terminal
+import java.util.ArrayList
+import org.joda.time.LocalDate
+import org.junit.Assert
 import org.junit.Before
+import org.junit.BeforeClass
 import org.junit.Test
 import org.uqbar.geodds.Point
-import repositoriosYAdaptadores.RepoPOI
-import org.junit.Assert
-import interfazUsuario.Historial
 import puntosDeInteres.CGP
-import builders.LocalComBuilder
 import puntosDeInteres.LocalComercial
-import interfazUsuario.DatosBusqueda
-import org.joda.time.LocalDate
-import java.util.ArrayList
-import org.junit.BeforeClass
-import interfazUsuario.AdministradorObs
-import interfazUsuario.HistorialObs
+import repositoriosYAdaptadores.AdaptadorMails
+import repositoriosYAdaptadores.Historial
+import repositoriosYAdaptadores.InterfazAdmin
+import repositoriosYAdaptadores.RepoPOI
+
+import static org.mockito.Matchers.*
+import static org.mockito.Mockito.*
+import interfazUsuario.Rol
 
 class AccionesTest {
 	RepoPOI mapa
@@ -27,6 +33,8 @@ class AccionesTest {
 	LocalComercial localComercial
 	AdministradorObs observerNotificacion
 	HistorialObs observerHistorial
+	
+	AdaptadorMails adaptadorMails
 
 	@BeforeClass
 	def static void setUpClase() {
@@ -42,6 +50,13 @@ class AccionesTest {
 	def void setUpTest() {
 		// Repositorio
 		mapa = new RepoPOI()
+
+		// Creación de roles
+		val rolAdmin = new Rol()
+		rolAdmin.accesoTotal()
+
+		val rolConsulta = new Rol()
+		rolConsulta.accesoParcial()
 
 		// Builders
 		val CGPBuilder builderCGP = new CGPBuilder()
@@ -70,20 +85,19 @@ class AccionesTest {
 		mapa.create(localComercial)
 
 		// Terminales
-		terminalAbasto = new Terminal("Abasto", mapa)
-		terminalCaballito = new Terminal("Caballito", mapa)
-
+		terminalAbasto = new Terminal("Abasto", mapa, rolAdmin)
+		terminalCaballito = new Terminal("Caballito", mapa, rolConsulta)
 
 		// Observers
-		observerNotificacion = new AdministradorObs(1)
+		val InterfazAdmin mockMail = mock(InterfazAdmin)
+		adaptadorMails = new AdaptadorMails(mockMail)
+		observerNotificacion = new AdministradorObs(1, adaptadorMails)
+		when(mockMail.recibirMail(anyString, anyLong)).thenReturn(true)
 		observerHistorial = new HistorialObs()
 		terminalAbasto.agregarObserverBus(observerNotificacion)
 		terminalAbasto.agregarObserverBus(observerHistorial)
 		terminalCaballito.agregarObserverBus(observerHistorial)
-		
-		//Validaciones
-		Historial.instance.agregarTerminalAutorizada(terminalAbasto)
-		
+
 	}
 
 	@Test
@@ -106,16 +120,15 @@ class AccionesTest {
 	def terminalAutorizadaAEnviarMailsConAviso() {
 		observerNotificacion.actualizarTiempo(10)
 		terminalAbasto.search("Don")
-		Assert.assertTrue(observerNotificacion.envioMail())
+		Assert.assertTrue(adaptadorMails.contieneMail(terminalAbasto.nombreTerminal))
 	}
 
 	@Test
 	def terminalAutorizadaAEnviarMailsSinAviso() {
 		observerNotificacion.actualizarTiempo(1000)
 		terminalAbasto.search("Flores")
-		Assert.assertFalse(observerNotificacion.envioMail())
+		Assert.assertFalse(adaptadorMails.contieneMail(terminalAbasto.nombreTerminal))
 	}
-
 	@Test
 	def terminalAutorizadaAReporteFecha() {
 		val resultado = terminalAbasto.generarReporteFecha()

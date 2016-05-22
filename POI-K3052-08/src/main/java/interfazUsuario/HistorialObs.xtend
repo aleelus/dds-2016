@@ -1,8 +1,10 @@
 package interfazUsuario
 
+import repositoriosYAdaptadores.Historial
+
 class HistorialObs implements ObserverBusqueda {
 	
-	override update(DatosBusqueda datos) {
+	override update(Terminal terminal,DatosBusqueda datos) {
 		Historial.getInstance().agregar(datos)
 	}
 
