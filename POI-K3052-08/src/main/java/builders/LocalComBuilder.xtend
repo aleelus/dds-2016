@@ -5,6 +5,7 @@ import puntosDeInteres.LocalComercial
 import java.util.List
 import org.joda.time.DateTime
 import puntosDeInteres.POI.Dias
+import excepciones.CreationException
 
 class LocalComBuilder {
 	Rubro rubro	
@@ -13,18 +14,29 @@ class LocalComBuilder {
 	double longitud
 	
 	def setNombre(String nombre) {
+		if (nombre.empty) {
+			throw new CreationException("El nombre no puede ser vacío")
+		}
 		this.nombre = nombre
 		this
 	}
 
 	def setLatitud(double latitud) {
-		this.latitud = latitud
-		this
+		if (latitud.naN) {
+			throw new CreationException("La latitud debe ser un número")
+		} else {
+			this.latitud = latitud
+			this
+		}
 	}
 
 	def setLongitud(double longitud) {
-		this.longitud = longitud
-		this
+		if (longitud.naN) {
+			throw new CreationException("La longitud debe ser un número")
+		} else {
+			this.longitud = longitud
+			this
+		}
 	}
 
 	def setRubro(String nombre, int radioCercania){

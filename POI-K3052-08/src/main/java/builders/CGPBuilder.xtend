@@ -7,6 +7,7 @@ import puntosDeInteres.CGP
 import puntosDeInteres.Comuna
 import org.uqbar.geodds.Point
 import org.eclipse.xtend.lib.annotations.Accessors
+import excepciones.CreationException
 
 @Accessors
 class CGPBuilder {
@@ -22,18 +23,29 @@ class CGPBuilder {
 	}
 
 	def setNombre(String nombre) {
+		if (nombre.empty) {
+			throw new CreationException("El nombre no puede ser vacío")
+		}
 		this.nombre = nombre
 		this
 	}
 
 	def setLatitud(double latitud) {
-		this.latitud = latitud
-		this
+		if (latitud.naN) {
+			throw new CreationException("La latitud debe ser un número")
+		} else {
+			this.latitud = latitud
+			this
+		}
 	}
 
 	def setLongitud(double longitud) {
-		this.longitud = longitud
-		this
+		if (longitud.naN) {
+			throw new CreationException("La longitud debe ser un número")
+		} else {
+			this.longitud = longitud
+			this
+		}
 	}
 
 	def setComuna(Point... puntos) {
