@@ -53,10 +53,10 @@ class AccionesTest {
 
 		// Creación de roles
 		val rolAdmin = new Rol()
-		rolAdmin.accesoTotal()
+		rolAdmin.esAdmin()
 
 		val rolConsulta = new Rol()
-		rolConsulta.accesoParcial()
+		rolConsulta.esUserConNotificacion()
 
 		// Builders
 		val CGPBuilder builderCGP = new CGPBuilder()

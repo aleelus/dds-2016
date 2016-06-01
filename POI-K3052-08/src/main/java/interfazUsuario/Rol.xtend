@@ -3,6 +3,7 @@ package interfazUsuario
 class Rol {
 	boolean notificacionesAutorizadas
 	boolean reportesAutorizados
+	boolean procesosAutorizados
 
 	new() {
 		super()
@@ -14,9 +15,10 @@ class Rol {
 		this.reportesAutorizados = autorizacionReportes
 	}
 
-	def accesoTotal() {
+	def esAdmin() {
 		notificacionesAutorizadas = true
 		reportesAutorizados = true
+		procesosAutorizados = true
 	}
 
 	def estaAutorizadoAEmitirNotificaciones() {
@@ -27,13 +29,20 @@ class Rol {
 		reportesAutorizados
 	}
 	
-	def accesoParcial() {
+	def esUserConNotificacion() {
 		notificacionesAutorizadas = true
 		reportesAutorizados = false
+		procesosAutorizados = false
 	}
 	
-	def sinAcceso() {
+	def esUserSinNotificacion() {
 		notificacionesAutorizadas = false
 		reportesAutorizados = false
+		procesosAutorizados = false
 	}
+	
+	def estaAutorizadoAEjecutarProcesos() {
+		procesosAutorizados
+	}
+	
 }

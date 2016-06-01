@@ -25,7 +25,7 @@ class LocalComercial extends POI {
 	
 	/**Método que retorna si el String está en el nombre o en el rubro */
 	override contieneTexto(String input) {
-		nombre.contains(input) || rubro.contiene(input)
+		nombre.contains(input) || rubro.contiene(input) || super.contieneTextoEnTags(input)
 	}
 
 	def estaDisponible(DateTime dt, String nombre) {

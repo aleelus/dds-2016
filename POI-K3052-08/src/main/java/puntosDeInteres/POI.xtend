@@ -5,7 +5,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.commons.model.Entity
 import org.uqbar.geodds.Point
-
+import java.util.ArrayList
 
 @Accessors
 class POI extends Entity {
@@ -17,6 +17,8 @@ class POI extends Entity {
 	double latitud
 	/**Longitud del punto de interés */
 	double longitud
+	/**Palabras clave del punto de interés */
+	List<String> tags = new ArrayList<String>
 
 	enum Dias {
 
@@ -41,7 +43,12 @@ class POI extends Entity {
 
 	/**Método que verifica si un input está contenido en el nombre del POI */
 	def contieneTexto(String input) {
-		nombre.contains(input)
+		nombre.contains(input) || contieneTextoEnTags(input)
+	}
+	
+	/**Método que verifica si un input está en los tags */
+	def contieneTextoEnTags(String input) {
+		tags.exists[tag | tag.contains(input)]
 	}
 
 	def buscarDia(List<Dias> lista, Dias dia) {
@@ -70,6 +77,7 @@ class POI extends Entity {
 		nombre = poi.nombre
 		latitud = poi.latitud
 		longitud = poi.longitud
+		tags = poi.tags
 	}
 
 	override validateCreate() {

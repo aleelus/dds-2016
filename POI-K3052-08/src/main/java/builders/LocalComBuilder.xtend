@@ -12,6 +12,7 @@ class LocalComBuilder {
 	String nombre
 	double latitud
 	double longitud
+	String[] tags
 	
 	def setNombre(String nombre) {
 		if (nombre.empty) {
@@ -48,12 +49,18 @@ class LocalComBuilder {
 		this
 	}
 	
+	def setTags(String[] tags){
+		this.tags = tags
+		this
+	}
+	
 	def build(){
 		val LocalComercial nuevoLocal = new LocalComercial()
 		nuevoLocal.rubro = rubro
 		nuevoLocal.nombre = nombre
 		nuevoLocal.latitud = latitud
 		nuevoLocal.longitud = longitud
+		nuevoLocal.tags = tags
 		nuevoLocal
 	}
 }

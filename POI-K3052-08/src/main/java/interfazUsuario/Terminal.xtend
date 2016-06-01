@@ -10,6 +10,7 @@ import reportes.ReportePorFecha
 import reportes.ReportePorTerminal
 import reportes.ReporteTotales
 import repositoriosYAdaptadores.RepoPOI
+import procesos.EjecutorProcesos
 
 @Accessors
 @Observable
@@ -19,12 +20,17 @@ class Terminal {
 	RepoPOI repositorio
 	List<ObserverBusqueda> listaObserversBus = new ArrayList<ObserverBusqueda>
 	Rol rolTerminal
+	EjecutorProcesos ejecutor
 
 	new(String nombre, RepoPOI repo, Rol rol) {
 		super()
 		this.rolTerminal = rol
 		this.nombreTerminal = nombre
 		this.repositorio = repo
+	}
+
+	new() {
+		super()
 	}
 
 	def search(String input) {
@@ -71,6 +77,18 @@ class Terminal {
 		} else {
 			throw new AuthException("No autorizado a emitir reporte por terminal")
 		}
+	}
+
+	def seleccionarProceso(int numProceso){
+		if (autorizadoAEjecutarProcesos){
+			ejecutor.ejecutarProceso(numProceso)
+		} else {
+			throw new AuthException("No autorizado a ejecutar proceso ")
+		}
+	}
+	
+	def autorizadoAEjecutarProcesos() {
+		rolTerminal.estaAutorizadoAEjecutarProcesos()
 	}
 
 	def autorizadoAEmitirNotificaciones() {
