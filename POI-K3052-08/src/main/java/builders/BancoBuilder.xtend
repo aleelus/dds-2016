@@ -13,6 +13,7 @@ class BancoBuilder {
 	String nombre
 	double latitud
 	double longitud
+	List<String> tags = new ArrayList<String>
 	List<DateTime> horario = new ArrayList<DateTime>
 	List<Dias> diasAbierto = new ArrayList<Dias>
 	String nombreSucursal
@@ -47,6 +48,11 @@ class BancoBuilder {
 	
 	def setSucursal(String nombre){
 		this.nombreSucursal=nombre
+		this
+	}
+	
+	def setTags(List<String> listaTags){
+		this.tags = listaTags
 		this
 	}
 	

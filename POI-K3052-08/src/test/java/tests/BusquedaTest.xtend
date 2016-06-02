@@ -46,6 +46,7 @@ class BusquedaTest{
 		builderCGP => [
 			agregarServicios(builderServicios.crearServicios("Rentas", "Licencia de manejo", "Atención al jubilado"))
 			setNombre("Centro Flores")
+			setTags(newArrayList("CGP","Flores","Rentas"))
 			setLongitud(15)
 			setLatitud(30)
 			setComuna(new Point(0, 0), new Point(50, 0), new Point(50, 50), new Point(0, 50))
@@ -55,6 +56,7 @@ class BusquedaTest{
 		// Un local
 		builderLocal => [
 			setNombre("Don José")
+			setTags(newArrayList("José","Librería","Barato"))
 			setLongitud(5)
 			setLatitud(10)
 			setRubro("Librería", 5)
@@ -76,6 +78,7 @@ class BusquedaTest{
 			setNombre("Santander")
 			setLongitud(30)
 			setLatitud(40)
+			setTags(newArrayList("Santander","Rio","Banco","Depósito","Cheque"))
 			setSucursal("Once")
 			setServicios(newArrayList("cobros cheques", "depositos", "transferencias", "extracciones"))
 			setGerente("Mirtha Legrand")

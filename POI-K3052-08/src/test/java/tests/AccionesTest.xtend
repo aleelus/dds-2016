@@ -66,6 +66,7 @@ class AccionesTest {
 		builderCGP => [
 			agregarServicios(builderServicios.crearServicios("Rentas", "Licencia de manejo", "Atención al jubilado"))
 			setNombre("Centro Flores")
+			setTags(newArrayList("Santander","Rio","Banco","Depósito","Cheque"))
 			setLongitud(15)
 			setLatitud(30)
 			setComuna(new Point(0, 0), new Point(50, 0), new Point(50, 50), new Point(0, 50))
@@ -75,6 +76,7 @@ class AccionesTest {
 		// Un local
 		builderLocal => [
 			setNombre("Don José")
+			setTags(newArrayList("José","Librería","Barato"))
 			setLongitud(5)
 			setLatitud(10)
 			setRubro("Librería", 5)

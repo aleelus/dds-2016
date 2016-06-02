@@ -12,6 +12,7 @@ import excepciones.CreationException
 @Accessors
 class CGPBuilder {
 	List<ServicioCGP> servicios = new ArrayList<ServicioCGP>
+	List<String> tags = new ArrayList<String>
 	String nombre
 	double latitud
 	double longitud
@@ -39,6 +40,11 @@ class CGPBuilder {
 		}
 	}
 
+	def setTags(List<String> listaTags) {
+		this.tags = listaTags
+		this
+	}
+
 	def setLongitud(double longitud) {
 		if (longitud.naN) {
 			throw new CreationException("La longitud debe ser un número")
@@ -64,11 +70,11 @@ class CGPBuilder {
 	}
 }
 
-class ListaServiciosBuilder{
-	List<ServicioCGP> listaServicios= new ArrayList<ServicioCGP>
-	
-	def crearServicios(String... nombres){
-		nombres.forEach[nombre | listaServicios.add(new ServicioCGP(nombre))]
+class ListaServiciosBuilder {
+	List<ServicioCGP> listaServicios = new ArrayList<ServicioCGP>
+
+	def crearServicios(String... nombres) {
+		nombres.forEach[nombre|listaServicios.add(new ServicioCGP(nombre))]
 		listaServicios
 	}
 }

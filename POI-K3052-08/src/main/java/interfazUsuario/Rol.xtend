@@ -9,10 +9,11 @@ class Rol {
 		super()
 	}
 
-	new(boolean autorizacionNotif, boolean autorizacionReportes) {
+	new(boolean autorizacionNotif, boolean autorizacionReportes, boolean autorizacionProcesos) {
 		this()
 		this.notificacionesAutorizadas = autorizacionNotif
 		this.reportesAutorizados = autorizacionReportes
+		this.procesosAutorizados = autorizacionProcesos
 	}
 
 	def esAdmin() {
