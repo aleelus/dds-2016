@@ -21,6 +21,11 @@ class HistorialProcesos {
 	def añadirProceso(DatosProceso datos) {
 		datosProceso.add(datos)
 	}
+	
+	def agregarProceso(DatosProceso proceso) {
+		datosProceso.add(proceso)
+	}
+	
 }
 
 class DatosProceso {

@@ -9,7 +9,7 @@ abstract class ProcSimple implements Proceso {
 
 AlgoritmoFallaProceso algoritmoFalla
 
-	override ejecutar() {
+	override ejecutar(String nombreUsuario) {
 		throw new UnsupportedProcessException("Proceso no soportado")
 	}
 

@@ -10,16 +10,16 @@ class ProcCompuesto implements Proceso {
 	
 	List<ProcSimple> procesosSimples = new ArrayList<ProcSimple>
 	
-	override ejecutar() {
-		procesosSimples.forEach[proceso | proceso.ejecutar()]
-	}
-	
 	override agregarProceso(ProcSimple proc) {
 		procesosSimples.add(proc)
 	}
 	
 	override eliminarProceso(ProcSimple proc) {
 		procesosSimples.remove(proc)
+	}
+	
+	override ejecutar(String nombreUsuario) {
+		//procesosSimples.forEach[proceso | proceso.ejecutar(nombreUsuario)]
 	}
 	
 }

@@ -2,16 +2,21 @@ package repositoriosYAdaptadores
 
 import com.eclipsesource.json.JsonArray
 import com.eclipsesource.json.JsonValue
+import java.io.BufferedReader
+import java.io.FileReader
 import java.util.ArrayList
+import java.util.HashMap
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
-import puntosDeInteres.SucursalBanco
 import puntosDeInteres.POI
+import puntosDeInteres.SucursalBanco
 
 @Accessors
 class AdaptadorServicioExterno implements OrigenDatos {
 
 	InterfazConsultaBancaria srvExtBanco
+	InterfazActLocales srvActLocales
+	InterfazREST srvBajaPOI
 	
 	//Constructores
 	new() {
@@ -25,12 +30,12 @@ class AdaptadorServicioExterno implements OrigenDatos {
 	// Métodos
 	/**Método que busca en el servicio externo y luego convierte el restultad a una lista de POI's */
 	override search(String input) {
-		val JsonArray resultado = srvExtBanco.search(input)
-		this.convertirALista(resultado)
+		val resultado = srvExtBanco.search(input)
+		this.convertirAListaDeSucursalesBancarias(resultado)
 	}
 
 	/**Método que convierte un String JSON a una lista de sucursales bancarias */
-	def convertirALista(JsonArray resultadoServicioExterno) {
+	def convertirAListaDeSucursalesBancarias(JsonArray resultadoServicioExterno) {
 
 		var SucursalBanco sucursal
 		var JsonArray arrayServicios
@@ -53,4 +58,31 @@ class AdaptadorServicioExterno implements OrigenDatos {
 		}
 		listaSucursales
 	}
+	
+	def procesarArchivoAct() {
+		val archivo = srvActLocales.obtenerArchivo()
+		val fr = new FileReader(archivo)
+		val br = new BufferedReader(fr)
+		var String linea
+		val archivoProcesado = new HashMap<String,List<String>>()
+		while((linea = br.readLine)!= null){
+			var lineaSeparada = linea.split(";", 0)
+			var nombreLocal= lineaSeparada.get(0)
+			var palabrasClave = lineaSeparada.get(1)
+			archivoProcesado.put(nombreLocal,palabrasClave.split(" "))
+		}
+		br.close
+		fr.close
+		archivoProcesado
+	}
+	
+	def obtenerPOIAEliminar() {
+		val resultado = srvBajaPOI.obtenerArchivoDeBajas()
+		val List<String> listaPOI = newArrayList()
+		for (JsonValue valor:resultado){
+			listaPOI.add(valor.asObject.getString("valor_busqueda",""))
+		}
+		listaPOI
+	}
+	
 }

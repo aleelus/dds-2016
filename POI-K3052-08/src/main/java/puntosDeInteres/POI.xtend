@@ -19,6 +19,8 @@ class POI extends Entity {
 	double longitud
 	/**Palabras clave del punto de interés */
 	List<String> tags = new ArrayList<String>
+	/**Estado del punto de interés */
+	Boolean habilitado = true;
 
 	enum Dias {
 
@@ -43,7 +45,11 @@ class POI extends Entity {
 
 	/**Método que verifica si un input está contenido en el nombre del POI */
 	def contieneTexto(String input) {
-		nombre.contains(input) || contieneTextoEnTags(input)
+		(nombre.contains(input) || contieneTextoEnTags(input)) && estaHabilitado
+	}
+	
+	def estaHabilitado() {
+		this.habilitado==true
 	}
 	
 	/**Método que verifica si un input está en los tags */
@@ -96,6 +102,10 @@ class POI extends Entity {
 
 	override hashCode() {
 		id
+	}
+	
+	def inhabilitar() {
+		this.habilitado = false
 	}
 
 }

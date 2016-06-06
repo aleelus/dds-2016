@@ -1,15 +1,25 @@
 package procesos
 
-import java.util.Map
-import java.util.HashMap
+import fabricasProcesos.ProcActualizacionLocalFactory
+import fabricasProcesos.ProcAgregadoAccionesFactory
 import fabricasProcesos.ProcFactory
+import java.util.Map
+import fabricasProcesos.ProcBajaPOIFactory
+import fabricasProcesos.ProcCompuestoFactory
+import repositoriosYAdaptadores.HistorialProcesos
 
 class EjecutorProcesos {
-	Map<Integer, ProcFactory> dictProcesos = new HashMap<Integer, ProcFactory>
+	Map<Integer, ProcFactory> dictProcesos = newLinkedHashMap(
+		1 -> (new ProcActualizacionLocalFactory), 
+		2 -> (new ProcAgregadoAccionesFactory),
+		3 -> (new ProcBajaPOIFactory),
+		4 -> (new ProcCompuestoFactory)
+	)
 
-	def ejecutarProceso(int i) {
+	def ejecutarProceso(int i,String nombreUsuario) {
 		val proceso = dictProcesos.get(i).crearProceso
-		proceso.ejecutar()
+		val historial = HistorialProcesos.instance
+		historial.agregarProceso(proceso.ejecutar(nombreUsuario))
 	}
-
+	
 }

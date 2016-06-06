@@ -81,7 +81,7 @@ class Terminal {
 
 	def seleccionarProceso(int numProceso){
 		if (autorizadoAEjecutarProcesos){
-			ejecutor.ejecutarProceso(numProceso)
+			ejecutor.ejecutarProceso(numProceso,this.nombreTerminal)
 		} else {
 			throw new AuthException("No autorizado a ejecutar proceso ")
 		}

@@ -1,26 +1,39 @@
 package procesos
 
+import java.util.List
+import repositoriosYAdaptadores.AdaptadorServicioExterno
 import repositoriosYAdaptadores.RepoPOI
-import builders.LocalComBuilder
+import repositoriosYAdaptadores.DatosProceso
+import org.joda.time.DateTime
+import repositoriosYAdaptadores.HistorialProcesos
+import java.io.IOException
 
 class ProcActualizacionLocal extends ProcSimple {
 	RepoPOI repositorio
-	String archivo
+	AdaptadorServicioExterno adaptadorArchivo
 
-	override ejecutar() {
-		val nombreLocal = archivo.split(";", 0).get(0)
-		val palabrasClave = archivo.split(";", 0).get(1)
-		val palabrasClaveSeparadas = palabrasClave.split(" ")
-		val pois = repositorio.search(nombreLocal)
-		if (pois.isEmpty) {
-			val builderLocal = new LocalComBuilder()
-			builderLocal => [
-				setNombre(nombreLocal)
-				setTags(palabrasClaveSeparadas)
-			]
-			repositorio.create(builderLocal.build())
-		} else {
-			pois.forEach[poi|poi.tags.addAll(palabrasClaveSeparadas)]
+	override ejecutar(String nombreUsuario) {
+
+		val tiempoEjecucion = DateTime.now
+		var DatosProceso resultado
+		try {
+			val archivoProcesado = adaptadorArchivo.procesarArchivoAct
+			archivoProcesado.forEach[nombreLocal, tags|procesarLinea(nombreLocal, tags)]
+			resultado = new DatosProceso(tiempoEjecucion, DateTime.now, "Actualización de locales comerciales",
+				nombreUsuario, "OK")
+		} catch (IOException e) {
+			resultado = new DatosProceso(tiempoEjecucion, DateTime.now, "Actualización de locales comerciales",
+				nombreUsuario, "ERROR","No pudo leerse correctamente el archivo")
+		} finally {
+			HistorialProcesos.instance.agregarProceso(resultado)
 		}
 	}
+
+	def procesarLinea(String nombreLocal, List<String> tags) {
+		val pois = repositorio.search(nombreLocal)
+		if (!pois.isEmpty) {
+			pois.forEach[poi|poi.tags = tags]
+		}
+	}
+
 }

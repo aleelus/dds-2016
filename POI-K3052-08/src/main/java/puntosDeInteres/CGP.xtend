@@ -32,7 +32,7 @@ class CGP extends POI {
 
 	/**Método que devuelve si un texto está presente en el nombre o en el nombre de los servicios.*/
 	override contieneTexto(String input) {
-		nombre.contains(input) || listaServicios.exists[servicio | servicio.contiene(input)] || super.contieneTextoEnTags(input)
+		(nombre.contains(input) || listaServicios.exists[servicio | servicio.contiene(input)] || super.contieneTextoEnTags(input)) && this.estaHabilitado
 	}
 
 	def buscarServicio(String nombre) {	
