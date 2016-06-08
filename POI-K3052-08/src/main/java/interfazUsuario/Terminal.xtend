@@ -11,6 +11,7 @@ import reportes.ReportePorTerminal
 import reportes.ReporteTotales
 import repositoriosYAdaptadores.RepoPOI
 import procesos.EjecutorProcesos
+import observers.ObserverBusqueda
 
 @Accessors
 @Observable
@@ -79,11 +80,11 @@ class Terminal {
 		}
 	}
 
-	def seleccionarProceso(int numProceso){
+	def seleccionarProcesoAEjecutar(int numProceso){
 		if (autorizadoAEjecutarProcesos){
-			ejecutor.ejecutarProceso(numProceso,this.nombreTerminal)
+			ejecutor.crearProceso(numProceso)
 		} else {
-			throw new AuthException("No autorizado a ejecutar proceso ")
+			throw new AuthException("No autorizado a crear proceso")
 		}
 	}
 	

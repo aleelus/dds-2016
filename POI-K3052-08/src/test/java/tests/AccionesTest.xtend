@@ -3,9 +3,7 @@ package tests
 import builders.CGPBuilder
 import builders.ListaServiciosBuilder
 import builders.LocalComBuilder
-import interfazUsuario.AdministradorObs
 import interfazUsuario.DatosBusqueda
-import interfazUsuario.HistorialObs
 import interfazUsuario.Terminal
 import java.util.ArrayList
 import org.joda.time.LocalDate
@@ -16,14 +14,16 @@ import org.junit.Test
 import org.uqbar.geodds.Point
 import puntosDeInteres.CGP
 import puntosDeInteres.LocalComercial
-import repositoriosYAdaptadores.AdaptadorMails
 import repositoriosYAdaptadores.Historial
-import repositoriosYAdaptadores.InterfazAdmin
 import repositoriosYAdaptadores.RepoPOI
 
 import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
 import interfazUsuario.Rol
+import observers.HistorialObs
+import observers.AdministradorObs
+import adaptadores.AdaptadorMails
+import adaptadores.InterfazAdmin
 
 class AccionesTest {
 	RepoPOI mapa

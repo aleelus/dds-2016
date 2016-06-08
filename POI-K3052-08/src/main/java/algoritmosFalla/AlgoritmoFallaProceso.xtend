@@ -1,5 +1,7 @@
 package algoritmosFalla
 
-interface AlgoritmoFallaProceso {
-	def void ejecutar()
+abstract class AlgoritmoFallaProceso {
+	def void ejecutar(){
+		
+	}
 }

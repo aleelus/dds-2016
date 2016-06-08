@@ -1,12 +1,12 @@
 package procesos
 
 import java.util.List
-import repositoriosYAdaptadores.AdaptadorServicioExterno
 import repositoriosYAdaptadores.RepoPOI
 import repositoriosYAdaptadores.DatosProceso
 import org.joda.time.DateTime
 import repositoriosYAdaptadores.HistorialProcesos
 import java.io.IOException
+import adaptadores.AdaptadorServicioExterno
 
 class ProcActualizacionLocal extends ProcSimple {
 	RepoPOI repositorio

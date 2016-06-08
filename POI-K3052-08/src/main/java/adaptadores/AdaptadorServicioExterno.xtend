@@ -1,4 +1,4 @@
-package repositoriosYAdaptadores
+package adaptadores
 
 import com.eclipsesource.json.JsonArray
 import com.eclipsesource.json.JsonValue
@@ -12,7 +12,7 @@ import puntosDeInteres.POI
 import puntosDeInteres.SucursalBanco
 
 @Accessors
-class AdaptadorServicioExterno implements OrigenDatos {
+class AdaptadorServicioExterno implements repositoriosYAdaptadores.OrigenDatos {
 
 	InterfazConsultaBancaria srvExtBanco
 	InterfazActLocales srvActLocales

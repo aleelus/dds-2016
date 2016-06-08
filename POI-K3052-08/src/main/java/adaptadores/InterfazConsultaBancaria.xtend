@@ -1,4 +1,4 @@
-package repositoriosYAdaptadores
+package adaptadores
 
 import com.eclipsesource.json.JsonArray
 

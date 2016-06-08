@@ -16,11 +16,11 @@ import puntosDeInteres.CGP
 import puntosDeInteres.LocalComercial
 import puntosDeInteres.ParadaColectivo
 import puntosDeInteres.SucursalBanco
-import repositoriosYAdaptadores.AdaptadorServicioExterno
-import repositoriosYAdaptadores.InterfazConsultaBancaria
 import repositoriosYAdaptadores.RepoPOI
 
 import static org.mockito.Mockito.*
+import adaptadores.AdaptadorServicioExterno
+import adaptadores.InterfazConsultaBancaria
 
 class BusquedaTest{
 	// Origen de datos

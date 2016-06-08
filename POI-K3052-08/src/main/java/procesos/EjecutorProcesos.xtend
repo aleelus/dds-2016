@@ -16,8 +16,11 @@ class EjecutorProcesos {
 		4 -> (new ProcCompuestoFactory)
 	)
 
-	def ejecutarProceso(int i,String nombreUsuario) {
-		val proceso = dictProcesos.get(i).crearProceso
+	def crearProceso(int i) {
+		dictProcesos.get(i).crearProceso
+	}
+	
+	def ejecutarProceso(Proceso proceso, String nombreUsuario){
 		val historial = HistorialProcesos.instance
 		historial.agregarProceso(proceso.ejecutar(nombreUsuario))
 	}

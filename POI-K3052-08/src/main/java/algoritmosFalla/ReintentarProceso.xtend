@@ -2,7 +2,7 @@ package algoritmosFalla
 
 import algoritmosFalla.AlgoritmoFallaProceso
 
-class ReintentarProceso implements AlgoritmoFallaProceso {
+class ReintentarProceso extends AlgoritmoFallaProceso {
 	
 	int cantidadReintentosMaximos
 	
