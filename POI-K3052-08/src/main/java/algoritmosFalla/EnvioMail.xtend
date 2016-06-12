@@ -1,13 +1,13 @@
 package algoritmosFalla
 
-import algoritmosFalla.AlgoritmoFallaProceso
-import interfazUsuario.Terminal
+import adaptadores.AdaptadorMails
+import procesos.Proceso
 
 class EnvioMail extends AlgoritmoFallaProceso {
-	Terminal usuario
+	AdaptadorMails servidorMails
 
-	override ejecutar() {
-		
+	override ejecutar(String usuario, Proceso proceso) {
+		servidorMails.enviarMailAAdmin(usuario)
 	}
 
 }

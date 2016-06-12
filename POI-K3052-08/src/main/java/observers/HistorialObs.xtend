@@ -1,6 +1,6 @@
 package observers
 
-import repositoriosYAdaptadores.Historial
+import repositorios.Historial
 
 class HistorialObs implements ObserverBusqueda {
 	

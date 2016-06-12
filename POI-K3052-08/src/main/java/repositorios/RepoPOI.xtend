@@ -1,4 +1,4 @@
-package repositoriosYAdaptadores
+package repositorios
 
 import java.util.ArrayList
 import java.util.List

@@ -1,7 +1,7 @@
 package reportes
 
 import java.util.stream.Collectors
-import repositoriosYAdaptadores.Historial
+import repositorios.Historial
 
 class ReportePorFecha {
 

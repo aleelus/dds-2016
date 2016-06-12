@@ -1,4 +1,4 @@
-package repositoriosYAdaptadores
+package repositorios
 
 import java.util.HashSet
 import java.util.Set

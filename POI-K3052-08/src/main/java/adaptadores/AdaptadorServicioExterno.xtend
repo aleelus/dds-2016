@@ -12,7 +12,7 @@ import puntosDeInteres.POI
 import puntosDeInteres.SucursalBanco
 
 @Accessors
-class AdaptadorServicioExterno implements repositoriosYAdaptadores.OrigenDatos {
+class AdaptadorServicioExterno implements repositorios.OrigenDatos {
 
 	InterfazConsultaBancaria srvExtBanco
 	InterfazActLocales srvActLocales

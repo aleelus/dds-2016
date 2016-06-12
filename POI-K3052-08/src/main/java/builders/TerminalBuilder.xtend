@@ -1,6 +1,6 @@
 package builders
 
-import repositoriosYAdaptadores.RepoPOI
+import repositorios.RepoPOI
 import interfazUsuario.Rol
 import interfazUsuario.Terminal
 

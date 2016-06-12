@@ -21,6 +21,14 @@ class AdaptadorMails {
 		}
 	}
 	
+	def enviarMailAAdmin(String nombre){
+		if(mailAdmin.recibirMail(nombre)){
+			emisoresMails.add(nombre)
+		} else {
+			throw new Exception("Error en envío de mail")
+		}
+	}
+	
 	def contieneMail(String nombreTerminal) {
 		emisoresMails.contains(nombreTerminal)
 	}
@@ -29,6 +37,8 @@ class AdaptadorMails {
 
 interface InterfazAdmin {
 	def boolean recibirMail(String terminal, long tiempoBusqueda)
+	
+	def boolean recibirMail(String terminal)
 	
 	def boolean comprobarMail(String string)
 }

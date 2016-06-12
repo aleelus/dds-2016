@@ -45,7 +45,7 @@ class POI extends Entity {
 
 	/**Método que verifica si un input está contenido en el nombre del POI */
 	def contieneTexto(String input) {
-		(nombre.contains(input) || contieneTextoEnTags(input)) && estaHabilitado
+		estaHabilitado && (nombre.contains(input) || contieneTextoEnTags(input)) 
 	}
 	
 	def estaHabilitado() {

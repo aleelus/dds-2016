@@ -3,25 +3,25 @@ package interfazUsuario
 import excepciones.AuthException
 import java.util.ArrayList
 import java.util.List
+import observers.ObserverBusqueda
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalDate
+import org.uqbar.commons.model.Entity
 import org.uqbar.commons.utils.Observable
 import reportes.ReportePorFecha
 import reportes.ReportePorTerminal
 import reportes.ReporteTotales
-import repositoriosYAdaptadores.RepoPOI
-import procesos.EjecutorProcesos
-import observers.ObserverBusqueda
+import repositorios.RepoPOI
+import procesos.Proceso
 
 @Accessors
 @Observable
-class Terminal {
+class Terminal extends Entity {
 
 	String nombreTerminal
 	RepoPOI repositorio
-	List<ObserverBusqueda> listaObserversBus = new ArrayList<ObserverBusqueda>
+	List<ObserverBusqueda> listaObservers = new ArrayList<ObserverBusqueda>
 	Rol rolTerminal
-	EjecutorProcesos ejecutor
 
 	new(String nombre, RepoPOI repo, Rol rol) {
 		super()
@@ -45,15 +45,15 @@ class Terminal {
 	}
 
 	def notificarObservadoresBusqueda(DatosBusqueda datos) {
-		listaObserversBus.forEach[observer|observer.update(this, datos)]
+		listaObservers.forEach[observer|observer.update(this, datos)]
 	}
 
-	def agregarObserverBus(ObserverBusqueda observer) {
-		listaObserversBus.add(observer)
+	def agregarObserver(ObserverBusqueda observer) {
+		listaObservers.add(observer)
 	}
 
 	def eliminarObserver(ObserverBusqueda observer) {
-		listaObserversBus.remove(observer)
+		listaObservers.remove(observer)
 	}
 
 	def generarReporteFecha() {
@@ -80,9 +80,9 @@ class Terminal {
 		}
 	}
 
-	def seleccionarProcesoAEjecutar(int numProceso){
+	def ejecutarProceso(Proceso proceso){
 		if (autorizadoAEjecutarProcesos){
-			ejecutor.crearProceso(numProceso)
+			proceso.ejecutar(this.nombreTerminal)
 		} else {
 			throw new AuthException("No autorizado a crear proceso")
 		}

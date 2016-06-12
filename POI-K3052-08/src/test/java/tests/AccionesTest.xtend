@@ -14,8 +14,6 @@ import org.junit.Test
 import org.uqbar.geodds.Point
 import puntosDeInteres.CGP
 import puntosDeInteres.LocalComercial
-import repositoriosYAdaptadores.Historial
-import repositoriosYAdaptadores.RepoPOI
 
 import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
@@ -24,6 +22,8 @@ import observers.HistorialObs
 import observers.AdministradorObs
 import adaptadores.AdaptadorMails
 import adaptadores.InterfazAdmin
+import repositorios.RepoPOI
+import repositorios.Historial
 
 class AccionesTest {
 	RepoPOI mapa
@@ -96,9 +96,9 @@ class AccionesTest {
 		observerNotificacion = new AdministradorObs(1, adaptadorMails)
 		when(mockMail.recibirMail(anyString, anyLong)).thenReturn(true)
 		observerHistorial = new HistorialObs()
-		terminalAbasto.agregarObserverBus(observerNotificacion)
-		terminalAbasto.agregarObserverBus(observerHistorial)
-		terminalCaballito.agregarObserverBus(observerHistorial)
+		terminalAbasto.agregarObserver(observerNotificacion)
+		terminalAbasto.agregarObserver(observerHistorial)
+		terminalCaballito.agregarObserver(observerHistorial)
 
 	}
 
