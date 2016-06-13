@@ -1,19 +1,17 @@
 package procesos
 
 import adaptadores.AdaptadorServicioExterno
+import algoritmosFalla.AlgoritmoFallaProceso
 import org.joda.time.DateTime
-import repositorios.RepoPOI
 import repositorios.DatosProceso
 import repositorios.HistorialProcesos
-import algoritmosFalla.AlgoritmoFallaProceso
-import interfazUsuario.Terminal
+import repositorios.RepoPOI
 
 class ProcBajaPoi extends ProcSimple {
 	RepoPOI repositorio
 	AdaptadorServicioExterno adaptadorREST
 	
-	new(Terminal terminal, AlgoritmoFallaProceso algoritmo) {
-		this.terminal = terminal
+	new(AlgoritmoFallaProceso algoritmo) {
 		this.algoritmoFalla = algoritmo
 	}
 

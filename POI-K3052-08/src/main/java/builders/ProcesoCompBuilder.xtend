@@ -2,7 +2,6 @@ package builders
 
 import algoritmosFalla.AlgoritmoFallaProceso
 import excepciones.ProcessException
-import interfazUsuario.Terminal
 import java.util.List
 import observers.ObserverBusqueda
 import procesos.ProcActualizacionLocal
@@ -18,18 +17,18 @@ class ProcesoCompBuilder {
 		procesoCompuesto = new ProcCompuesto()
 	}
 	
-	def agregarProcActualizacionLocales(Terminal terminal, AlgoritmoFallaProceso algoritmo){
-		procesoCompuesto.agregarProceso(new ProcActualizacionLocal(terminal, algoritmo))
+	def agregarProcActualizacionLocales(AlgoritmoFallaProceso algoritmo){
+		procesoCompuesto.agregarProceso(new ProcActualizacionLocal(algoritmo))
 		this
 	}
 	
-	def agregarProcBajaPoi(Terminal terminal, AlgoritmoFallaProceso algoritmo){
-		procesoCompuesto.agregarProceso(new ProcBajaPoi(terminal, algoritmo))
+	def agregarProcBajaPoi(AlgoritmoFallaProceso algoritmo){
+		procesoCompuesto.agregarProceso(new ProcBajaPoi(algoritmo))
 		this
 	}
 	
-	def agregarProcAgregadoAcciones(Terminal terminal, AlgoritmoFallaProceso algoritmo, List<ObserverBusqueda> acciones){
-		procesoCompuesto.agregarProceso(new ProcAgregadoAcciones(terminal,algoritmo, acciones))
+	def agregarProcAgregadoAcciones(AlgoritmoFallaProceso algoritmo, List<ObserverBusqueda> acciones){
+		procesoCompuesto.agregarProceso(new ProcAgregadoAcciones(algoritmo, acciones))
 		this
 	}
 	

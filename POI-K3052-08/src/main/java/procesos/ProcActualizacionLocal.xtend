@@ -1,21 +1,19 @@
 package procesos
 
 import adaptadores.AdaptadorServicioExterno
+import algoritmosFalla.AlgoritmoFallaProceso
 import java.io.IOException
 import java.util.List
 import org.joda.time.DateTime
-import repositorios.RepoPOI
 import repositorios.DatosProceso
 import repositorios.HistorialProcesos
-import algoritmosFalla.AlgoritmoFallaProceso
-import interfazUsuario.Terminal
+import repositorios.RepoPOI
 
 class ProcActualizacionLocal extends ProcSimple {
 	RepoPOI repositorio
 	AdaptadorServicioExterno adaptadorArchivo
 	
-	new(Terminal terminal, AlgoritmoFallaProceso algoritmo) {
-		this.terminal = terminal
+	new(AlgoritmoFallaProceso algoritmo) {
 		this.algoritmoFalla = algoritmo
 	}
 

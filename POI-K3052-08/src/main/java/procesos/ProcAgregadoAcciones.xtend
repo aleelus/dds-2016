@@ -1,22 +1,19 @@
 package procesos
 
-import procesos.ProcSimple
-import observers.ObserverBusqueda
-import java.util.List
-import repositorios.RepoUsuarios
-import repositorios.DatosProceso
-import org.joda.time.DateTime
-import repositorios.HistorialProcesos
 import algoritmosFalla.AlgoritmoFallaProceso
-import interfazUsuario.Terminal
+import java.util.List
+import observers.ObserverBusqueda
+import org.joda.time.DateTime
+import repositorios.DatosProceso
+import repositorios.HistorialProcesos
+import repositorios.RepoUsuarios
 
 class ProcAgregadoAcciones extends ProcSimple {
 	RepoUsuarios repositorioUsers
 	RepoUsuarios RepoBackup
 	List<ObserverBusqueda> acciones
 	
-	new(Terminal terminal, AlgoritmoFallaProceso algoritmo, List<ObserverBusqueda> acciones) {
-		this.terminal = terminal
+	new(AlgoritmoFallaProceso algoritmo, List<ObserverBusqueda> acciones) {
 		this.algoritmoFalla = algoritmo
 		this.acciones = acciones
 	}
