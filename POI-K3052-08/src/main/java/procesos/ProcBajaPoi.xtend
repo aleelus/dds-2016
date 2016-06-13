@@ -6,13 +6,17 @@ import org.joda.time.DateTime
 import repositorios.DatosProceso
 import repositorios.HistorialProcesos
 import repositorios.RepoPOI
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class ProcBajaPoi extends ProcSimple {
 	RepoPOI repositorio
 	AdaptadorServicioExterno adaptadorREST
 	
-	new(AlgoritmoFallaProceso algoritmo) {
+	new(AlgoritmoFallaProceso algoritmo, RepoPOI repoOrigen, AdaptadorServicioExterno srvExt) {
 		this.algoritmoFalla = algoritmo
+		this.repositorio = repoOrigen
+		this.adaptadorREST = srvExt
 	}
 
 	override ejecutar(String nombreUsuario) {

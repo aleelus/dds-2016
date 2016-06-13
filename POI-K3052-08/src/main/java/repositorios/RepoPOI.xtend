@@ -74,5 +74,9 @@ class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
 	def getCriterioPorNombre(String nombre) {
 		[POI punto|punto.nombre.equals(nombre)]
 	}
+	
+	def contiene(POI poi) {
+		allInstances.contains(poi)
+	}
 
 }

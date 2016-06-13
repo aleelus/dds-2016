@@ -3,6 +3,8 @@ package repositorios
 import java.util.ArrayList
 import java.util.List
 import org.joda.time.DateTime
+import interfazUsuario.Terminal
+import org.eclipse.xtend.lib.annotations.Accessors
 
 class HistorialProcesos {
 	List<DatosProceso> datosProceso = new ArrayList<DatosProceso>
@@ -26,8 +28,18 @@ class HistorialProcesos {
 		datosProceso.add(proceso)
 	}
 	
+	def contieneAOK(Terminal terminal) {
+		datosProceso.exists[resultado | resultado.resultado.equalsIgnoreCase("OK") && resultado.usuario.equals(terminal.nombreTerminal)]
+	}
+	
+	def contieneAEror(Terminal terminal) {
+		datosProceso.exists[resultado | resultado.resultado.equalsIgnoreCase("ERROR") && resultado.usuario.equals(terminal.nombreTerminal)]
+	}
+	
+	
 }
 
+@Accessors
 class DatosProceso {
 	DateTime tiempoEjecucion
 	DateTime tiempoFinalizacion

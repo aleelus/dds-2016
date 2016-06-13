@@ -2,17 +2,17 @@ package adaptadores
 
 import com.eclipsesource.json.JsonArray
 import com.eclipsesource.json.JsonValue
-import java.io.BufferedReader
-import java.io.FileReader
+import java.nio.file.Files
 import java.util.ArrayList
 import java.util.HashMap
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import puntosDeInteres.POI
 import puntosDeInteres.SucursalBanco
+import repositorios.OrigenDatos
 
 @Accessors
-class AdaptadorServicioExterno implements repositorios.OrigenDatos {
+class AdaptadorServicioExterno implements OrigenDatos {
 
 	InterfazConsultaBancaria srvExtBanco
 	InterfazActLocales srvActLocales
@@ -25,6 +25,11 @@ class AdaptadorServicioExterno implements repositorios.OrigenDatos {
 
 	new(InterfazConsultaBancaria srvExterno) {
 		this.srvExtBanco = srvExterno
+	}
+	
+	new(InterfazActLocales srvExt, InterfazREST srvREST){
+		this.srvActLocales = srvExt
+		this.srvBajaPOI=srvREST
 	}
 
 	// Métodos
@@ -61,18 +66,16 @@ class AdaptadorServicioExterno implements repositorios.OrigenDatos {
 	
 	def procesarArchivoAct() {
 		val archivo = srvActLocales.obtenerArchivo()
-		val fr = new FileReader(archivo)
-		val br = new BufferedReader(fr)
+		val reader = Files.newBufferedReader(archivo)
 		var String linea
 		val archivoProcesado = new HashMap<String,List<String>>()
-		while((linea = br.readLine)!= null){
+		while((linea = reader.readLine)!= null){
 			var lineaSeparada = linea.split(";", 0)
 			var nombreLocal= lineaSeparada.get(0)
 			var palabrasClave = lineaSeparada.get(1)
 			archivoProcesado.put(nombreLocal,palabrasClave.split(" "))
 		}
-		br.close
-		fr.close
+		reader.close
 		archivoProcesado
 	}
 	
@@ -80,7 +83,7 @@ class AdaptadorServicioExterno implements repositorios.OrigenDatos {
 		val resultado = srvBajaPOI.obtenerArchivoDeBajas()
 		val List<String> listaPOI = newArrayList()
 		for (JsonValue valor:resultado){
-			listaPOI.add(valor.asObject.getString("valor_busqueda",""))
+			listaPOI.add(valor.asObject.getString("val_bus",""))
 		}
 		listaPOI
 	}

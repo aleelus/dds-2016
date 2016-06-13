@@ -8,6 +8,8 @@ import procesos.ProcActualizacionLocal
 import procesos.ProcAgregadoAcciones
 import procesos.ProcBajaPoi
 import procesos.ProcCompuesto
+import repositorios.RepoPOI
+import adaptadores.AdaptadorServicioExterno
 
 class ProcesoCompBuilder {
 	ProcCompuesto procesoCompuesto
@@ -17,13 +19,13 @@ class ProcesoCompBuilder {
 		procesoCompuesto = new ProcCompuesto()
 	}
 	
-	def agregarProcActualizacionLocales(AlgoritmoFallaProceso algoritmo){
-		procesoCompuesto.agregarProceso(new ProcActualizacionLocal(algoritmo))
+	def agregarProcActualizacionLocales(AlgoritmoFallaProceso algoritmo, RepoPOI repoOrigen, AdaptadorServicioExterno srvExt){
+		procesoCompuesto.agregarProceso(new ProcActualizacionLocal(algoritmo, repoOrigen, srvExt))
 		this
 	}
 	
-	def agregarProcBajaPoi(AlgoritmoFallaProceso algoritmo){
-		procesoCompuesto.agregarProceso(new ProcBajaPoi(algoritmo))
+	def agregarProcBajaPoi(AlgoritmoFallaProceso algoritmo, RepoPOI repoOrigen, AdaptadorServicioExterno srvExt){
+		procesoCompuesto.agregarProceso(new ProcBajaPoi(algoritmo, repoOrigen, srvExt))
 		this
 	}
 	

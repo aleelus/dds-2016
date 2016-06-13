@@ -1,9 +1,9 @@
 package adaptadores
 
-import java.io.File
+import java.nio.file.Path
 
 interface InterfazActLocales {
 	
-	def File obtenerArchivo()
+	def Path obtenerArchivo()
 	
 }
