@@ -47,6 +47,10 @@ class HistorialProcesos {
 				resultado.proceso.equals(proceso.nombre)
 		]
 	}
+	
+	def limpiar() {
+		datosProceso.clear
+	}
 
 }
 

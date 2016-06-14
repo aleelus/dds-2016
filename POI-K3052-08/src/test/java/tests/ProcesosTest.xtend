@@ -26,6 +26,7 @@ import java.util.Arrays
 import java.util.List
 import observers.ObserverBusqueda
 import org.joda.time.DateTime
+import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -34,12 +35,12 @@ import procesos.ProcAgregadoAcciones
 import procesos.ProcBajaPoi
 import procesos.ProcCompuesto
 import puntosDeInteres.LocalComercial
+import repositorios.HistorialProcesos
 import repositorios.RepoPOI
 import repositorios.RepoUsuarios
 
 import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
-import repositorios.HistorialProcesos
 
 class ProcesosTest {
 	RepoPOI mapa
@@ -109,7 +110,7 @@ class ProcesosTest {
 		when(mockMail.recibirMail(anyString)).thenReturn(true)
 		srvMails = new AdaptadorMails(mockMail)
 		val algoritmoReenvio = new EnvioMail(srvMails)
-		val algoritmoReintento = new ReintentarProceso(1)
+		val algoritmoReintento = new ReintentarProceso(2)
 		val sinAlgoritmo = new AlgoritmoFallaProceso
 
 		// Interfaces correctas y fallidas
@@ -127,7 +128,7 @@ class ProcesosTest {
 
 		// Servidor funcional y fallido
 		srvExt = new AdaptadorServicioExterno(intActLoc, intRest)
-		srvExtFail = new AdaptadorServicioExterno(intActFallida, intRest)
+		srvExtFail = new AdaptadorServicioExterno(intActFallida, intRestFallida)
 
 		// Procesos simples
 		procesoActualizacionLocales = new ProcActualizacionLocal("Proceso actualizador de locales", algoritmoReenvio,
@@ -214,8 +215,10 @@ class ProcesosTest {
 	@Test
 	def ejecucionProcesoBajaPOIFail() {
 		procesoBajaPois.adaptadorREST = srvExtFail
+		val algoritmoReintento = mock(ReintentarProceso)
+		procesoBajaPois.algoritmoFalla = algoritmoReintento
 		terminalEjecutora.ejecutarProceso(procesoBajaPois)
-		// Ver como testear el reenvio del Proceso
+		verify(algoritmoReintento, times(1)).ejecutar(terminalEjecutora.nombreTerminal,procesoBajaPois)
 		procesoBajaPois.adaptadorREST = srvExt
 	}
 
@@ -231,6 +234,27 @@ class ProcesosTest {
 		terminalEjecutora.ejecutarProceso(procesoAgregadoAcciones)
 		procesoAgregadoAcciones.repositorioUsers = baseUsuarios
 		Assert.assertTrue(HistorialProcesos.instance.contieneErrorDeProceso(terminalEjecutora, procesoAgregadoAcciones))
+	}
+	
+	@Test
+	def ejecucionProcesoCompuesto(){
+		terminalEjecutora.ejecutarProceso(procesoCompuesto)
+		Assert.assertArrayEquals(localComercial.tags, newArrayList("comida", "urbana", "casera"))
+		Assert.assertFalse(localComercialABorrar.estaHabilitado)
+		Assert.assertTrue(baseUsuarios.chequearCantObservers(1))
+	}
+	
+	@Test
+	def deshacerEjecucion(){
+		terminalEjecutora.ejecutarProceso(procesoAgregadoAcciones)
+		terminalEjecutora.deshacerProcesoAcciones(procesoAgregadoAcciones)
+		Assert.assertTrue(baseUsuarios.chequearCantObservers(0))
+	}
+	
+	@After
+	def limpiarSingletons(){
+		HistorialProcesos.instance.limpiar
+		
 	}
 
 }

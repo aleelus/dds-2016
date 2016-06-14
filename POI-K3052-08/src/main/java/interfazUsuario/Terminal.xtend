@@ -13,10 +13,11 @@ import reportes.ReportePorTerminal
 import reportes.ReporteTotales
 import repositorios.RepoPOI
 import procesos.Proceso
+import procesos.ProcAgregadoAcciones
 
 @Accessors
 @Observable
-class Terminal extends Entity {
+class Terminal extends Entity{
 
 	String nombreTerminal
 	RepoPOI repositorio
@@ -83,6 +84,14 @@ class Terminal extends Entity {
 	def ejecutarProceso(Proceso proceso){
 		if (autorizadoAEjecutarProcesos){
 			proceso.ejecutar(this.nombreTerminal)
+		} else {
+			throw new AuthException("No autorizado a crear proceso")
+		}
+	}
+	
+	def deshacerProcesoAcciones(ProcAgregadoAcciones proceso){
+		if (autorizadoAEjecutarProcesos){
+			proceso.undo(this.nombreTerminal)
 		} else {
 			throw new AuthException("No autorizado a crear proceso")
 		}

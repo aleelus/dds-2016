@@ -1,11 +1,13 @@
 package repositorios
 
-import org.uqbar.commons.model.CollectionBasedRepo
 import interfazUsuario.Terminal
-import org.apache.commons.collections15.functors.AndPredicate
-import org.apache.commons.collections15.Predicate
 import observers.ObserverBusqueda
+import org.apache.commons.collections15.Predicate
+import org.apache.commons.collections15.functors.AndPredicate
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.CollectionBasedRepo
 
+@Accessors
 class RepoUsuarios extends CollectionBasedRepo<Terminal> implements Cloneable {
 
 	override protected Predicate<Terminal> getCriterio(Terminal terminal) {
@@ -32,12 +34,12 @@ class RepoUsuarios extends CollectionBasedRepo<Terminal> implements Cloneable {
 		typeof(Terminal)
 	}
 
-	def agregarAccionATodos(ObserverBusqueda observer) {
+	def void agregarAccionATodos(ObserverBusqueda observer) {
 		allInstances.forEach[user|user.agregarObserver(observer)]
 	}
 
 	override clone() throws CloneNotSupportedException {
-		super.clone()
+		super.clone as RepoUsuarios
 	}
 
 	def chequearCantObservers(int i) { 
