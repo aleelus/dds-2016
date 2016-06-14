@@ -9,6 +9,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 abstract class ProcSimple implements Proceso {
 
 AlgoritmoFallaProceso algoritmoFalla
+String nombre
 
 		
 	override ejecutar(String nombreUsuario) {

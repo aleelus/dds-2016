@@ -13,7 +13,8 @@ class ProcBajaPoi extends ProcSimple {
 	RepoPOI repositorio
 	AdaptadorServicioExterno adaptadorREST
 	
-	new(AlgoritmoFallaProceso algoritmo, RepoPOI repoOrigen, AdaptadorServicioExterno srvExt) {
+	new(String nomProceso, AlgoritmoFallaProceso algoritmo, RepoPOI repoOrigen, AdaptadorServicioExterno srvExt) {
+		this.nombre = nomProceso
 		this.algoritmoFalla = algoritmo
 		this.repositorio = repoOrigen
 		this.adaptadorREST = srvExt
@@ -25,10 +26,10 @@ class ProcBajaPoi extends ProcSimple {
 			val listaPOIs = adaptadorREST.obtenerPOIAEliminar()
 			listaPOIs.forEach[valorPoi|repositorio.search(valorPoi).forEach[poi|poi.inhabilitar]]
 			HistorialProcesos.instance.agregarProceso(
-				new DatosProceso(tiempoEjecucion, DateTime.now, "Baja de puntos de interés", nombreUsuario, "OK"))
+				new DatosProceso(tiempoEjecucion, DateTime.now, nombre, nombreUsuario, "OK"))
 		} catch (ClassCastException e) {
 			HistorialProcesos.instance.agregarProceso(
-				new DatosProceso(tiempoEjecucion, DateTime.now, "Baja de puntos de interés", nombreUsuario, "ERROR",
+				new DatosProceso(tiempoEjecucion, DateTime.now, nombre, nombreUsuario, "ERROR",
 					"Error en el archivo JSON"))
 			algoritmoFalla.ejecutar(nombreUsuario, this)
 		}

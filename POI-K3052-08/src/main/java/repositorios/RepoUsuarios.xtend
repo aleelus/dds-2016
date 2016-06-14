@@ -35,10 +35,13 @@ class RepoUsuarios extends CollectionBasedRepo<Terminal> implements Cloneable {
 	def agregarAccionATodos(ObserverBusqueda observer) {
 		allInstances.forEach[user|user.agregarObserver(observer)]
 	}
-	
+
 	override clone() throws CloneNotSupportedException {
 		super.clone()
 	}
-	
+
+	def chequearCantObservers(int i) { 
+		allInstances.forall[usuario|usuario.tieneCantObservers(i)]
+	}
 
 }

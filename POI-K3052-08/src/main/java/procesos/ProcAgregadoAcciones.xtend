@@ -7,13 +7,16 @@ import org.joda.time.DateTime
 import repositorios.DatosProceso
 import repositorios.HistorialProcesos
 import repositorios.RepoUsuarios
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class ProcAgregadoAcciones extends ProcSimple {
 	RepoUsuarios repositorioUsers
 	RepoUsuarios RepoBackup
 	List<ObserverBusqueda> acciones
 	
-	new(AlgoritmoFallaProceso algoritmo, List<ObserverBusqueda> acciones, RepoUsuarios bdUsuarios) {
+	new(String nombreVector, AlgoritmoFallaProceso algoritmo, List<ObserverBusqueda> acciones, RepoUsuarios bdUsuarios) {
+		this.nombre = nombreVector
 		this.algoritmoFalla = algoritmo
 		this.acciones = acciones
 		this.repositorioUsers = bdUsuarios
@@ -21,14 +24,14 @@ class ProcAgregadoAcciones extends ProcSimple {
 
 	override ejecutar(String nombreUsuario) {
 		var tiempoEjecucion = DateTime.now
-		RepoBackup = repositorioUsers.clone() as RepoUsuarios
 		try {
+			RepoBackup = repositorioUsers.clone() as RepoUsuarios
 			acciones.forEach[accion|repositorioUsers.agregarAccionATodos(accion)]
 			HistorialProcesos.instance.agregarProceso(
-				new DatosProceso(tiempoEjecucion, DateTime.now, "Adición masiva de acciones", nombreUsuario, "OK"))
+				new DatosProceso(tiempoEjecucion, DateTime.now, nombre, nombreUsuario, "OK"))
 		} catch (CloneNotSupportedException e) {
 			HistorialProcesos.instance.agregarProceso(
-				new DatosProceso(tiempoEjecucion, DateTime.now, "Adición masiva de acciones", nombreUsuario, "ERROR",
+				new DatosProceso(tiempoEjecucion, DateTime.now, nombre, nombreUsuario, "ERROR",
 					"Error al hacer copia de respaldo"))
 			algoritmoFalla.ejecutar(nombreUsuario, this)
 		}

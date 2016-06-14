@@ -99,5 +99,9 @@ class Terminal extends Entity {
 	def autorizadoAEmitirReportes() {
 		rolTerminal.estaAutorizadoAEmitirReportes()
 	}
+	
+	def tieneCantObservers(int i) {
+		listaObservers.size.equals(i)
+	}
 
 }

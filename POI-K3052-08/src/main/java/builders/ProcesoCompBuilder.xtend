@@ -20,18 +20,18 @@ class ProcesoCompBuilder {
 		procesoCompuesto = new ProcCompuesto()
 	}
 	
-	def agregarProcActualizacionLocales(AlgoritmoFallaProceso algoritmo, RepoPOI repoOrigen, AdaptadorServicioExterno srvExt){
-		procesoCompuesto.agregarProceso(new ProcActualizacionLocal(algoritmo, repoOrigen, srvExt))
+	def agregarProcActualizacionLocales(String nombre,AlgoritmoFallaProceso algoritmo, RepoPOI repoOrigen, AdaptadorServicioExterno srvExt){
+		procesoCompuesto.agregarProceso(new ProcActualizacionLocal(nombre,algoritmo, repoOrigen, srvExt))
 		this
 	}
 	
-	def agregarProcBajaPoi(AlgoritmoFallaProceso algoritmo, RepoPOI repoOrigen, AdaptadorServicioExterno srvExt){
-		procesoCompuesto.agregarProceso(new ProcBajaPoi(algoritmo, repoOrigen, srvExt))
+	def agregarProcBajaPoi(String nombre,AlgoritmoFallaProceso algoritmo, RepoPOI repoOrigen, AdaptadorServicioExterno srvExt){
+		procesoCompuesto.agregarProceso(new ProcBajaPoi(nombre,algoritmo, repoOrigen, srvExt))
 		this
 	}
 	
-	def agregarProcAgregadoAcciones(AlgoritmoFallaProceso algoritmo, List<ObserverBusqueda> acciones, RepoUsuarios bdUsuarios){
-		procesoCompuesto.agregarProceso(new ProcAgregadoAcciones(algoritmo, acciones, bdUsuarios))
+	def agregarProcAgregadoAcciones(String nombre,AlgoritmoFallaProceso algoritmo, List<ObserverBusqueda> acciones, RepoUsuarios bdUsuarios){
+		procesoCompuesto.agregarProceso(new ProcAgregadoAcciones(nombre,algoritmo, acciones, bdUsuarios))
 		this
 	}
 	

@@ -127,7 +127,7 @@ class AccionesTest {
 
 	@Test
 	def terminalAutorizadaAEnviarMailsSinAviso() {
-		observerNotificacion.actualizarTiempo(1000)
+		observerNotificacion.actualizarTiempo(10000)
 		terminalAbasto.search("Flores")
 		Assert.assertFalse(adaptadorMails.contieneMail(terminalAbasto.nombreTerminal))
 	}

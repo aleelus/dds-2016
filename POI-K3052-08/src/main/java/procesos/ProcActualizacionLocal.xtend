@@ -15,7 +15,8 @@ class ProcActualizacionLocal extends ProcSimple {
 	RepoPOI repositorio
 	AdaptadorServicioExterno adaptadorArchivo
 	
-	new(AlgoritmoFallaProceso algoritmo, RepoPOI repoOrigen, AdaptadorServicioExterno srvExt) {
+	new(String nombre,AlgoritmoFallaProceso algoritmo, RepoPOI repoOrigen, AdaptadorServicioExterno srvExt) {
+		this.nombre = nombre
 		this.algoritmoFalla = algoritmo
 		this.repositorio = repoOrigen
 		this.adaptadorArchivo = srvExt
@@ -28,11 +29,11 @@ class ProcActualizacionLocal extends ProcSimple {
 			val archivoProcesado = adaptadorArchivo.procesarArchivoAct
 			archivoProcesado.forEach[nombreLocal, tags|procesarLinea(nombreLocal, tags)]
 			HistorialProcesos.instance.agregarProceso(
-				new DatosProceso(tiempoEjecucion, DateTime.now, "Actualización de locales comerciales", nombreUsuario,
+				new DatosProceso(tiempoEjecucion, DateTime.now, nombre, nombreUsuario,
 					"OK"))
 		} catch (IOException e) {
 			HistorialProcesos.instance.agregarProceso(
-				new DatosProceso(tiempoEjecucion, DateTime.now, "Actualización de locales comerciales", nombreUsuario,
+				new DatosProceso(tiempoEjecucion, DateTime.now, nombre, nombreUsuario,
 					"ERROR", "No pudo leerse correctamente el archivo"))
 			algoritmoFalla.ejecutar(nombreUsuario, this)
 		}
