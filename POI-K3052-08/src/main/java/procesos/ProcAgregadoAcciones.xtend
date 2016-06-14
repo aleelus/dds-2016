@@ -13,9 +13,10 @@ class ProcAgregadoAcciones extends ProcSimple {
 	RepoUsuarios RepoBackup
 	List<ObserverBusqueda> acciones
 	
-	new(AlgoritmoFallaProceso algoritmo, List<ObserverBusqueda> acciones) {
+	new(AlgoritmoFallaProceso algoritmo, List<ObserverBusqueda> acciones, RepoUsuarios bdUsuarios) {
 		this.algoritmoFalla = algoritmo
 		this.acciones = acciones
+		this.repositorioUsers = bdUsuarios
 	}
 
 	override ejecutar(String nombreUsuario) {

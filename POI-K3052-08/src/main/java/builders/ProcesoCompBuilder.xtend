@@ -10,6 +10,7 @@ import procesos.ProcBajaPoi
 import procesos.ProcCompuesto
 import repositorios.RepoPOI
 import adaptadores.AdaptadorServicioExterno
+import repositorios.RepoUsuarios
 
 class ProcesoCompBuilder {
 	ProcCompuesto procesoCompuesto
@@ -29,8 +30,8 @@ class ProcesoCompBuilder {
 		this
 	}
 	
-	def agregarProcAgregadoAcciones(AlgoritmoFallaProceso algoritmo, List<ObserverBusqueda> acciones){
-		procesoCompuesto.agregarProceso(new ProcAgregadoAcciones(algoritmo, acciones))
+	def agregarProcAgregadoAcciones(AlgoritmoFallaProceso algoritmo, List<ObserverBusqueda> acciones, RepoUsuarios bdUsuarios){
+		procesoCompuesto.agregarProceso(new ProcAgregadoAcciones(algoritmo, acciones, bdUsuarios))
 		this
 	}
 	

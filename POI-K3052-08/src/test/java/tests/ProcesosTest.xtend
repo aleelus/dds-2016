@@ -99,7 +99,9 @@ class ProcesosTest {
 		
 		//Creación de terminales
 		terminalEjecutora = new Terminal("abasto", mapa, rolAdmin)
+		baseUsuarios.create(terminalEjecutora)
 		terminalNoEjecutora = new Terminal("caballito", mapa, rolConsulta)
+		baseUsuarios.create(terminalNoEjecutora)
 		
 		//Algoritmos de falla
 		val InterfazAdmin mockMail = mock(InterfazAdmin)
@@ -128,13 +130,13 @@ class ProcesosTest {
 		//Procesos simples
 		procesoActualizacionLocales = new ProcActualizacionLocal(algoritmoReenvio, mapa, srvExt)
 		val listaObservers = newArrayList(mock(ObserverBusqueda))
-		procesoAgregadoAcciones = new ProcAgregadoAcciones(algoritmoReintento, listaObservers)
+		procesoAgregadoAcciones = new ProcAgregadoAcciones(algoritmoReintento, listaObservers, baseUsuarios)
 		procesoBajaPois = new ProcBajaPoi(sinAlgoritmo, mapa, srvExt)
 		
 		//Proceso compuesto
 		val builderProc = new ProcesoCompBuilder =>[
 			agregarProcActualizacionLocales(sinAlgoritmo, mapa, srvExt)
-			agregarProcAgregadoAcciones(algoritmoReenvio,listaObservers)
+			agregarProcAgregadoAcciones(algoritmoReenvio,listaObservers, baseUsuarios)
 			agregarProcBajaPoi(algoritmoReintento, mapa, srvExt)
 		]
 		procesoCompuesto = builderProc.build
@@ -206,7 +208,14 @@ class ProcesosTest {
 	def ejecucionProcesoBajaPOIFail(){
 		procesoBajaPois.adaptadorREST = srvExtFail
 		terminalEjecutora.ejecutarProceso(procesoBajaPois)
+		//Ver como testear el reenvio del Proceso
 		procesoBajaPois.adaptadorREST = srvExt
+	}
+	
+	@Test
+	def ejecuccionProcesoAgregadoAcciones(){
+		terminalEjecutora.ejecutarProceso(procesoAgregadoAcciones)
+		Assert.assertTrue(baseUsuarios.allInstances.forall[usuario| usuario.listaObservers.size.equals(1)])
 	}
 	
 	
