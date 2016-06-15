@@ -6,9 +6,10 @@ import org.apache.commons.collections15.Predicate
 import org.apache.commons.collections15.functors.AndPredicate
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.CollectionBasedRepo
+import java.util.ArrayList
 
 @Accessors
-class RepoUsuarios extends CollectionBasedRepo<Terminal> implements Cloneable {
+class RepoUsuarios extends CollectionBasedRepo<Terminal> {
 
 	override protected Predicate<Terminal> getCriterio(Terminal terminal) {
 		var resultado = this.criterioTodas
@@ -38,16 +39,20 @@ class RepoUsuarios extends CollectionBasedRepo<Terminal> implements Cloneable {
 		allInstances.forEach[user|user.agregarObserver(observer)]
 	}
 
-	override clone() throws CloneNotSupportedException {
-		super.clone as RepoUsuarios
-	}
-
-	def chequearCantObservers(int i) { 
+	def chequearCantObservers(int i) {
 		allInstances.forall[usuario|usuario.tieneCantObservers(i)]
 	}
-	
+
 	def quitarAccionATodos(ObserverBusqueda observer) {
 		allInstances.forEach[user|user.eliminarObserver(observer)]
+	}
+
+	def clonar() throws CloneNotSupportedException{
+		val repoCopia = new RepoUsuarios
+		val listaTerminales = new ArrayList<Terminal>
+		allInstances.forEach[terminal|listaTerminales.add(new Terminal(terminal))]
+		listaTerminales.forEach[terminal|repoCopia.create(terminal)]
+		repoCopia
 	}
 
 }

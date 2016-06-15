@@ -34,6 +34,14 @@ class Terminal extends Entity{
 	new() {
 		super()
 	}
+	
+	new(Terminal terminal) {
+		this()
+		this.rolTerminal = terminal.rolTerminal
+		this.nombreTerminal = terminal.nombreTerminal
+		this.repositorio = terminal.repositorio
+		this.listaObservers = terminal.listaObservers
+	}
 
 	def search(String input) {
 		val tiempoInicial = System.nanoTime()

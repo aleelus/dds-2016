@@ -56,8 +56,7 @@ class ProcesosTest {
 	AdaptadorServicioExterno srvExtFail
 	AdaptadorMails srvMails
 	LocalComercial localComercialABorrar
-	List<ObserverBusqueda> accionesMalas
-	ProcAgregadoAcciones procesoAgregadoAccionesRotas
+//	ProcAgregadoAcciones procesoAgregadoAccionesRotas
 
 	@Before
 	def void setUp() {
@@ -232,14 +231,14 @@ class ProcesosTest {
 		Assert.assertTrue(baseUsuarios.chequearCantObservers(1))
 	}
 
-	//@Test
+	@Test
 	def ejecucionProcesoAgregadoAccionesFail() {
-		accionesMalas = mock(ArrayList)
-		doThrow(CloneNotSupportedException).when(accionesMalas).clone
-		procesoAgregadoAcciones.acciones = accionesMalas
+		val baseUsuariosRota = mock(RepoUsuarios)
+		doThrow(CloneNotSupportedException).when(baseUsuariosRota).clonar
+		procesoAgregadoAcciones.repositorioUsers = baseUsuariosRota
 		terminalEjecutora.ejecutarProceso(procesoAgregadoAcciones)
 		Assert.assertTrue(
-			HistorialProcesos.instance.contieneErrorDeProceso(terminalEjecutora, procesoAgregadoAccionesRotas))
+			HistorialProcesos.instance.contieneErrorDeProceso(terminalEjecutora, procesoAgregadoAcciones))
 	}
 
 	@Test
