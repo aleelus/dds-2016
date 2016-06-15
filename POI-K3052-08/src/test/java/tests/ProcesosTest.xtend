@@ -56,8 +56,8 @@ class ProcesosTest {
 	AdaptadorServicioExterno srvExtFail
 	AdaptadorMails srvMails
 	LocalComercial localComercialABorrar
-
-	RepoUsuarios baseRotaUsuarios
+	List<ObserverBusqueda> accionesMalas
+	ProcAgregadoAcciones procesoAgregadoAccionesRotas
 
 	@Before
 	def void setUp() {
@@ -65,7 +65,6 @@ class ProcesosTest {
 		// Repositorios
 		mapa = new RepoPOI
 		baseUsuarios = new RepoUsuarios
-		baseRotaUsuarios = mock(RepoUsuarios)
 
 		// Carga del repositorio
 		val LocalComBuilder builderLocal = new LocalComBuilder()
@@ -120,11 +119,15 @@ class ProcesosTest {
 		val intActFallida = mock(InterfazActLocales)
 
 		// Mockeo de interfaces 
+		val listaObservers = newArrayList(mock(ObserverBusqueda))
+//		val mockObserver = mock(ObserverBusqueda)
+//		when(mockObserver.clone()).thenThrow(CloneNotSupportedException)
+//		val listaObserversRotos = newArrayList(mockObserver)
 		when(intRest.obtenerArchivoDeBajas).thenReturn(newArrayList("José", "Marcos").convertirAJSON)
 		when(intRestFallida.obtenerArchivoDeBajas).thenThrow(ClassCastException)
 		when(intActLoc.obtenerArchivo).thenReturn(crearArchivoPruebaCorrecto())
 		when(intActFallida.obtenerArchivo).thenThrow(IOException)
-		when(baseRotaUsuarios.clone).thenThrow(CloneNotSupportedException)
+		
 
 		// Servidor funcional y fallido
 		srvExt = new AdaptadorServicioExterno(intActLoc, intRest)
@@ -133,9 +136,10 @@ class ProcesosTest {
 		// Procesos simples
 		procesoActualizacionLocales = new ProcActualizacionLocal("Proceso actualizador de locales", algoritmoReenvio,
 			mapa, srvExt)
-		val listaObservers = newArrayList(mock(ObserverBusqueda))
 		procesoAgregadoAcciones = new ProcAgregadoAcciones("Proceso de adición de locales", algoritmoReintento,
 			listaObservers, baseUsuarios)
+//		procesoAgregadoAccionesRotas = new ProcAgregadoAcciones("Proceso de adición de locales", algoritmoReintento,
+//			listaObserversRotos, baseUsuarios)
 		procesoBajaPois = new ProcBajaPoi("Proceso de baja de POI", sinAlgoritmo, mapa, srvExt)
 
 		// Proceso compuesto
@@ -218,7 +222,7 @@ class ProcesosTest {
 		val algoritmoReintento = mock(ReintentarProceso)
 		procesoBajaPois.algoritmoFalla = algoritmoReintento
 		terminalEjecutora.ejecutarProceso(procesoBajaPois)
-		verify(algoritmoReintento, times(1)).ejecutar(terminalEjecutora.nombreTerminal,procesoBajaPois)
+		verify(algoritmoReintento, times(1)).ejecutar(terminalEjecutora.nombreTerminal, procesoBajaPois)
 		procesoBajaPois.adaptadorREST = srvExt
 	}
 
@@ -230,31 +234,32 @@ class ProcesosTest {
 
 	@Test
 	def ejecucionProcesoAgregadoAccionesFail() {
-		procesoAgregadoAcciones.repositorioUsers = baseRotaUsuarios
+		accionesMalas = mock(ArrayList)
+		doThrow(CloneNotSupportedException).when(accionesMalas).clone
+		procesoAgregadoAcciones.acciones = accionesMalas
 		terminalEjecutora.ejecutarProceso(procesoAgregadoAcciones)
-		procesoAgregadoAcciones.repositorioUsers = baseUsuarios
-		Assert.assertTrue(HistorialProcesos.instance.contieneErrorDeProceso(terminalEjecutora, procesoAgregadoAcciones))
+		Assert.assertTrue(
+			HistorialProcesos.instance.contieneErrorDeProceso(terminalEjecutora, procesoAgregadoAccionesRotas))
 	}
-	
+
 	@Test
-	def ejecucionProcesoCompuesto(){
+	def ejecucionProcesoCompuesto() {
 		terminalEjecutora.ejecutarProceso(procesoCompuesto)
 		Assert.assertArrayEquals(localComercial.tags, newArrayList("comida", "urbana", "casera"))
 		Assert.assertFalse(localComercialABorrar.estaHabilitado)
 		Assert.assertTrue(baseUsuarios.chequearCantObservers(1))
 	}
-	
+
 	@Test
-	def deshacerEjecucion(){
+	def deshacerEjecucion() {
 		terminalEjecutora.ejecutarProceso(procesoAgregadoAcciones)
 		terminalEjecutora.deshacerProcesoAcciones(procesoAgregadoAcciones)
 		Assert.assertTrue(baseUsuarios.chequearCantObservers(0))
 	}
-	
+
 	@After
-	def limpiarSingletons(){
+	def limpiarSingletons() {
 		HistorialProcesos.instance.limpiar
-		
 	}
 
 }

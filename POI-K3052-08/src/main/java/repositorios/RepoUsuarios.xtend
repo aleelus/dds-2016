@@ -45,5 +45,9 @@ class RepoUsuarios extends CollectionBasedRepo<Terminal> implements Cloneable {
 	def chequearCantObservers(int i) { 
 		allInstances.forall[usuario|usuario.tieneCantObservers(i)]
 	}
+	
+	def quitarAccionATodos(ObserverBusqueda observer) {
+		allInstances.forEach[user|user.eliminarObserver(observer)]
+	}
 
 }

@@ -1,6 +1,9 @@
 package observers
 
+import interfazUsuario.DatosBusqueda
+import interfazUsuario.Terminal
+
 interface ObserverBusqueda{
 	
-	def void update(interfazUsuario.Terminal terminal,interfazUsuario.DatosBusqueda datos)
+	def void update(Terminal terminal,DatosBusqueda datos)
 }

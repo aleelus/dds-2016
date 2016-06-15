@@ -12,10 +12,11 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 class ProcAgregadoAcciones extends ProcSimple {
 	RepoUsuarios repositorioUsers
-	RepoUsuarios RepoBackup
 	List<ObserverBusqueda> acciones
-	
-	new(String nombreVector, AlgoritmoFallaProceso algoritmo, List<ObserverBusqueda> acciones, RepoUsuarios bdUsuarios) {
+	List<ObserverBusqueda> ultimasAcciones
+
+	new(String nombreVector, AlgoritmoFallaProceso algoritmo, List<ObserverBusqueda> acciones,
+		RepoUsuarios bdUsuarios) {
 		this.nombre = nombreVector
 		this.algoritmoFalla = algoritmo
 		this.acciones = acciones
@@ -25,7 +26,7 @@ class ProcAgregadoAcciones extends ProcSimple {
 	override ejecutar(String nombreUsuario) {
 		var tiempoEjecucion = DateTime.now
 		try {
-			RepoBackup = repositorioUsers.clone() as RepoUsuarios
+			ultimasAcciones = acciones.clone
 			acciones.forEach[accion|repositorioUsers.agregarAccionATodos(accion)]
 			HistorialProcesos.instance.agregarProceso(
 				new DatosProceso(tiempoEjecucion, DateTime.now, nombre, nombreUsuario, "OK"))
@@ -37,9 +38,11 @@ class ProcAgregadoAcciones extends ProcSimple {
 		}
 	}
 
-	def undo(String nombreUsuario) {
+	def void undo(String nombreUsuario) {
 		var tiempoEjecucion = DateTime.now
-		repositorioUsers = RepoBackup
-		new DatosProceso(tiempoEjecucion, DateTime.now, "Recuperación de Repositorio de usuarios", nombreUsuario, "OK")
+		acciones.forEach[accion|repositorioUsers.quitarAccionATodos(accion)]
+		HistorialProcesos.instance.añadirProceso(
+			new DatosProceso(tiempoEjecucion, DateTime.now, "Recuperación de Repositorio de usuarios", nombreUsuario,
+				"OK"))
 	}
 }
