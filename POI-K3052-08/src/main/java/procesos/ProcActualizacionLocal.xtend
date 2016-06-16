@@ -9,6 +9,7 @@ import repositorios.DatosProceso
 import repositorios.HistorialProcesos
 import repositorios.RepoPOI
 import org.eclipse.xtend.lib.annotations.Accessors
+import repositorios.ResultadoProceso
 
 @Accessors
 class ProcActualizacionLocal extends ProcSimple {
@@ -22,7 +23,7 @@ class ProcActualizacionLocal extends ProcSimple {
 		this.adaptadorArchivo = srvExt
 	}
 
-	override ejecutar(String nombreUsuario) {
+	override ejecutarProceso(String nombreUsuario) {
 
 		val tiempoEjecucion = DateTime.now
 		try {
@@ -30,12 +31,12 @@ class ProcActualizacionLocal extends ProcSimple {
 			archivoProcesado.forEach[nombreLocal, tags|procesarLinea(nombreLocal, tags)]
 			HistorialProcesos.instance.agregarProceso(
 				new DatosProceso(tiempoEjecucion, DateTime.now, nombre, nombreUsuario,
-					"OK"))
+					ResultadoProceso.OK))
 		} catch (IOException e) {
 			HistorialProcesos.instance.agregarProceso(
 				new DatosProceso(tiempoEjecucion, DateTime.now, nombre, nombreUsuario,
-					"ERROR", "No pudo leerse correctamente el archivo"))
-			algoritmoFalla.ejecutar(nombreUsuario, this)
+					ResultadoProceso.ERROR, "No pudo leerse correctamente el archivo"))
+			algoritmoFalla.procesarFalla(nombreUsuario, this)
 		}
 	}
 

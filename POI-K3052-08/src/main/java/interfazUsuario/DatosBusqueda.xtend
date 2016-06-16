@@ -5,9 +5,10 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalDate
 import puntosDeInteres.POI
 import java.util.ArrayList
+import org.uqbar.commons.model.Entity
 
 @Accessors
-class DatosBusqueda{
+class DatosBusqueda extends Entity{
 
 	String nombreTerminal
 	long tiempoBusqueda //en microsegundos

@@ -23,7 +23,7 @@ import observers.AdministradorObs
 import adaptadores.AdaptadorMails
 import adaptadores.InterfazAdmin
 import repositorios.RepoPOI
-import repositorios.Historial
+import repositorios.HistorialBusquedas
 
 class AccionesTest {
 	RepoPOI mapa
@@ -39,11 +39,11 @@ class AccionesTest {
 	@BeforeClass
 	def static void setUpClase() {
 		// Carga historial
-		Historial.instance.agregar(new DatosBusqueda("Caballito", new LocalDate(2016, 05, 15), 1, 5, new ArrayList))
-		Historial.instance.agregar(new DatosBusqueda("Abasto", new LocalDate(2016, 05, 15), 2, 10, new ArrayList))
-		Historial.instance.agregar(new DatosBusqueda("Caballito", new LocalDate(2016, 05, 16), 3, 3, new ArrayList))
-		Historial.instance.agregar(new DatosBusqueda("Abasto", new LocalDate(2016, 05, 16), 8, 8, new ArrayList))
-		Historial.instance.agregar(new DatosBusqueda("Caballito", new LocalDate(2016, 05, 17), 0, 4, new ArrayList))
+		HistorialBusquedas.instance.agregar(new DatosBusqueda("Caballito", new LocalDate(2016, 05, 15), 1, 5, new ArrayList))
+		HistorialBusquedas.instance.agregar(new DatosBusqueda("Abasto", new LocalDate(2016, 05, 15), 2, 10, new ArrayList))
+		HistorialBusquedas.instance.agregar(new DatosBusqueda("Caballito", new LocalDate(2016, 05, 16), 3, 3, new ArrayList))
+		HistorialBusquedas.instance.agregar(new DatosBusqueda("Abasto", new LocalDate(2016, 05, 16), 8, 8, new ArrayList))
+		HistorialBusquedas.instance.agregar(new DatosBusqueda("Caballito", new LocalDate(2016, 05, 17), 0, 4, new ArrayList))
 	}
 
 	@Before
@@ -105,7 +105,7 @@ class AccionesTest {
 	@Test
 	def busquedaGuardadaEnHistorial() {
 		terminalAbasto.search("Flores")
-		Assert.assertTrue(Historial.instance.contieneA(cgp))
+		Assert.assertTrue(HistorialBusquedas.instance.contieneA(cgp))
 	}
 
 	@Test(expected=Exception)

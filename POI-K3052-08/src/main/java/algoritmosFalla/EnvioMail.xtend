@@ -3,7 +3,7 @@ package algoritmosFalla
 import adaptadores.AdaptadorMails
 import procesos.Proceso
 
-class EnvioMail extends AlgoritmoFallaProceso {
+class EnvioMail implements AlgoritmoFallaProceso {
 	AdaptadorMails servidorMails
 	
 	new(AdaptadorMails srvMails){
@@ -11,7 +11,7 @@ class EnvioMail extends AlgoritmoFallaProceso {
 		servidorMails = srvMails
 	}
 
-	override ejecutar(String usuario, Proceso proceso) {
+	override procesarFalla(String usuario, Proceso proceso) {
 		servidorMails.enviarMailAAdmin(usuario)
 	}
 

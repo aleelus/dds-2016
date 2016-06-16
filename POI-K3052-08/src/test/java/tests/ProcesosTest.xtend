@@ -5,9 +5,9 @@ import adaptadores.AdaptadorServicioExterno
 import adaptadores.InterfazActLocales
 import adaptadores.InterfazAdmin
 import adaptadores.InterfazREST
-import algoritmosFalla.AlgoritmoFallaProceso
 import algoritmosFalla.EnvioMail
 import algoritmosFalla.ReintentarProceso
+import algoritmosFalla.SinProceso
 import builders.LocalComBuilder
 import builders.ProcesoCompBuilder
 import com.eclipsesource.json.Json
@@ -27,6 +27,7 @@ import java.util.List
 import observers.ObserverBusqueda
 import org.joda.time.DateTime
 import org.junit.After
+import org.junit.AfterClass
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -56,6 +57,9 @@ class ProcesosTest {
 	AdaptadorServicioExterno srvExtFail
 	AdaptadorMails srvMails
 	LocalComercial localComercialABorrar
+	
+	static Path archivo
+	
 //	ProcAgregadoAcciones procesoAgregadoAccionesRotas
 
 	@Before
@@ -109,7 +113,7 @@ class ProcesosTest {
 		srvMails = new AdaptadorMails(mockMail)
 		val algoritmoReenvio = new EnvioMail(srvMails)
 		val algoritmoReintento = new ReintentarProceso(2)
-		val sinAlgoritmo = new AlgoritmoFallaProceso
+		val sinAlgoritmo = new SinProceso
 
 		// Interfaces correctas y fallidas
 		val intRest = mock(InterfazREST)
@@ -124,7 +128,8 @@ class ProcesosTest {
 //		val listaObserversRotos = newArrayList(mockObserver)
 		when(intRest.obtenerArchivoDeBajas).thenReturn(newArrayList("José", "Marcos").convertirAJSON)
 		when(intRestFallida.obtenerArchivoDeBajas).thenThrow(ClassCastException)
-		when(intActLoc.obtenerArchivo).thenReturn(crearArchivoPruebaCorrecto())
+		archivo = crearArchivoPruebaCorrecto
+		when(intActLoc.obtenerArchivo).thenReturn(archivo)
 		when(intActFallida.obtenerArchivo).thenThrow(IOException)
 		
 
@@ -192,7 +197,7 @@ class ProcesosTest {
 		procesoActualizacionLocales.adaptadorArchivo = srvExtFail
 		terminalEjecutora.ejecutarProceso(procesoActualizacionLocales)
 		procesoActualizacionLocales.adaptadorArchivo = srvExt
-		Assert.assertTrue(HistorialProcesos.instance.contieneAEror(terminalEjecutora))
+		Assert.assertTrue(HistorialProcesos.instance.contieneAError(terminalEjecutora))
 	}
 
 	@Test
@@ -207,6 +212,7 @@ class ProcesosTest {
 		terminalEjecutora.ejecutarProceso(procesoActualizacionLocales)
 		srvMails.contieneMail(terminalEjecutora.nombreTerminal)
 		procesoActualizacionLocales.adaptadorArchivo = srvExt
+		
 	}
 
 	@Test
@@ -221,7 +227,7 @@ class ProcesosTest {
 		val algoritmoReintento = mock(ReintentarProceso)
 		procesoBajaPois.algoritmoFalla = algoritmoReintento
 		terminalEjecutora.ejecutarProceso(procesoBajaPois)
-		verify(algoritmoReintento, times(1)).ejecutar(terminalEjecutora.nombreTerminal, procesoBajaPois)
+		verify(algoritmoReintento, times(1)).procesarFalla(terminalEjecutora.nombreTerminal, procesoBajaPois)
 		procesoBajaPois.adaptadorREST = srvExt
 	}
 
@@ -259,6 +265,11 @@ class ProcesosTest {
 	@After
 	def limpiarSingletons() {
 		HistorialProcesos.instance.limpiar
+	}
+	
+	@AfterClass
+	def static borrarArchivo(){
+		Files.delete(archivo)
 	}
 
 }

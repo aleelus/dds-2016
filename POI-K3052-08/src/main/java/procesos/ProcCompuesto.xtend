@@ -18,8 +18,8 @@ class ProcCompuesto implements Proceso {
 		procesosSimples.remove(proc)
 	}
 	
-	override ejecutar(String nombreUsuario) {
-		procesosSimples.forEach[proceso | proceso.ejecutar(nombreUsuario)]
+	override ejecutarProceso(String nombreUsuario) {
+		procesosSimples.forEach[proceso | proceso.ejecutarProceso(nombreUsuario)]
 	}
 	
 	def sinProcesos() {

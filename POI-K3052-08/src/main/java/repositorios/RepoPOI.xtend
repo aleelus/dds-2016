@@ -64,6 +64,7 @@ class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
 		if (puntoInteres.nombre != null) {
 			resultado = new AndPredicate(resultado, this.getCriterioPorNombre(puntoInteres.nombre))
 		}
+		
 		resultado
 	}
 
@@ -72,7 +73,7 @@ class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
 	}
 
 	def getCriterioPorNombre(String nombre) {
-		[POI punto|punto.nombre.equals(nombre)]
+		[POI punto|punto.nombre.equals(nombre)] as Predicate<POI>
 	}
 	
 	def contiene(POI poi) {

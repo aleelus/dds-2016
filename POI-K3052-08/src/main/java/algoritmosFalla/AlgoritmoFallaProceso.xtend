@@ -2,8 +2,6 @@ package algoritmosFalla
 
 import procesos.Proceso
 
-class AlgoritmoFallaProceso {
-	def void ejecutar(String terminal, Proceso proceso){
-		
-	}
+interface AlgoritmoFallaProceso {
+	def void procesarFalla(String terminal, Proceso proceso)
 }

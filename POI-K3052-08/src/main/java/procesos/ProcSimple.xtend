@@ -12,7 +12,7 @@ AlgoritmoFallaProceso algoritmoFalla
 String nombre
 
 		
-	override ejecutar(String nombreUsuario) {
+	override ejecutarProceso(String nombreUsuario) {
 		throw new UnsupportedProcessException("Proceso no soportado")
 	}
 

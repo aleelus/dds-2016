@@ -3,18 +3,19 @@ package algoritmosFalla
 import algoritmosFalla.AlgoritmoFallaProceso
 import procesos.Proceso
 
-class ReintentarProceso extends AlgoritmoFallaProceso {
+class ReintentarProceso implements AlgoritmoFallaProceso {
 
 	int cantidad
 	
 	new(int cantidadReintentos){
+		super()
 		this.cantidad= cantidadReintentos
 	}
 	
-	override ejecutar(String usuario, Proceso proceso) {
+	override procesarFalla(String usuario, Proceso proceso) {
 		if (cantidad>0){
 			cantidad--
-			proceso.ejecutar(usuario)
+			proceso.ejecutarProceso(usuario)
 		}
 	}
 	

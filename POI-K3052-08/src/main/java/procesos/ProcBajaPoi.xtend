@@ -7,6 +7,7 @@ import repositorios.DatosProceso
 import repositorios.HistorialProcesos
 import repositorios.RepoPOI
 import org.eclipse.xtend.lib.annotations.Accessors
+import repositorios.ResultadoProceso
 
 @Accessors
 class ProcBajaPoi extends ProcSimple {
@@ -20,18 +21,18 @@ class ProcBajaPoi extends ProcSimple {
 		this.adaptadorREST = srvExt
 	}
 
-	override ejecutar(String nombreUsuario) {
+	override ejecutarProceso(String nombreUsuario) {
 		val tiempoEjecucion = DateTime.now
 		try {
 			val listaPOIs = adaptadorREST.obtenerPOIAEliminar()
 			listaPOIs.forEach[valorPoi|repositorio.search(valorPoi).forEach[poi|poi.inhabilitar]]
 			HistorialProcesos.instance.agregarProceso(
-				new DatosProceso(tiempoEjecucion, DateTime.now, nombre, nombreUsuario, "OK"))
+				new DatosProceso(tiempoEjecucion, DateTime.now, nombre, nombreUsuario, ResultadoProceso.OK))
 		} catch (ClassCastException e) {
 			HistorialProcesos.instance.agregarProceso(
-				new DatosProceso(tiempoEjecucion, DateTime.now, nombre, nombreUsuario, "ERROR",
+				new DatosProceso(tiempoEjecucion, DateTime.now, nombre, nombreUsuario, ResultadoProceso.ERROR,
 					"Error en el archivo JSON"))
-			algoritmoFalla.ejecutar(nombreUsuario, this)
+			algoritmoFalla.procesarFalla(nombreUsuario, this)
 		}
 	}
 

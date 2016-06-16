@@ -7,6 +7,7 @@ import org.apache.commons.collections15.functors.AndPredicate
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.CollectionBasedRepo
 import java.util.ArrayList
+import interfazUsuario.Rol
 
 @Accessors
 class RepoUsuarios extends CollectionBasedRepo<Terminal> {
@@ -16,11 +17,18 @@ class RepoUsuarios extends CollectionBasedRepo<Terminal> {
 		if (terminal.nombreTerminal != null) {
 			resultado = new AndPredicate(resultado, this.getCriterioPorNombre(terminal.nombreTerminal))
 		}
+		if (terminal.rolTerminal != null) {
+			resultado = new AndPredicate(resultado, this.getCriterioPorRol(terminal.rolTerminal))
+		}
 		resultado
 	}
 
-	def getCriterioPorNombre(Object nombre) {
-		[Terminal terminal|terminal.nombreTerminal.equals(nombre)]
+	def getCriterioPorNombre(String nombre) {
+		[Terminal terminal|terminal.nombreTerminal.equals(nombre)] as Predicate<Terminal>
+	}
+
+	def getCriterioPorRol(Rol rol) {
+		[Terminal terminal|terminal.rolTerminal.equals(rol)] as Predicate<Terminal>
 	}
 
 	override protected getCriterioTodas() {

@@ -91,7 +91,7 @@ class Terminal extends Entity{
 
 	def ejecutarProceso(Proceso proceso){
 		if (autorizadoAEjecutarProcesos){
-			proceso.ejecutar(this.nombreTerminal)
+			proceso.ejecutarProceso(this.nombreTerminal)
 		} else {
 			throw new AuthException("No autorizado a crear proceso")
 		}

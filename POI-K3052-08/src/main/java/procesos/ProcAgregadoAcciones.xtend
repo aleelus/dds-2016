@@ -8,6 +8,7 @@ import repositorios.DatosProceso
 import repositorios.HistorialProcesos
 import repositorios.RepoUsuarios
 import org.eclipse.xtend.lib.annotations.Accessors
+import repositorios.ResultadoProceso
 
 @Accessors
 class ProcAgregadoAcciones extends ProcSimple {
@@ -24,19 +25,19 @@ class ProcAgregadoAcciones extends ProcSimple {
 		this.repositorioUsers = bdUsuarios
 	}
 
-	override ejecutar(String nombreUsuario) {
+	override ejecutarProceso(String nombreUsuario) {
 		var tiempoEjecucion = DateTime.now
 		try {
 			ultimasAcciones = acciones.clone
 			repoBackup = repositorioUsers.clonar
 			acciones.forEach[accion|repositorioUsers.agregarAccionATodos(accion)]
 			HistorialProcesos.instance.agregarProceso(
-				new DatosProceso(tiempoEjecucion, DateTime.now, nombre, nombreUsuario, "OK"))
+				new DatosProceso(tiempoEjecucion, DateTime.now, nombre, nombreUsuario, ResultadoProceso.OK))
 		} catch (CloneNotSupportedException e) {
 			HistorialProcesos.instance.agregarProceso(
-				new DatosProceso(tiempoEjecucion, DateTime.now, nombre, nombreUsuario, "ERROR",
+				new DatosProceso(tiempoEjecucion, DateTime.now, nombre, nombreUsuario, ResultadoProceso.ERROR,
 					"Error al hacer copia de respaldo"))
-			algoritmoFalla.ejecutar(nombreUsuario, this)
+			algoritmoFalla.procesarFalla(nombreUsuario, this)
 		}
 	}
 
@@ -44,8 +45,8 @@ class ProcAgregadoAcciones extends ProcSimple {
 		var tiempoEjecucion = DateTime.now
 		repositorioUsers = repoBackup
 		acciones.forEach[accion|repositorioUsers.quitarAccionATodos(accion)]
-		HistorialProcesos.instance.añadirProceso(
+		HistorialProcesos.instance.agregarProceso(
 			new DatosProceso(tiempoEjecucion, DateTime.now, "Recuperación de Repositorio de usuarios", nombreUsuario,
-				"OK"))
+				ResultadoProceso.OK))
 	}
 }
