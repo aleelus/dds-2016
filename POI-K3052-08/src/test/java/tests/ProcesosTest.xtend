@@ -60,7 +60,6 @@ class ProcesosTest {
 	
 	static Path archivo
 	
-//	ProcAgregadoAcciones procesoAgregadoAccionesRotas
 
 	@Before
 	def void setUp() {
@@ -123,9 +122,6 @@ class ProcesosTest {
 
 		// Mockeo de interfaces 
 		val listaObservers = newArrayList(mock(ObserverBusqueda))
-//		val mockObserver = mock(ObserverBusqueda)
-//		when(mockObserver.clone()).thenThrow(CloneNotSupportedException)
-//		val listaObserversRotos = newArrayList(mockObserver)
 		when(intRest.obtenerArchivoDeBajas).thenReturn(newArrayList("José", "Marcos").convertirAJSON)
 		when(intRestFallida.obtenerArchivoDeBajas).thenThrow(ClassCastException)
 		archivo = crearArchivoPruebaCorrecto
@@ -142,8 +138,6 @@ class ProcesosTest {
 			mapa, srvExt)
 		procesoAgregadoAcciones = new ProcAgregadoAcciones("Proceso de adición de locales", algoritmoReintento,
 			listaObservers, baseUsuarios)
-//		procesoAgregadoAccionesRotas = new ProcAgregadoAcciones("Proceso de adición de locales", algoritmoReintento,
-//			listaObserversRotos, baseUsuarios)
 		procesoBajaPois = new ProcBajaPoi("Proceso de baja de POI", sinAlgoritmo, mapa, srvExt)
 
 		// Proceso compuesto
