@@ -8,6 +8,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.CollectionBasedRepo
 import java.util.ArrayList
 import interfazUsuario.Rol
+import java.util.List
 
 @Accessors
 class RepoUsuarios extends CollectionBasedRepo<Terminal> {
@@ -61,6 +62,10 @@ class RepoUsuarios extends CollectionBasedRepo<Terminal> {
 		allInstances.forEach[terminal|listaTerminales.add(new Terminal(terminal))]
 		listaTerminales.forEach[terminal|repoCopia.create(terminal)]
 		repoCopia
+	}
+	
+	def ContieneAcciones(List<ObserverBusqueda> acciones) {
+		allInstances.forall[user | user.TieneAcciones(acciones)]
 	}
 
 }

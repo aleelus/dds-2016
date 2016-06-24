@@ -46,20 +46,21 @@ import static org.mockito.Mockito.*
 class ProcesosTest {
 	RepoPOI mapa
 	RepoUsuarios baseUsuarios
+	RepoUsuarios baseUsuariosRota
 	Terminal terminalEjecutora
 	Terminal terminalNoEjecutora
 	ProcActualizacionLocal procesoActualizacionLocales
 	ProcBajaPoi procesoBajaPois
 	ProcAgregadoAcciones procesoAgregadoAcciones
 	ProcCompuesto procesoCompuesto
+	ProcCompuesto procesoCompuestoFail
 	AdaptadorServicioExterno srvExt
 	LocalComercial localComercial
 	AdaptadorServicioExterno srvExtFail
 	AdaptadorMails srvMails
 	LocalComercial localComercialABorrar
-	
+
 	static Path archivo
-	
 
 	@Before
 	def void setUp() {
@@ -67,6 +68,7 @@ class ProcesosTest {
 		// Repositorios
 		mapa = new RepoPOI
 		baseUsuarios = new RepoUsuarios
+		baseUsuariosRota = new RepoUsuarios
 
 		// Carga del repositorio
 		val LocalComBuilder builderLocal = new LocalComBuilder()
@@ -103,8 +105,10 @@ class ProcesosTest {
 		// Creación de terminales
 		terminalEjecutora = new Terminal("abasto", mapa, rolAdmin)
 		baseUsuarios.create(terminalEjecutora)
+		baseUsuariosRota.create(terminalEjecutora)
 		terminalNoEjecutora = new Terminal("caballito", mapa, rolConsulta)
 		baseUsuarios.create(terminalNoEjecutora)
+		baseUsuariosRota.create(terminalNoEjecutora)
 
 		// Algoritmos de falla
 		val InterfazAdmin mockMail = mock(InterfazAdmin)
@@ -127,7 +131,8 @@ class ProcesosTest {
 		archivo = crearArchivoPruebaCorrecto
 		when(intActLoc.obtenerArchivo).thenReturn(archivo)
 		when(intActFallida.obtenerArchivo).thenThrow(IOException)
-		
+		baseUsuariosRota = mock(RepoUsuarios)
+		doThrow(CloneNotSupportedException).when(baseUsuariosRota).clonar
 
 		// Servidor funcional y fallido
 		srvExt = new AdaptadorServicioExterno(intActLoc, intRest)
@@ -136,9 +141,9 @@ class ProcesosTest {
 		// Procesos simples
 		procesoActualizacionLocales = new ProcActualizacionLocal("Proceso actualizador de locales", algoritmoReenvio,
 			mapa, srvExt)
-		procesoAgregadoAcciones = new ProcAgregadoAcciones("Proceso de adición de locales", algoritmoReintento,
+		procesoAgregadoAcciones = new ProcAgregadoAcciones("Proceso de adición de locales", sinAlgoritmo,
 			listaObservers, baseUsuarios)
-		procesoBajaPois = new ProcBajaPoi("Proceso de baja de POI", sinAlgoritmo, mapa, srvExt)
+		procesoBajaPois = new ProcBajaPoi("Proceso de baja de POI", algoritmoReintento, mapa, srvExt)
 
 		// Proceso compuesto
 		val builderProc = new ProcesoCompBuilder =>
@@ -149,6 +154,16 @@ class ProcesosTest {
 				agregarProcBajaPoi("Proceso de baja de POI", algoritmoReintento, mapa, srvExt)
 			]
 		procesoCompuesto = builderProc.build
+
+		// Proceso compuesto con errores
+		builderProc =>
+			[
+				agregarProcActualizacionLocales("Proceso de actualización de locales", algoritmoReenvio, mapa, srvExtFail)
+				agregarProcAgregadoAcciones("Proceso de adición de acciones", algoritmoReintento, listaObservers,
+					baseUsuariosRota)
+				agregarProcBajaPoi("Proceso de baja de POI", sinAlgoritmo, mapa, srvExtFail)
+			]
+		procesoCompuestoFail = builderProc.build
 
 	}
 
@@ -204,9 +219,9 @@ class ProcesosTest {
 	def ejecucionProcesoActualizacionFallida() {
 		procesoActualizacionLocales.adaptadorArchivo = srvExtFail
 		terminalEjecutora.ejecutarProceso(procesoActualizacionLocales)
-		srvMails.contieneMail(terminalEjecutora.nombreTerminal)
 		procesoActualizacionLocales.adaptadorArchivo = srvExt
-		
+		Assert.assertTrue(srvMails.contieneMail(terminalEjecutora.nombreTerminal))
+
 	}
 
 	@Test
@@ -221,7 +236,7 @@ class ProcesosTest {
 		val algoritmoReintento = mock(ReintentarProceso)
 		procesoBajaPois.algoritmoFalla = algoritmoReintento
 		terminalEjecutora.ejecutarProceso(procesoBajaPois)
-		verify(algoritmoReintento, times(1)).procesarFalla(terminalEjecutora.nombreTerminal, procesoBajaPois)
+		verify(algoritmoReintento, times(2)).procesarFalla(terminalEjecutora.nombreTerminal, procesoBajaPois)
 		procesoBajaPois.adaptadorREST = srvExt
 	}
 
@@ -237,8 +252,7 @@ class ProcesosTest {
 		doThrow(CloneNotSupportedException).when(baseUsuariosRota).clonar
 		procesoAgregadoAcciones.repositorioUsers = baseUsuariosRota
 		terminalEjecutora.ejecutarProceso(procesoAgregadoAcciones)
-		Assert.assertTrue(
-			HistorialProcesos.instance.contieneErrorDeProceso(terminalEjecutora, procesoAgregadoAcciones))
+		Assert.assertFalse(baseUsuariosRota.ContieneAcciones(procesoAgregadoAcciones.acciones))
 	}
 
 	@Test
@@ -256,13 +270,20 @@ class ProcesosTest {
 		Assert.assertTrue(baseUsuarios.chequearCantObservers(0))
 	}
 
+	@Test
+	def fallaProcesoCompuesto() {
+		terminalEjecutora.ejecutarProceso(procesoCompuesto)
+		Assert.assertTrue(srvMails.contieneMail(terminalEjecutora.nombreTerminal))
+		Assert.assertFalse(baseUsuariosRota.ContieneAcciones(procesoAgregadoAcciones.acciones))
+	}
+
 	@After
 	def limpiarSingletons() {
 		HistorialProcesos.instance.limpiar
 	}
-	
+
 	@AfterClass
-	def static borrarArchivo(){
+	def static borrarArchivo() {
 		Files.delete(archivo)
 	}
 

@@ -120,5 +120,9 @@ class Terminal extends Entity{
 	def tieneCantObservers(int i) {
 		listaObservers.size.equals(i)
 	}
+	
+	def TieneAcciones(List<ObserverBusqueda> acciones) {
+		acciones.forall[accion | listaObservers.contains(accion)]
+	}
 
 }
