@@ -1,13 +1,13 @@
 package repositorios
 
 import interfazUsuario.Terminal
+import org.apache.commons.collections15.Predicate
+import org.apache.commons.collections15.functors.AndPredicate
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.commons.model.CollectionBasedRepo
 import org.uqbar.commons.model.Entity
-import procesos.ProcAgregadoAcciones
-import org.apache.commons.collections15.Predicate
-import org.apache.commons.collections15.functors.AndPredicate
+import procesos.ProcSimple
 
 class HistorialProcesos extends CollectionBasedRepo<DatosProceso> {
 
@@ -38,7 +38,7 @@ class HistorialProcesos extends CollectionBasedRepo<DatosProceso> {
 		]
 	}
 
-	def contieneErrorDeProceso(Terminal terminal, ProcAgregadoAcciones proceso) {
+	def contieneErrorDeProceso(Terminal terminal, ProcSimple proceso) {
 		allInstances.exists [ resultado |
 			resultado.resultado.equals(ResultadoProceso.ERROR) && resultado.usuario.equals(terminal.nombreTerminal) &&
 				resultado.proceso.equals(proceso.nombre)

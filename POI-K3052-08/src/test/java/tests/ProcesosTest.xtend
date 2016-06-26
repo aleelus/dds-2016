@@ -42,6 +42,7 @@ import repositorios.RepoUsuarios
 
 import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
+import procesos.Proceso
 
 class ProcesosTest {
 	RepoPOI mapa
@@ -159,9 +160,9 @@ class ProcesosTest {
 		builderProc =>
 			[
 				agregarProcActualizacionLocales("Proceso de actualización de locales", algoritmoReenvio, mapa, srvExtFail)
-				agregarProcAgregadoAcciones("Proceso de adición de acciones", algoritmoReintento, listaObservers,
+				agregarProcAgregadoAcciones("Proceso de adición de acciones", sinAlgoritmo , listaObservers,
 					baseUsuariosRota)
-				agregarProcBajaPoi("Proceso de baja de POI", sinAlgoritmo, mapa, srvExtFail)
+				agregarProcBajaPoi("Proceso de baja de POI", algoritmoReintento, mapa, srvExtFail)
 			]
 		procesoCompuestoFail = builderProc.build
 
@@ -233,10 +234,10 @@ class ProcesosTest {
 	@Test
 	def ejecucionProcesoBajaPOIFail() {
 		procesoBajaPois.adaptadorREST = srvExtFail
-		val algoritmoReintento = mock(ReintentarProceso)
+		val algoritmoReintento = spy(new ReintentarProceso(1))
 		procesoBajaPois.algoritmoFalla = algoritmoReintento
 		terminalEjecutora.ejecutarProceso(procesoBajaPois)
-		verify(algoritmoReintento, times(2)).procesarFalla(terminalEjecutora.nombreTerminal, procesoBajaPois)
+		verify(algoritmoReintento, times(2)).procesarFalla(anyString, any(Proceso))
 		procesoBajaPois.adaptadorREST = srvExt
 	}
 
@@ -275,6 +276,7 @@ class ProcesosTest {
 		terminalEjecutora.ejecutarProceso(procesoCompuesto)
 		Assert.assertTrue(srvMails.contieneMail(terminalEjecutora.nombreTerminal))
 		Assert.assertFalse(baseUsuariosRota.ContieneAcciones(procesoAgregadoAcciones.acciones))
+		Assert.assertTrue(HistorialProcesos.instance.contieneErrorDeProceso(terminalEjecutora,procesoCompuesto.procesosSimples.get(2)))
 	}
 
 	@After
