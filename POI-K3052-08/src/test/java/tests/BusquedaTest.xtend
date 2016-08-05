@@ -50,6 +50,7 @@ class BusquedaTest{
 			setTags(newArrayList("CGP","Flores","Rentas"))
 			setLongitud(15)
 			setLatitud(30)
+			setDireccion = "Malabia 312"
 			setComuna(new Point(0, 0), new Point(50, 0), new Point(50, 50), new Point(0, 50))
 		]
 		cgp = builderCGP.build()
@@ -60,6 +61,7 @@ class BusquedaTest{
 			setTags(newArrayList("José","Librería","Barato"))
 			setLongitud(5)
 			setLatitud(10)
+			setDireccion = "Campana 2412"
 			setRubro("Librería", 5)
 		]
 		localComercial = builderLocal.build()
@@ -81,6 +83,7 @@ class BusquedaTest{
 			setLatitud(40)
 			setTags(newArrayList("Santander","Rio","Banco","Depósito","Cheque"))
 			setSucursal("Once")
+			setDireccion = "Cuenca 981"
 			setServicios(newArrayList("cobros cheques", "depositos", "transferencias", "extracciones"))
 			setGerente("Mirtha Legrand")
 		]

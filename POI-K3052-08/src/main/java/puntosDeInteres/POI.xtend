@@ -101,7 +101,7 @@ class POI extends Entity {
 
 	override equals(Object arg0) {
 		val POI puntoAComparar = arg0 as POI
-		id.equals(puntoAComparar.id)
+		(nombre.equals(puntoAComparar.nombre) && direccion.equals(puntoAComparar.direccion)) || (id.equals(puntoAComparar.id))
 	}
 
 	override hashCode() {

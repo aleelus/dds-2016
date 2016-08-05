@@ -1,19 +1,20 @@
 package ventanas
 
-import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.windows.SimpleWindow
-import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.layout.ColumnLayout
-import org.uqbar.arena.widgets.List
-
-import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.arena.widgets.tables.Table
-import puntosDeInteres.POI
-import org.uqbar.arena.widgets.tables.Column
-import org.uqbar.arena.widgets.Label
 import java.awt.Color
 import modelosYApp.BusquedaPOIAppModel
+import org.uqbar.arena.layout.ColumnLayout
+import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.List
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.tables.Column
+import org.uqbar.arena.widgets.tables.Table
+import org.uqbar.arena.windows.SimpleWindow
+import org.uqbar.arena.windows.WindowOwner
+import puntosDeInteres.POI
+
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.layout.HorizontalLayout
 
 class BusquedaWindow extends SimpleWindow<BusquedaPOIAppModel> {
 	
@@ -25,8 +26,11 @@ class BusquedaWindow extends SimpleWindow<BusquedaPOIAppModel> {
 	}
 	
 	override def createMainTemplate(Panel mainPanel) {
-		super.createMainTemplate(mainPanel)
+		super.createErrorsPanel(mainPanel);
+		this.createFormPanel(mainPanel);
 		this.crearTablaResultados(mainPanel)
+		super.createActionsPanel(mainPanel);
+		
 	}
 	
 	def crearTablaResultados(Panel mainPanel) {
@@ -58,19 +62,17 @@ class BusquedaWindow extends SimpleWindow<BusquedaPOIAppModel> {
 	}
 	
 	override protected addActions(Panel actionsPanel) {
-		
+		actionsPanel.layout = new HorizontalLayout
 		new Button(actionsPanel) => [
 			setCaption("Buscar")
 			onClick [ | modelObject.validarCriterios ] 
 			setAsDefault
 			disableOnError	
 		]
-
 		new Button(actionsPanel) => [
 			setCaption("Limpiar")
 			onClick [ | modelObject.limpiar ]	
 		]
-		
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
@@ -80,15 +82,30 @@ class BusquedaWindow extends SimpleWindow<BusquedaPOIAppModel> {
 			foreground = Color.BLACK
 			
 		]
-		var panelCriterios = new Panel(mainPanel)
-		panelCriterios.layout = new ColumnLayout(2)
-		new List(panelCriterios) => [
-			items <=> "criterios"
+		var panelCriterios = new Panel(mainPanel).layout = new ColumnLayout(2)
+		var panelIzqCriterios = new Panel(panelCriterios)
+		new Label(panelIzqCriterios) =>[
+			text = "Nombres a buscar:"
 		]
-		new Button(panelCriterios) =>[
-			setCaption("Agregar criterios")
-			onClick [ |  ]
+		new List(panelIzqCriterios) => [
+			items <=> "criterios"
+			value <=> "criterioSeleccionado"
 			width = 100
+			height = 100
+		]
+		val panelBotonesCriterios = new Panel(panelCriterios)
+		new Button(panelBotonesCriterios) =>[
+			setCaption("Agregar criterios")
+			onClick [ |  
+				new AgregarCriterioWindow(this, this.modelObject).open
+				]
+		]
+		
+		new Button(panelBotonesCriterios) =>[
+			setCaption("Eliminar criterio")
+			onClick [ |  
+				modelObject.eliminarCriterio()
+				]
 		]
 
 	}

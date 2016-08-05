@@ -69,6 +69,7 @@ class AccionesTest {
 			setTags(newArrayList("Santander","Rio","Banco","Depósito","Cheque"))
 			setLongitud(15)
 			setLatitud(30)
+			setDireccion("Malabia 921")
 			setComuna(new Point(0, 0), new Point(50, 0), new Point(50, 50), new Point(0, 50))
 		]
 		cgp = builderCGP.build()

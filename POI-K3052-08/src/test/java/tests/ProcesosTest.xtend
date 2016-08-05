@@ -43,6 +43,7 @@ import static org.mockito.Mockito.*
 import procesos.Proceso
 import usuario.Terminal
 import usuario.Rol
+import modelosYApp.POIBootstrap
 
 class ProcesosTest {
 	RepoPOI mapa
@@ -67,6 +68,7 @@ class ProcesosTest {
 	def void setUp() {
 
 		// Repositorios
+		new POIBootstrap().run
 		mapa = new RepoPOI
 		baseUsuarios = new RepoUsuarios
 		baseUsuariosRota = new RepoUsuarios
