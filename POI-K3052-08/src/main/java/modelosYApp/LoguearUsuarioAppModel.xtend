@@ -1,9 +1,11 @@
-package interfaz
+package modelosYApp
 
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.utils.Dependencies
-import org.uqbar.commons.utils.Observable
 import org.uqbar.commons.model.UserException
+import org.uqbar.commons.utils.ApplicationContext
+import org.uqbar.commons.utils.Observable
+import repositorios.RepoUsuarios
+import usuario.Terminal
 
 @Observable
 @Accessors
@@ -11,6 +13,7 @@ class LoguearUsuarioAppModel {
 	String nombreTerminal
 	String pass
 	String passwordHardcodeada
+	RepoUsuarios repo = ApplicationContext.instance.getSingleton(typeof(Terminal))
 	
 	new(String pass){
 		passwordHardcodeada = pass
@@ -21,13 +24,10 @@ class LoguearUsuarioAppModel {
 		pass = ""
 	}
 	
-	@Dependencies("pass")
-	def getPasswordOK() {
-		pass.equals(passwordHardcodeada)
-	}
-	
 	def validarLogin() {
-		if (pass!=passwordHardcodeada) {
+		if (!repo.existeUsuario(nombreTerminal)){
+			throw new UserException("No existe el usuario indicado")
+		} else if (pass!=passwordHardcodeada) {
 			throw new UserException("Password incorrecta")
 		}
 	}

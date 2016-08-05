@@ -10,6 +10,7 @@ import excepciones.CreationException
 class LocalComBuilder {
 	Rubro rubro	
 	String nombre
+	String direccion
 	double latitud
 	double longitud
 	String[] tags
@@ -21,7 +22,12 @@ class LocalComBuilder {
 		this.nombre = nombre
 		this
 	}
-
+	
+	def setDireccion(String direccion){
+		this.direccion = direccion
+		this
+	}
+	
 	def setLatitud(double latitud) {
 		if (latitud.naN) {
 			throw new CreationException("La latitud debe ser un número")
@@ -58,6 +64,7 @@ class LocalComBuilder {
 		val LocalComercial nuevoLocal = new LocalComercial()
 		nuevoLocal.rubro = rubro
 		nuevoLocal.nombre = nombre
+		nuevoLocal.direccion = direccion
 		nuevoLocal.latitud = latitud
 		nuevoLocal.longitud = longitud
 		nuevoLocal.tags = tags

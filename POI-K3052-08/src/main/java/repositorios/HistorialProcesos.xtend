@@ -1,14 +1,14 @@
 package repositorios
 
 
-import org.apache.commons.collections15.Predicate
-import org.apache.commons.collections15.functors.AndPredicate
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.commons.model.CollectionBasedRepo
 import org.uqbar.commons.model.Entity
 import procesos.ProcSimple
 import usuario.Terminal
+import org.apache.commons.collections15.Predicate
+import org.apache.commons.collections15.functors.AndPredicate
 
 class HistorialProcesos extends CollectionBasedRepo<DatosProceso> {
 

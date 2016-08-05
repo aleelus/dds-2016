@@ -13,6 +13,7 @@ import excepciones.CreationException
 class CGPBuilder {
 	List<ServicioCGP> servicios = new ArrayList<ServicioCGP>
 	List<String> tags = new ArrayList<String>
+	String direccion
 	String nombre
 	double latitud
 	double longitud
@@ -28,6 +29,11 @@ class CGPBuilder {
 			throw new CreationException("El nombre no puede ser vacío")
 		}
 		this.nombre = nombre
+		this
+	}
+	
+	def setDireccion(String direccion){
+		this.direccion = direccion
 		this
 	}
 
@@ -63,6 +69,7 @@ class CGPBuilder {
 		val CGP nuevoCGP = new CGP()
 		nuevoCGP.listaServicios = servicios
 		nuevoCGP.nombre = nombre
+		nuevoCGP.direccion = direccion
 		nuevoCGP.latitud = latitud
 		nuevoCGP.longitud = longitud
 		nuevoCGP.comunaCGP = comuna

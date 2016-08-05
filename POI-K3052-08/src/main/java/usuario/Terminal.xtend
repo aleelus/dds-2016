@@ -7,29 +7,30 @@ import observers.ObserverBusqueda
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalDate
 import org.uqbar.commons.model.Entity
+import org.uqbar.commons.utils.ApplicationContext
 import org.uqbar.commons.utils.Observable
+import procesos.ProcAgregadoAcciones
+import procesos.Proceso
 import reportes.ReportePorFecha
 import reportes.ReportePorTerminal
 import reportes.ReporteTotales
 import repositorios.RepoPOI
-import procesos.Proceso
-import procesos.ProcAgregadoAcciones
+import puntosDeInteres.POI
 
 @Accessors
 @Observable
 class Terminal extends Entity{
 
 	String nombreTerminal
-	String contraseña
-	RepoPOI repositorio
+	String contraseña 
 	List<ObserverBusqueda> listaObservers = new ArrayList<ObserverBusqueda>
 	Rol rolTerminal
+	RepoPOI repositorio = ApplicationContext.instance.getRepo(typeof(POI)) as RepoPOI
 
-	new(String nombre, RepoPOI repo, Rol rol) {
+	new(String nombre, Rol rol) {
 		super()
 		this.rolTerminal = rol
 		this.nombreTerminal = nombre
-		this.repositorio = repo
 	}
 
 	new() {
@@ -40,7 +41,6 @@ class Terminal extends Entity{
 		this()
 		this.rolTerminal = terminal.rolTerminal
 		this.nombreTerminal = terminal.nombreTerminal
-		this.repositorio = terminal.repositorio
 		this.listaObservers = terminal.listaObservers
 	}
 

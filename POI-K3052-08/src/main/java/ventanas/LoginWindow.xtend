@@ -1,4 +1,4 @@
-package interfaz
+package ventanas
 
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
@@ -11,6 +11,9 @@ import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.windows.Dialog
+import org.uqbar.arena.layout.ColumnLayout
+import modelosYApp.LoguearUsuarioAppModel
+import modelosYApp.BusquedaPOIAppModel
 
 class LoginWindow extends SimpleWindow<LoguearUsuarioAppModel> {
 	
@@ -29,6 +32,7 @@ class LoginWindow extends SimpleWindow<LoguearUsuarioAppModel> {
 			onClick[| 
 				modelObject.validarLogin
 				new BusquedaWindow(this, new BusquedaPOIAppModel).open
+				this.close
 			]
 			width = 100
 			disableOnError
@@ -49,10 +53,18 @@ class LoginWindow extends SimpleWindow<LoguearUsuarioAppModel> {
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
-		new Label(mainPanel).text = "Usuario"
-		new TextBox(mainPanel).value <=> "nombreTerminal"
-		new Label(mainPanel).text = "Password"
-		new PasswordField(mainPanel).value <=> "pass"
+		val panelLogin = new Panel(mainPanel)
+		panelLogin.layout = new ColumnLayout(2)
+		new Label(panelLogin).text = "Usuario:"
+		new TextBox(panelLogin)=> [
+			value <=> "nombreTerminal"
+			width = 130
+		]
+		new Label(panelLogin).text = "Password:"
+		new PasswordField(panelLogin)=> [
+			value <=> "pass"
+			width = 130
+		]
 	}
 
 		def openDialog(Dialog<?> dialog) {

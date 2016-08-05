@@ -135,7 +135,7 @@ class DisponibilidadTest {
 		cgp = builderCGP.build()
 
 		// Ubicación paradas
-		colectivo = new ParadaColectivo("34", 1, 1.05)
+		colectivo = new ParadaColectivo("34", 1, 1.05,"Av. Córdoba 4213")
 
 	}
 

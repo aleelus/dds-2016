@@ -104,10 +104,12 @@ class ProcesosTest {
 		rolConsulta.esUserConNotificacion()
 
 		// Creación de terminales
-		terminalEjecutora = new Terminal("abasto", mapa, rolAdmin)
+		terminalEjecutora = new Terminal("abasto", rolAdmin)
+		terminalEjecutora.repositorio = mapa
 		baseUsuarios.create(terminalEjecutora)
 		baseUsuariosRota.create(terminalEjecutora)
-		terminalNoEjecutora = new Terminal("caballito", mapa, rolConsulta)
+		terminalNoEjecutora = new Terminal("caballito", rolConsulta)
+		terminalNoEjecutora.repositorio = mapa
 		baseUsuarios.create(terminalNoEjecutora)
 		baseUsuariosRota.create(terminalNoEjecutora)
 

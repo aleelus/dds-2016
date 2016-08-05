@@ -87,8 +87,10 @@ class AccionesTest {
 		mapa.create(localComercial)
 
 		// Terminales
-		terminalAbasto = new Terminal("Abasto", mapa, rolAdmin)
-		terminalCaballito = new Terminal("Caballito", mapa, rolConsulta)
+		terminalAbasto = new Terminal("Abasto", rolAdmin)
+		terminalAbasto.repositorio = mapa
+		terminalCaballito = new Terminal("Caballito", rolConsulta)
+		terminalCaballito.repositorio = mapa
 
 		// Observers
 		val InterfazAdmin mockMail = mock(InterfazAdmin)

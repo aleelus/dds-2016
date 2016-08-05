@@ -6,13 +6,17 @@ import org.joda.time.DateTime
 import org.uqbar.commons.model.Entity
 import org.uqbar.geodds.Point
 import java.util.ArrayList
+import org.uqbar.commons.utils.Observable
 
 @Accessors
+@Observable
 class POI extends Entity {
 
 	// Campos
 	/**Nombre del punto de interés */
 	String nombre
+	/**Dirección del punto de interés */
+	String direccion
 	/**Latitud del punto de interés */
 	double latitud
 	/**Longitud del punto de interés */

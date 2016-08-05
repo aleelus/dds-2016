@@ -13,6 +13,7 @@ class BancoBuilder {
 	String nombre
 	double latitud
 	double longitud
+	String direccion
 	List<String> tags = new ArrayList<String>
 	List<DateTime> horario = new ArrayList<DateTime>
 	List<Dias> diasAbierto = new ArrayList<Dias>
@@ -44,6 +45,11 @@ class BancoBuilder {
 			this.longitud = longitud
 			this
 		}
+	}
+	
+	def setDireccion(String direccion){
+		this.direccion = direccion
+		this
 	}
 	
 	def setSucursal(String nombre){
@@ -79,6 +85,7 @@ class BancoBuilder {
 	def build(){
 		val SucursalBanco banco = new SucursalBanco()
 		banco.nombre = nombre
+		banco.direccion = direccion
 		banco.latitud = latitud
 		banco.longitud = longitud
 		banco.nombreSucursal = nombreSucursal

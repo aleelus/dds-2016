@@ -1,6 +1,7 @@
-package interfaz
+package modelosYApp
 
 import org.uqbar.arena.Application
+import ventanas.LoginWindow
 
 class BusquedaPOIApplication extends Application {
 	
@@ -8,8 +9,12 @@ class BusquedaPOIApplication extends Application {
 		return new LoginWindow(this, new LoguearUsuarioAppModel("banana"))
 	}
 	
-	static def void main(String[] args) { 
-		new BusquedaPOIApplication().start()
+	static def void main(String[] args) {
+		//Set de datos
+		new POIBootstrap().run
+		//Aplicación
+		new BusquedaPOIApplication().start
+		
 	}
 	
 }

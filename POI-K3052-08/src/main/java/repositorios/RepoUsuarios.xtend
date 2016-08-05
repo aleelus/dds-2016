@@ -67,5 +67,9 @@ class RepoUsuarios extends CollectionBasedRepo<Terminal> {
 	def ContieneAcciones(List<ObserverBusqueda> acciones) {
 		allInstances.forall[user | user.TieneAcciones(acciones)]
 	}
+	
+	def existeUsuario(String nombre) {
+		allInstances.exists[user | user.nombreTerminal.equalsIgnoreCase(nombre)]
+	}
 
 }
