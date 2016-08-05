@@ -1,8 +1,8 @@
 package builders
 
 import repositorios.RepoPOI
-import interfazUsuario.Rol
-import interfazUsuario.Terminal
+import usuario.Terminal
+import usuario.Rol
 
 class TerminalBuilder {
 	String nombreTerminal

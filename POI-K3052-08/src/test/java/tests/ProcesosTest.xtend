@@ -14,8 +14,6 @@ import com.eclipsesource.json.Json
 import com.eclipsesource.json.JsonArray
 import com.eclipsesource.json.JsonObject
 import excepciones.AuthException
-import interfazUsuario.Rol
-import interfazUsuario.Terminal
 import java.io.IOException
 import java.nio.charset.Charset
 import java.nio.file.Files
@@ -43,6 +41,8 @@ import repositorios.RepoUsuarios
 import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
 import procesos.Proceso
+import usuario.Terminal
+import usuario.Rol
 
 class ProcesosTest {
 	RepoPOI mapa

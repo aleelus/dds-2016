@@ -1,4 +1,4 @@
-package interfazUsuario
+package usuario
 
 class Rol {
 	boolean notificacionesAutorizadas

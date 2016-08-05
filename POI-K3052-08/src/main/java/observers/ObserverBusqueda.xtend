@@ -1,7 +1,7 @@
 package observers
 
-import interfazUsuario.DatosBusqueda
-import interfazUsuario.Terminal
+import usuario.Terminal
+import usuario.DatosBusqueda
 
 interface ObserverBusqueda{
 	

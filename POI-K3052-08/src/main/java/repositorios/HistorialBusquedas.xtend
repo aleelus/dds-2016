@@ -1,7 +1,5 @@
 package repositorios
 
-import interfazUsuario.DatosBusqueda
-import interfazUsuario.Terminal
 import java.util.List
 import java.util.Map
 import java.util.stream.Collectors
@@ -10,6 +8,8 @@ import org.uqbar.commons.model.CollectionBasedRepo
 import puntosDeInteres.POI
 import org.apache.commons.collections15.Predicate
 import org.apache.commons.collections15.functors.AndPredicate
+import usuario.DatosBusqueda
+import usuario.Terminal
 
 class HistorialBusquedas extends CollectionBasedRepo<DatosBusqueda> {
 

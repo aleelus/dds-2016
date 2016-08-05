@@ -1,14 +1,14 @@
 package repositorios
 
-import interfazUsuario.Terminal
 import observers.ObserverBusqueda
 import org.apache.commons.collections15.Predicate
 import org.apache.commons.collections15.functors.AndPredicate
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.CollectionBasedRepo
 import java.util.ArrayList
-import interfazUsuario.Rol
 import java.util.List
+import usuario.Terminal
+import usuario.Rol
 
 @Accessors
 class RepoUsuarios extends CollectionBasedRepo<Terminal> {

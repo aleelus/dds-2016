@@ -3,6 +3,8 @@ package observers
 
 import excepciones.AuthException
 import adaptadores.AdaptadorMails
+import usuario.Terminal
+import usuario.DatosBusqueda
 
 class AdministradorObs implements ObserverBusqueda {
 
@@ -18,7 +20,7 @@ class AdministradorObs implements ObserverBusqueda {
 		this.tiempoMaxBúsqueda = tiempoMax
 	}
 
-	override update(interfazUsuario.Terminal terminal, interfazUsuario.DatosBusqueda datosBusqueda) {
+	override update(Terminal terminal, DatosBusqueda datosBusqueda) {
 		if (datosBusqueda.tiempoBusqueda >= tiempoMaxBúsqueda) {
 			if (terminal.autorizadoAEmitirNotificaciones) {
 				servidorMails.enviarMailAAdmins(datosBusqueda.nombreTerminal, datosBusqueda.tiempoBusqueda)

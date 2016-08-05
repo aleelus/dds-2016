@@ -1,10 +1,12 @@
 package observers
 
 import repositorios.HistorialBusquedas
+import usuario.Terminal
+import usuario.DatosBusqueda
 
 class HistorialObs implements ObserverBusqueda {
 	
-	override update(interfazUsuario.Terminal terminal,interfazUsuario.DatosBusqueda datos) {
+	override update(Terminal terminal,DatosBusqueda datos) {
 		HistorialBusquedas.getInstance().agregar(datos)
 	}
 

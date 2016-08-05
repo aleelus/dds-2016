@@ -3,8 +3,6 @@ package tests
 import builders.CGPBuilder
 import builders.ListaServiciosBuilder
 import builders.LocalComBuilder
-import interfazUsuario.DatosBusqueda
-import interfazUsuario.Terminal
 import java.util.ArrayList
 import org.joda.time.LocalDate
 import org.junit.Assert
@@ -17,13 +15,15 @@ import puntosDeInteres.LocalComercial
 
 import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
-import interfazUsuario.Rol
 import observers.HistorialObs
 import observers.AdministradorObs
 import adaptadores.AdaptadorMails
 import adaptadores.InterfazAdmin
 import repositorios.RepoPOI
 import repositorios.HistorialBusquedas
+import usuario.Terminal
+import usuario.DatosBusqueda
+import usuario.Rol
 
 class AccionesTest {
 	RepoPOI mapa

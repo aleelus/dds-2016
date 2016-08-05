@@ -1,4 +1,4 @@
-package interfazUsuario
+package usuario
 
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors

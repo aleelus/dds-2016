@@ -1,4 +1,4 @@
-package interfazUsuario
+package usuario
 
 import excepciones.AuthException
 import java.util.ArrayList
@@ -20,6 +20,7 @@ import procesos.ProcAgregadoAcciones
 class Terminal extends Entity{
 
 	String nombreTerminal
+	String contraseña
 	RepoPOI repositorio
 	List<ObserverBusqueda> listaObservers = new ArrayList<ObserverBusqueda>
 	Rol rolTerminal
@@ -54,7 +55,7 @@ class Terminal extends Entity{
 	}
 
 	def notificarObservadoresBusqueda(DatosBusqueda datos) {
-		listaObservers.forEach[observer|observer.update(this, datos)]
+		listaObservers.forEach[observer|observer.update(this,datos)]
 	}
 
 	def agregarObserver(ObserverBusqueda observer) {
