@@ -15,21 +15,28 @@ import repositorios.RepoPOI
 @Accessors
 class BusquedaPOIAppModel {
 	/**Lista de criterios activos */
-	Set<String> criterios = new HashSet<String>
+	Set<String> criterios
 	/**Criterio nuevo a agregar en ventana auxiliar */
 	String criterioNuevo
 	/**Lista de resultados */
-	List<POI> puntosBuscados = new ArrayList<POI>
+	List<POI> puntosBuscados
 	/**Repositorio de puntos de interés */
-	RepoPOI repo = ApplicationContext.instance.getSingleton(typeof(POI))
+	RepoPOI repo
 	/**Punto seleccionado en la tabla */
 	POI puntoSeleccionado
 	/**Criterio seleccionado en la lista */
 	String criterioSeleccionado
 	
+	new(){
+		puntosBuscados = new ArrayList<POI>
+		repo = ApplicationContext.instance.getSingleton(typeof(POI))
+		criterios = new HashSet<String>
+	}
+	
 	
 	def limpiar(){
 		criterios.clear
+		criterioNuevo = null
 		this.completar
 	}
 	
@@ -42,6 +49,7 @@ class BusquedaPOIAppModel {
 	def buscar(){
 		if (!puntosBuscados.nullOrEmpty){
 			puntosBuscados.clear
+			puntoSeleccionado = null
 			} 
 		for(String criterio:criterios){
 			puntosBuscados.addAll(repo.search(criterio))
@@ -59,6 +67,7 @@ class BusquedaPOIAppModel {
 	
 	def completar() {
 		puntosBuscados.clear
+		puntoSeleccionado = null
 		puntosBuscados.addAll(repo.allInstances)
 	}
 	

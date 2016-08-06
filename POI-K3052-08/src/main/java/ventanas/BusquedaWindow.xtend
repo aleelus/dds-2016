@@ -22,7 +22,7 @@ class BusquedaWindow extends SimpleWindow<BusquedaPOIAppModel> {
 		super(parent, model)
 		title = "Busqueda de puntos de interés"
 		taskDescription = "Introduzca los criterios deseados y cliquee en Buscar"
-		//modelObject.completar
+		modelObject.completar
 	}
 	
 	override def createMainTemplate(Panel mainPanel) {

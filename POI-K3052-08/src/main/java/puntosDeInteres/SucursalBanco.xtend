@@ -32,9 +32,9 @@ class SucursalBanco extends POI {
 		}
 	}
 
-	override equals(Object arg0) {
-		val SucursalBanco puntoAComparar = arg0 as SucursalBanco
-		nombre.equals(puntoAComparar.nombre)
-	}
+//	override equals(Object arg0) {
+//		val SucursalBanco puntoAComparar = arg0 as SucursalBanco
+//		nombre.equals(puntoAComparar.nombre)
+//	}
 
 }

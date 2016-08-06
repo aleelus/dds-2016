@@ -89,6 +89,8 @@ class BusquedaTest{
 		]
 		banco = builderBanco.build()
 		banco.id = mapa.allInstances.last.id + 1
+		
+		mapa.create(banco)
 
 		builderBanco => [
 			setNombre("Banco Nacion")
@@ -160,7 +162,7 @@ class BusquedaTest{
 
 	@Test(expected=Exception)
 	def testEliminacionPOIInvalido() {
-		mapa.delete(banco)
+		mapa.delete(banco2)
 	}
 
 	@Test
@@ -173,7 +175,7 @@ class BusquedaTest{
 
 	@Test(expected=Exception)
 	def testModificacionPOIInvalido() {
-		mapa.update(banco)
+		mapa.update(banco2)
 	}
 
 	@Test
