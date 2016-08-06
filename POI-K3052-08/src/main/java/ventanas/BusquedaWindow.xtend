@@ -22,7 +22,7 @@ class BusquedaWindow extends SimpleWindow<BusquedaPOIAppModel> {
 		super(parent, model)
 		title = "Busqueda de puntos de interés"
 		taskDescription = "Introduzca los criterios deseados y cliquee en Buscar"
-		modelObject.completar
+		//modelObject.completar
 	}
 	
 	override def createMainTemplate(Panel mainPanel) {
@@ -39,7 +39,7 @@ class BusquedaWindow extends SimpleWindow<BusquedaPOIAppModel> {
 			fontSize = 16
 			foreground = Color.BLACK
 		]
-		this.crearColumnas(new Table(mainPanel,POI) => [
+		this.crearColumnas(new Table<POI>(mainPanel,POI) => [
 			items <=> "puntosBuscados"
 			value <=> "puntoSeleccionado"
 			height = 500
@@ -65,7 +65,10 @@ class BusquedaWindow extends SimpleWindow<BusquedaPOIAppModel> {
 		actionsPanel.layout = new HorizontalLayout
 		new Button(actionsPanel) => [
 			setCaption("Buscar")
-			onClick [ | modelObject.validarCriterios ] 
+			onClick [ | 
+				modelObject.validarCriterios
+				modelObject.buscar
+			] 
 			setAsDefault
 			disableOnError	
 		]

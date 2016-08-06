@@ -1,6 +1,8 @@
 package modelosYApp
 
+import java.util.ArrayList
 import java.util.HashSet
+import java.util.List
 import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.UserException
@@ -17,7 +19,7 @@ class BusquedaPOIAppModel {
 	/**Criterio nuevo a agregar en ventana auxiliar */
 	String criterioNuevo
 	/**Lista de resultados */
-	Set<POI> puntosBuscados = new HashSet<POI>
+	List<POI> puntosBuscados = new ArrayList<POI>
 	/**Repositorio de puntos de interés */
 	RepoPOI repo = ApplicationContext.instance.getSingleton(typeof(POI))
 	/**Punto seleccionado en la tabla */
@@ -38,8 +40,12 @@ class BusquedaPOIAppModel {
 	}
 	
 	def buscar(){
-		//puntosBuscados = criterios.stream.c
-		//puntosBuscados = criterios.fold(new ArrayList<POI>,repo.search())
+		if (!puntosBuscados.nullOrEmpty){
+			puntosBuscados.clear
+			} 
+		for(String criterio:criterios){
+			puntosBuscados.addAll(repo.search(criterio))
+		}
 	}
 	
 	def agregarCriterio(){
@@ -52,7 +58,8 @@ class BusquedaPOIAppModel {
 	}
 	
 	def completar() {
-		puntosBuscados = repo.allInstances as Set<POI>
+		puntosBuscados.clear
+		puntosBuscados.addAll(repo.allInstances)
 	}
 	
 	def eliminarCriterio() {
