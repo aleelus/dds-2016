@@ -13,6 +13,7 @@ import repositorios.RepoPOI
 import repositorios.RepoUsuarios
 import usuario.Terminal
 import usuario.Rol
+import puntosDeInteres.Comuna
 
 class POIBootstrap extends CollectionBasedBootstrap{
 	
@@ -31,7 +32,7 @@ class POIBootstrap extends CollectionBasedBootstrap{
 			setTags(newArrayList("CGP","Flores","Rentas"))
 			setLongitud(15)
 			setLatitud(30)
-			setComuna(new Point(0, 0), new Point(50, 0), new Point(50, 50), new Point(0, 50))
+			setComuna("Flores",new Point(0, 0), new Point(50, 0), new Point(50, 50), new Point(0, 50))
 			setDireccion = "Av. Corrientes 2873"
 		]
 		val cgp = builderCGP.build()
@@ -57,7 +58,8 @@ class POIBootstrap extends CollectionBasedBootstrap{
 			setLatitud(40)
 			setTags(newArrayList("Santander","Rio","Banco","Depósito","Cheque"))
 			setSucursal("Once")
-			setServicios(newArrayList("cobros cheques", "depositos", "transferencias", "extracciones"))
+			setZona(new Comuna("Once",new Point(0, 0), new Point(50, 0), new Point(50, 50), new Point(0, 50)))
+			setServicios(newArrayList("Cobro de cheques", "Depósitos", "Transferencias", "Extracciones"))
 			setGerente("Mirtha Legrand")
 			setDireccion = "Av. Rivadavia 3163"
 		]

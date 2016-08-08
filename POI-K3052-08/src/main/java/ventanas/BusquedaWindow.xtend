@@ -15,6 +15,12 @@ import puntosDeInteres.POI
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.bindings.NotNullObservable
+import java.util.HashMap
+import puntosDeInteres.ParadaColectivo
+import puntosDeInteres.CGP
+import puntosDeInteres.SucursalBanco
+import puntosDeInteres.LocalComercial
 
 class BusquedaWindow extends SimpleWindow<BusquedaPOIAppModel> {
 	
@@ -45,6 +51,7 @@ class BusquedaWindow extends SimpleWindow<BusquedaPOIAppModel> {
 			height = 500
 			numberVisibleRows = 10
 		])
+		new NotNullObservable("abonadoSeleccionado")
 	}
 	
 	def crearColumnas(Table<POI> tabla) {
@@ -52,7 +59,7 @@ class BusquedaWindow extends SimpleWindow<BusquedaPOIAppModel> {
 			title = "Nombre"
 			fixedSize = 100
 			bindContentsToProperty("nombre")
-		]
+			]
 		
 		new Column<POI>(tabla) => [
 			title = "Dirección"
@@ -75,6 +82,25 @@ class BusquedaWindow extends SimpleWindow<BusquedaPOIAppModel> {
 		new Button(actionsPanel) => [
 			setCaption("Limpiar")
 			onClick [ | modelObject.limpiar ]	
+		]
+		
+		new Button(actionsPanel) => [
+			setCaption("Ver detalles")
+			onClick[ | this.abrirDetalles]
+		]
+	}
+	
+	def abrirDetalles() {
+		val bloqueQueConstruyeVentana = mapaVentanas.get(modelObject.puntoSeleccionado.class)
+		bloqueQueConstruyeVentana.apply.open
+	}
+	
+	def getMapaVentanas() {
+		return new HashMap<Class<? extends POI>, () => DetallesWindow> => [
+			put(typeof(ParadaColectivo), [ | new DetallesParadaWindow(this, modelObject.puntoSeleccionado) ] )
+			put(typeof(CGP), [ | new DetallesCGPWindow(this, modelObject.puntoSeleccionado) ] )
+			put(typeof(SucursalBanco), [ | new DetallesBancoWindow(this, modelObject.puntoSeleccionado)] )
+			put(typeof(LocalComercial), [ | new DetallesLocalComWindow(this, modelObject.puntoSeleccionado)] )
 		]
 	}
 	

@@ -130,7 +130,7 @@ class DisponibilidadTest {
 			setNombre("Centro Flores")
 			setLongitud(15)
 			setLatitud(30)
-			setComuna(new Point(0, 0), new Point(0, 2), new Point(2, 2), new Point(2, 0))
+			setComuna("Flores",new Point(0, 0), new Point(0, 2), new Point(2, 2), new Point(2, 0))
 		]
 		cgp = builderCGP.build()
 

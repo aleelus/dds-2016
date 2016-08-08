@@ -7,7 +7,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.geodds.Point
 import puntosDeInteres.POI.Dias
-
+import org.uqbar.commons.utils.Observable
 
 @Accessors
 class LocalComercial extends POI {
@@ -41,6 +41,7 @@ class LocalComercial extends POI {
 }
 
 @Accessors
+@Observable
 class Rubro {
 	
 	/**Determina el radío máximo a partir del cual un

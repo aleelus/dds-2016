@@ -7,6 +7,7 @@ import java.util.ArrayList
 import org.eclipse.xtend.lib.annotations.Accessors
 import puntosDeInteres.SucursalBanco
 import excepciones.CreationException
+import puntosDeInteres.Comuna
 
 @Accessors
 class BancoBuilder {
@@ -14,6 +15,7 @@ class BancoBuilder {
 	double latitud
 	double longitud
 	String direccion
+	Comuna zona
 	List<String> tags = new ArrayList<String>
 	List<DateTime> horario = new ArrayList<DateTime>
 	List<Dias> diasAbierto = new ArrayList<Dias>
@@ -45,6 +47,11 @@ class BancoBuilder {
 			this.longitud = longitud
 			this
 		}
+	}
+	
+	def setZona(Comuna comuna){
+		this.zona = comuna
+		this
 	}
 	
 	def setDireccion(String direccion){
@@ -93,6 +100,7 @@ class BancoBuilder {
 		banco.gerente = gerente
 		banco.horario = horario
 		banco.diasAbierto = diasAbierto
+		banco.zona = zona
 		banco
 	}
 }

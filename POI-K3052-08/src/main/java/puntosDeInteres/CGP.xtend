@@ -8,13 +8,15 @@ import org.joda.time.DateTime
 import org.uqbar.geodds.Point
 import org.uqbar.geodds.Polygon
 import puntosDeInteres.POI.Dias
+import org.uqbar.commons.utils.Observable
 
 @Accessors
+@Observable
 class CGP extends POI {
 	/**
 	 * Representa la comuna del CGP.
 	 */
-	Comuna comunaCGP
+	Comuna zona
 	
 	/**Representa la lista de servicios del CGP. Contiene elementos
 	 * de la clase ServicioCGP.
@@ -27,7 +29,7 @@ class CGP extends POI {
 	 */
 	override estaCerca(double latitudUser, double longitudUser) {
 		val Point puntoUsuario = new Point(latitudUser, longitudUser)
-		comunaCGP.poseeA(puntoUsuario)
+		zona.poseeA(puntoUsuario)
 	}
 
 	/**Método que devuelve si un texto está presente en el nombre o en el nombre de los servicios.*/
@@ -88,17 +90,17 @@ class CGP extends POI {
 }
 
 @Accessors
+@Observable
 class Comuna {
 	/**Polígono que representa el área de la comuna */
 	Polygon areaComuna
+	String nombreComuna
 
 	// Constructores
-	new() {
-		super()
-	}
 
-	new(Point... puntos) {
-		this()
+	new(String nombre,Point... puntos) {
+		super()
+		nombreComuna = nombre
 		areaComuna = new Polygon(puntos)
 	}
 
@@ -109,6 +111,7 @@ class Comuna {
 }
 
 @Accessors
+@Observable
 class ServicioCGP {
 	/**Nombre del servicio */
 	String nombre

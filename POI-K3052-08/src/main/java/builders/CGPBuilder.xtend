@@ -60,8 +60,8 @@ class CGPBuilder {
 		}
 	}
 
-	def setComuna(Point... puntos) {
-		this.comuna = new Comuna(puntos)
+	def setComuna(String nombre, Point... puntos) {
+		this.comuna = new Comuna(nombre,puntos)
 		this
 	}
 
@@ -72,7 +72,7 @@ class CGPBuilder {
 		nuevoCGP.direccion = direccion
 		nuevoCGP.latitud = latitud
 		nuevoCGP.longitud = longitud
-		nuevoCGP.comunaCGP = comuna
+		nuevoCGP.zona = comuna
 		nuevoCGP
 	}
 }

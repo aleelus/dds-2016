@@ -13,7 +13,7 @@ import repositorios.RepoPOI
 
 @Observable
 @Accessors
-class BusquedaPOIAppModel {
+class BusquedaPOIAppModel{
 	/**Lista de criterios activos */
 	Set<String> criterios
 	/**Criterio nuevo a agregar en ventana auxiliar */

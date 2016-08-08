@@ -19,6 +19,8 @@ class SucursalBanco extends POI {
 	List<String> servicios
 	/**Nombre del gerente de la sucursal */
 	String gerente
+	/**Zona del banco */
+	Comuna zona
 
 	def estaDisponible(DateTime dt, String nombre) {
 		val Locale lenguaYPais = new Locale("ES", "ar")
@@ -31,10 +33,5 @@ class SucursalBanco extends POI {
 			evaluarRangoHorario(horario, dt.getHourOfDay(), dt.getMinuteOfHour())
 		}
 	}
-
-//	override equals(Object arg0) {
-//		val SucursalBanco puntoAComparar = arg0 as SucursalBanco
-//		nombre.equals(puntoAComparar.nombre)
-//	}
 
 }

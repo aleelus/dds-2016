@@ -1,13 +1,13 @@
 package modelosYApp
 
 import org.uqbar.arena.Application
-import ventanas.BusquedaWindow
+import ventanas.LoginWindow
 
 class BusquedaPOIApplication extends Application {
 	
 	override protected createMainWindow() {
-		//return new LoginWindow(this, new LoguearUsuarioAppModel("banana"))
-		 new BusquedaWindow(this, new BusquedaPOIAppModel)
+		new LoginWindow(this, new LoguearUsuarioAppModel("banana"))
+		//new BusquedaWindow(this, new BusquedaPOIAppModel)
 	}
 	
 	static def void main(String[] args) {

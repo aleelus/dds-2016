@@ -38,11 +38,11 @@ class CercaniaTest {
 			setNombre("Centro Flores")
 			setLongitud(15)
 			setLatitud(30)
-			setComuna(new Point(0, 0), new Point(0, 2), new Point(2, 2), new Point(2, 0))
+			setComuna("Flores",new Point(0, 0), new Point(0, 2), new Point(2, 2), new Point(2, 0))
 		]
 		cgpCerca = builderCGP.build()
 		builderCGP => [
-			setComuna(new Point(2, 2), new Point(2, 4), new Point(4, 4), new Point(4, 2))
+			setComuna("Flores",new Point(2, 2), new Point(2, 4), new Point(4, 4), new Point(4, 2))
 		]
 		cgpLejos = builderCGP.build()
 
