@@ -43,7 +43,6 @@ import static org.mockito.Mockito.*
 import procesos.Proceso
 import usuario.Terminal
 import usuario.Rol
-import modelosYApp.POIBootstrap
 
 class ProcesosTest {
 	RepoPOI mapa
@@ -68,7 +67,6 @@ class ProcesosTest {
 	def void setUp() {
 
 		// Repositorios
-		new POIBootstrap().run
 		mapa = new RepoPOI
 		baseUsuarios = new RepoUsuarios
 		baseUsuariosRota = new RepoUsuarios
@@ -106,11 +104,11 @@ class ProcesosTest {
 		rolConsulta.esUserConNotificacion()
 
 		// Creación de terminales
-		terminalEjecutora = new Terminal("abasto", rolAdmin)
+		terminalEjecutora = new Terminal("abasto", rolAdmin, mapa)
 		terminalEjecutora.repositorio = mapa
 		baseUsuarios.create(terminalEjecutora)
 		baseUsuariosRota.create(terminalEjecutora)
-		terminalNoEjecutora = new Terminal("caballito", rolConsulta)
+		terminalNoEjecutora = new Terminal("caballito", rolConsulta, mapa)
 		terminalNoEjecutora.repositorio = mapa
 		baseUsuarios.create(terminalNoEjecutora)
 		baseUsuariosRota.create(terminalNoEjecutora)

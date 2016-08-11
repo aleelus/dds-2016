@@ -51,7 +51,7 @@ class BusquedaWindow extends SimpleWindow<BusquedaPOIAppModel> {
 			height = 500
 			numberVisibleRows = 10
 		])
-		new NotNullObservable("abonadoSeleccionado")
+		new NotNullObservable("puntoSeleccionado")
 	}
 	
 	def crearColumnas(Table<POI> tabla) {
@@ -96,7 +96,7 @@ class BusquedaWindow extends SimpleWindow<BusquedaPOIAppModel> {
 	}
 	
 	def getMapaVentanas() {
-		return new HashMap<Class<? extends POI>, () => DetallesWindow> => [
+		new HashMap<Class<? extends POI>, () => DetallesWindow> => [
 			put(typeof(ParadaColectivo), [ | new DetallesParadaWindow(this, modelObject.puntoSeleccionado) ] )
 			put(typeof(CGP), [ | new DetallesCGPWindow(this, modelObject.puntoSeleccionado) ] )
 			put(typeof(SucursalBanco), [ | new DetallesBancoWindow(this, modelObject.puntoSeleccionado)] )

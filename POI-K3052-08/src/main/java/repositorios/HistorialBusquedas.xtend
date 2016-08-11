@@ -6,10 +6,10 @@ import java.util.stream.Collectors
 import org.joda.time.LocalDate
 import org.uqbar.commons.model.CollectionBasedRepo
 import puntosDeInteres.POI
-import org.apache.commons.collections15.Predicate
-import org.apache.commons.collections15.functors.AndPredicate
 import usuario.DatosBusqueda
 import usuario.Terminal
+import org.apache.commons.collections15.functors.AndPredicate
+import org.apache.commons.collections15.Predicate
 
 class HistorialBusquedas extends CollectionBasedRepo<DatosBusqueda> {
 

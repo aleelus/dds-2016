@@ -12,12 +12,7 @@ import usuario.Terminal
 class LoguearUsuarioAppModel {
 	String nombreTerminal
 	String pass
-	String passwordHardcodeada
 	RepoUsuarios repo = ApplicationContext.instance.getSingleton(typeof(Terminal))
-	
-	new(String pass){
-		passwordHardcodeada = pass
-	}
 	
 	def limpiar() {
 		nombreTerminal = ""
@@ -27,7 +22,7 @@ class LoguearUsuarioAppModel {
 	def validarLogin() {
 		if (!repo.existeUsuario(nombreTerminal)){
 			throw new UserException("No existe el usuario indicado")
-		} else if (pass!=passwordHardcodeada) {
+		} else if (repo.coincidePass(nombreTerminal,pass)) {
 			throw new UserException("Password incorrecta")
 		}
 	}

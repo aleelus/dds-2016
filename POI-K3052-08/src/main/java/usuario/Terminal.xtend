@@ -25,13 +25,29 @@ class Terminal extends Entity{
 	String contraseña 
 	List<ObserverBusqueda> listaObservers = new ArrayList<ObserverBusqueda>
 	Rol rolTerminal
-	RepoPOI repositorio = ApplicationContext.instance.getRepo(typeof(POI)) as RepoPOI
+	RepoPOI repositorio
 
 	new(String nombre, Rol rol) {
 		super()
 		this.rolTerminal = rol
 		this.nombreTerminal = nombre
+		this.repositorio = ApplicationContext.instance.getRepo(typeof(POI)) as RepoPOI
 	}
+	
+	new(String nombre, Rol rol, RepoPOI repo) {
+		super()
+		this.rolTerminal = rol
+		this.nombreTerminal = nombre
+		this.repositorio = repo
+	}
+	
+	new(String nombre, Rol rol, String pass) {
+		super()
+		this.rolTerminal = rol
+		this.nombreTerminal = nombre
+		this.contraseña = pass
+	}
+	
 
 	new() {
 		super()

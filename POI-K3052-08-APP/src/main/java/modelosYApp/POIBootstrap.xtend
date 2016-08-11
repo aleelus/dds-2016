@@ -73,8 +73,8 @@ class POIBootstrap extends CollectionBasedBootstrap{
 				create(banco)
 			])
 			configureRepo(typeof(Terminal), new RepoUsuarios => [
-				create(new Terminal("ADMIN", new Rol()))
-				create(new Terminal("terminal-1", new Rol()))
+				create(new Terminal("ADMIN", new Rol(),"123456"))
+				create(new Terminal("terminal-1", new Rol(),"banana"))
 			])
 		]
 	

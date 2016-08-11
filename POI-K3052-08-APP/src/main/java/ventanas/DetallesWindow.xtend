@@ -13,6 +13,7 @@ import org.uqbar.arena.widgets.List
 import org.uqbar.arena.bindings.ObservableProperty
 import org.uqbar.arena.bindings.PropertyAdapter
 import puntosDeInteres.ServicioCGP
+import org.eclipse.xtend.lib.annotations.Accessors
 
 abstract class DetallesWindow extends Dialog<POI> {
 	
@@ -49,15 +50,17 @@ class DetallesParadaWindow extends DetallesWindow{
 		] 
 	}
 }
-
+@Accessors
 abstract class DetallesConDireccionWindow extends DetallesWindow{
+	
+	Panel panelDetalles
 	
 	new(WindowOwner owner, POI model) {
 		super(owner, model)
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
-		val panelDetalles = new Panel(mainPanel)
+		panelDetalles = new Panel(mainPanel)
 		panelDetalles.layout = new ColumnLayout(2)
 		new Label(panelDetalles).text = "Dirección:"
 		new Label(panelDetalles) => [
@@ -84,8 +87,6 @@ class DetallesCGPWindow extends DetallesConDireccionWindow{
 	
 	override protected createFormPanel(Panel mainPanel) {
 		super.createFormPanel(mainPanel)
-		val panelDetalles = new Panel(mainPanel)
-		panelDetalles.layout = new ColumnLayout(2)
 		new Label(panelDetalles).text = "Zona:"
 		new Label(panelDetalles) => [
 			value <=> "zona.nombreComuna"
@@ -93,8 +94,6 @@ class DetallesCGPWindow extends DetallesConDireccionWindow{
 	}
 	
 	def crearLista(Panel mainPanel){
-		val panelDetalles = new Panel(mainPanel)
-		panelDetalles.layout = new ColumnLayout(2)
 		new Label(panelDetalles).text = "Servicios:"
 		new List(panelDetalles) => [
 			items <=> "listaServicios"
@@ -112,8 +111,6 @@ class DetallesBancoWindow extends DetallesCGPWindow{
 	}
 	
 	override crearLista(Panel mainPanel) {
-		val panelDetalles = new Panel(mainPanel)
-		panelDetalles.layout = new ColumnLayout(2)
 		new Label(panelDetalles).text = "Servicios:"
 		new List(panelDetalles) => [
 			items <=> "servicios"
@@ -132,8 +129,6 @@ class DetallesLocalComWindow extends DetallesConDireccionWindow{
 	
 	override protected createFormPanel(Panel mainPanel) {
 		super.createFormPanel(mainPanel)
-		val panelDetalles = new Panel(mainPanel)
-		panelDetalles.layout = new ColumnLayout(2)
 		new Label(panelDetalles).text = "Nombre comercial:"
 		new Label(panelDetalles) => [
 			value <=> "nombre"

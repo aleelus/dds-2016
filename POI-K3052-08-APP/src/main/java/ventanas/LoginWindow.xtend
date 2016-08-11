@@ -31,8 +31,8 @@ class LoginWindow extends SimpleWindow<LoguearUsuarioAppModel> {
 			caption = "Ingresar"
 			onClick[| 
 				modelObject.validarLogin
-				new BusquedaWindow(this, new BusquedaPOIAppModel).open
 				this.close
+				new BusquedaWindow(this, new BusquedaPOIAppModel).open
 			]
 			width = 100
 			disableOnError

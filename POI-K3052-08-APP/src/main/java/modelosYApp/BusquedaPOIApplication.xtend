@@ -6,8 +6,7 @@ import ventanas.LoginWindow
 class BusquedaPOIApplication extends Application {
 	
 	override protected createMainWindow() {
-		new LoginWindow(this, new LoguearUsuarioAppModel("banana"))
-		//new BusquedaWindow(this, new BusquedaPOIAppModel)
+		new LoginWindow(this, new LoguearUsuarioAppModel())
 	}
 	
 	static def void main(String[] args) {

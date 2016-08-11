@@ -71,5 +71,9 @@ class RepoUsuarios extends CollectionBasedRepo<Terminal> {
 	def existeUsuario(String nombre) {
 		allInstances.exists[user | user.nombreTerminal.equalsIgnoreCase(nombre)]
 	}
+	
+	def coincidePass(String nombre, String pass) {
+		allInstances.exists[user | user.nombreTerminal==nombre && user.contraseña==pass]
+	}
 
 }

@@ -59,7 +59,10 @@ class BusquedaPOIAppModel{
 	def agregarCriterio(){
 		if (criterios.exists[criterio|criterio.equalsIgnoreCase(criterioNuevo)]){
 			throw new UserException("El criterio ya está siendo usado")
-		} else {
+		} else if (criterioNuevo.isNullOrEmpty) {
+			throw new UserException("El criterio no pouede ser vacío")
+		}
+		else {
 			criterios.add(criterioNuevo)
 			criterioNuevo = null	
 		}
@@ -72,7 +75,11 @@ class BusquedaPOIAppModel{
 	}
 	
 	def eliminarCriterio() {
-		criterios.remove(criterioSeleccionado)
+		if (criterios.isNullOrEmpty){
+			throw new UserException("No hay criterio para eliminar")
+		} else {
+			criterios.remove(criterioSeleccionado)	
+		}
 	}
 	
 }
