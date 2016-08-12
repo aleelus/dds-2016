@@ -1,0 +1,31 @@
+html,
+body {
+  height: 100%;
+  background-color: #2b542c;
+}
+body {
+  color: #f9f9f9;
+  text-align: center;
+}
+
+.jumbotron {
+	background-color: #f9f9f9;
+}
+
+.page-header{
+	color:#333;
+}
+
+.table-bordered{
+	border-color: #2b542c;
+}
+
+tr{
+	color: black
+}
+
+th {
+	color: #f9f9f9;
+	text-align:center;
+    background-color: #2b542c;
+}
