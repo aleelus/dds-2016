@@ -1,7 +1,7 @@
 html,
 body {
   height: 100%;
-  background-color: #2b542c;
+  background-color: #5cb85c;
 }
 body {
   text-align: center;
@@ -16,7 +16,7 @@ body {
 }
 
 .table-bordered{
-	border-color: #2b542c;
+	border-color: #5cb85c;
 }
 
 p{
@@ -31,5 +31,5 @@ tr{
 th {
 	color: #f9f9f9;
 	text-align:center;
-    background-color: #2b542c;
+    background-color: #5cb85c;
 }
