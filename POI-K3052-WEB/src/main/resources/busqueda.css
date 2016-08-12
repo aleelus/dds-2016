@@ -4,7 +4,6 @@ body {
   background-color: #2b542c;
 }
 body {
-  color: #f9f9f9;
   text-align: center;
 }
 
@@ -18,6 +17,11 @@ body {
 
 .table-bordered{
 	border-color: #2b542c;
+}
+
+p{
+	text-align:left;
+	color: black;
 }
 
 tr{
