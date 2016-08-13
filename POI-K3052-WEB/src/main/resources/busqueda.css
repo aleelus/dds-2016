@@ -25,7 +25,8 @@ p{
 }
 
 tr{
-	color: black
+	color: black;
+	background-color: white;
 }
 
 th {
