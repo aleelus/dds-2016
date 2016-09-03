@@ -1,31 +1,29 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" ng-app="poi-app">
 <head>
+    <base href="/">
+
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- JQUERY -->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-
-    <!-- BOOTSTRAP -->
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
-
-
-    <!-- ANGULAR  -->
-    <script src="node_modules/angular/angular.min.js"></script>
-    <script src="node_modules/angular-animate/angular-animate.min.js"></script>
-
     <title>Sistema de puntos de interés</title>
-    <link href="css/login.css" rel="stylesheet">
-</head>
-<body ng-app="poi-app">
-<div ui-view="index">
+    <link href="app/partials/login/login.css" rel="stylesheet" type="text/css">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
+
+</head>
+<body>
+<div ui-view="layout">
 </div>
 
+
 </body>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/lodash/lodash.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
 <script src="app/app.js"></script>
+<script src="app/partials/login/login.js"></script>
+
 </html>

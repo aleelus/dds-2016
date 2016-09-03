@@ -1,10 +1,9 @@
 html,
 body {
-  height: 100%;
-  background-color: #2b542c;
+  background-color: #2b542c !important;;
 }
 body {
-  color: #f9f9f9;
+  color: #f9f9f9 !important;;
   text-align: center;
 }
 
@@ -14,6 +13,10 @@ body {
 
 .page-header{
 	color:#333;
+}
+
+.navbar-inverse{
+  background-color: #f9f9f9;
 }
 
 .form-signin {
