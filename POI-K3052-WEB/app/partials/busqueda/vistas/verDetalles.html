@@ -1,0 +1,47 @@
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <h3 class="page-header">{{detalleCtrl.detalle.nombre}}</h3>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                <tr>
+                    <td>Dirección:</td>
+                    <td>{{detalleCtrl.detalle.direccion}}</td>
+                </tr>
+                <tr ng-show="detalleCtrl.detalle.tipo.servicios" class="ng-hide">
+                    <td>Servicios:</td>
+                    <td>
+                        <ul class="list-group" ng-repeat="servicio in detalleCtrl.detalle.tipo.servicios">
+                            <li class="list-group-item">{{servicio}}</li>
+                        </ul>
+
+                    </td>
+                </tr>
+                <tr ng-show="detalleCtrl.detalle.tipo.rubros" class="ng-hide">
+                    <td>Rubros:</td>
+                    <td>
+                        <ul class="list-group" ng-repeat="servicio in detalleCtrl.detalle.tipo.rubros">
+                            <li class="list-group-item">{{servicio}}</li>
+                        </ul>
+
+                    </td>
+                </tr>
+                <tr ng-show="detalleCtrl.detalle.tipo.linea" class="ng-hide">
+                    <td>Linea:</td>
+                    <td>
+                        <ul class="list-group" ng-repeat="servicio in detalleCtrl.detalle.tipo.linea">
+                            <li class="list-group-item">{{servicio}}</li>
+                        </ul>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <a ui-sref="index.busqueda" class="btn btn-success">
+            <span class="glyphicon glyphicon-menu-left"> </span> Volver
+        </a>
+    </div>
+</div>
+</body>

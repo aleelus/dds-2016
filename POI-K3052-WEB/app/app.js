@@ -18,13 +18,9 @@ var poiApp = angular.module('poi-app', ['ui.router'])
                     }
                 },
             })
-            .state('index.busqueda', {
-                url: "/busqueda",
-                templateUrl: "app/busqueda/busqueda.html"
-            });
     })
 
-    .directive('ejecutarSiEsFalso', ['$parse', '$rootScope',
+    .directive('eatClickIf', ['$parse', '$rootScope',
         function ($parse, $rootScope) {
             return {
                 // this ensure ejecutarSiEsFalso be compiled before ngClick
