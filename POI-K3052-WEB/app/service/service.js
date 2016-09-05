@@ -1,7 +1,8 @@
-var idGlobal=0;
+var idBusq=0;
+var idCriterio=0;
 
 function Busqueda(nombre, direccion,tipo) {
-    return { id: idGlobal++, nombre: nombre, direccion: direccion, tipo: tipo};
+    return { id: idBusq++, nombre: nombre, direccion: direccion, tipo: tipo};
 }
 
 busquedas = [
@@ -11,15 +12,34 @@ busquedas = [
     new Busqueda("Sucursal Banco Santander Rio", "Av.Rivadavia 3163",{ servicios: ["Cobro de cheques","Depositos","Transferencias","Extracciones"]})
 ];
 
+function Criterio(nombre){
+
+    return {id:idCriterio++, nombre:nombre};
+}
+
+criterios = [
+    new Criterio("Flores"),
+];
+
 function serviceBusq() {
     var self = this;
 
     self.getAll = function () {
         return busquedas;
     };
+    self.getAllCriterios = function () {
+        return criterios;
+    };
 
     self.get = function (id) {
         return _.find(busquedas, { id: id });
+    };
+
+    self.create = function () {
+       /* if(_.find(criterios,{nombre: nombre}) === undefined){
+            return new Criterio(nombre);
+        }*/
+       return new Busqueda("ParadaSKDBSIDHBSHIDBSDHIBHIS", "Malabia 29",{ linea: ["124","164","4","12","3","8","101"]})
     };
 
 };

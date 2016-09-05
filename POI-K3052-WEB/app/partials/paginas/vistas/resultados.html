@@ -1,0 +1,30 @@
+<h3 class="page-header">Resultados</h3>
+<h4>Los resultados son los siguientes:</h4>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>
+                <center>Nombre</center>
+            </th>
+            <th>
+                <center>Dirección</center>
+            </th>
+            <th>
+                <center>Detalles</center>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="busq in resultadoCtrl.busquedas">
+            <td>{{ busq.nombre }}</td>
+            <td>{{ busq.direccion }}</td>
+            <td class="center">
+                <a ui-sref="index.ver_detalles({ id: busq.id})" class="btn btn-success btn-circle"><span
+                        class="glyphicon glyphicon-plus"> </span><i class="fa fa-pencil-square-o"></i></a>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
