@@ -2,15 +2,9 @@
     <div class="jumbotron">
         <h3 class="page-header">Criterios</h3>
         <div class="row">
-            <p>Criterios seleccionados:</p>
             <div class="col-md-3">
             </div>
             <div class="col-md-3">
-<<<<<<< HEAD
-
-                <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="crit in criterioCtrl.criterios" ng-click="setValue(crit)" ng-class="{selected: crit === criterioCtrl.criterioSeleccionado}">{{crit.nombre}}</li>
-=======
                 <p>Criterios seleccionados:</p>
                 <ul class="list-group" style="list-style-type:none">
                     <li  data-ng-repeat="crit in criterioCtrl.criterios">
@@ -18,7 +12,6 @@
                             <center>{{crit.nombre}}<span ng-show="flag" class="glyphicon glyphicon-remove"></span></center>
                         </button>
                     </li>
->>>>>>> 820d14929724e3bc968d2d08b649511c26c94c83
                 </ul>
             </div>
             <div class="col-md-3">
