@@ -3,30 +3,33 @@
         Usuario: ADMIN<br>
         Contraseña: 123<br>
     </div>
-    <h3 class="page-header">Bienvenido! <br> Por favor ingrese su nombre de usuario y su contraseña: <br>
-        <small>Todos los campos son obligatorios</small>
-    </h3>
-    <form class="form-signin">
-        <label for="inputUsuario" class="sr-only">Usuario</label>
-        <input type="text" id="inputUsuario" ng-required="true" ng-model="login.usuario" class="form-control" placeholder="Usuario" autofocus>
-        <label ng-model="login.user"></label>
-        <label for="inputPass" class="sr-only">Contraseña</label>
-        <input type="password" id="inputPass" ng-required="true" ng-model="login.pass" class="form-control" placeholder="Contraseña">
-        <label ng-model="login.pass"></label>
-        <div class="btn-group" role="group">
-            <a ui-sref="index.busqueda" class="btn btn-lg btn-success" type="submit" eat-click-if="!(login.loguearse())">
-                <span class="glyphicon glyphicon-log-in"></span>
-                Ingresar
-            </a>
-            <button class="btn btn-lg btn-danger" type="reset">
-                <span class="glyphicon glyphicon-refresh"></span>
-                Limpiar
-            </button>
-        </div>
-        <div>
-            <div class="alert alert-danger" ng-show="login.errorMessage" class="ng-hide">
-                {{login.errorMessage}}
+    <div class="jumbotron">
+        <h3 class="page-header">Bienvenido! <br> Por favor ingrese su nombre de usuario y su contraseña: <br>
+            <small>Todos los campos son obligatorios</small>
+        </h3>
+        <form class="form-signin form-horizontal">
+            <label for="inputUsuario" class="sr-only">Usuario</label>
+            <input type="text" id="inputUsuario" ng-required="true" ng-model="login.usuario" class="form-control" placeholder="Usuario" autofocus>
+            <label ng-model="login.user"></label>
+            <label for="inputPass" class="sr-only">Contraseña</label>
+            <input type="password" id="inputPass" ng-required="true" ng-model="login.pass" class="form-control" placeholder="Contraseña">
+            <label ng-model="login.pass"></label>
+            <div class="btn-group" role="group">
+                <a ui-sref="index.busqueda" class="btn btn-lg btn-success" type="submit" eat-click-if="!(login.loguearse())">
+                    <span class="glyphicon glyphicon-log-in"></span>
+                    Ingresar
+                </a>
+                <button class="btn btn-lg btn-danger" type="reset">
+                    <span class="glyphicon glyphicon-refresh"></span>
+                    Limpiar
+                </button>
             </div>
-        </div>
-    </form>
+            <div>
+                <div class="alert alert-danger" ng-show="login.errorMessage" class="ng-hide">
+                    {{login.errorMessage}}
+                </div>
+            </div>
+        </form>
+    </div>
+
 </div>

@@ -1,18 +1,61 @@
 html,
 body {
-  background-color: #2b542c !important;;
+  /*background-color: #2b542c !important;*/
+  height: 100%;
 }
 body {
   color: #f9f9f9 !important;;
   text-align: center;
 }
 
-.jumbotron {
-	background-color: #f9f9f9;
-}
-
 .page-header{
 	color:#333;
+    border-bottom-color: rgba(51,51,51,0.2)!important;
+    margin-top: auto!important;
+}
+
+h3 small{
+  color: #333!important;
+}
+
+h4{
+  color:  #333!important;
+}
+
+.table-bordered{
+  border-color: rgba(15,55,55,1)!important;
+}
+
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+th {
+  color: #f9f9f9;
+  text-align:center!important;
+  background-color: rgba(15,55,55,1)!important;
+}
+
+.btn-success{
+  background-color: rgba(15,55,55,0.9)!important;
+  border-color: rgba(15,55,55,1)!important;
+}
+
+.btn-danger{
+  background-color: rgba(92,25,25,0.9)!important;
+  border-color: rgba(92,25,25,1)!important;;
+}
+
+.btn-warning{
+  background-color: rgba(20,73,20,0.9)!important;
+  border-color: rgba(20,73,20,1)!important;
+}
+
+.btn-info{
+  background-color: rgba(92,55,25,0.9)!important;
+  border-color: rgba(92,55,25,1)!important;;
 }
 
 .form-signin {
