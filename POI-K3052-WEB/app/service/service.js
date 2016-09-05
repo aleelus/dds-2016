@@ -18,7 +18,7 @@ function Criterio(nombre){
 }
 
 criterios = [
-    new Criterio("Centro Flores")
+
 ];
 
 function serviceBusq() {

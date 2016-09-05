@@ -19,10 +19,10 @@
         <tbody>
         <tr ng-repeat="crit in resultadoCtrl.criterios">
 
-            <td ng-show="resultadoCtrl.buscarPorCriterio(crit.nombre)" class="ng-hide">{{  resultadoCtrl.buscarPorCriterio(crit.nombre).nombre}}</td>
-            <td ng-show="resultadoCtrl.buscarPorCriterio(crit.nombre)" class="ng-hide">{{  resultadoCtrl.buscarPorCriterio(crit.nombre).direccion }}</td>
-              <td class="center" ng-show="resultadoCtrl.buscarPorCriterio(crit.nombre)" class="ng-hide">
-                  <a ui-sref="index.ver_detalles({ id: resultadoCtrl.buscarPorCriterio(crit.nombre).id})" class="btn btn-success btn-circle"><span
+            <td ng-init="busq = resultadoCtrl.buscarPorCriterio(crit.nombre)" ng-show="busq" class="ng-hide">{{  busq.nombre}}</td>
+            <td ng-show="busq" class="ng-hide">{{  busq.direccion }}</td>
+              <td class="center" ng-show="busq" class="ng-hide">
+                  <a ui-sref="index.ver_detalles({ id: busq.id})" class="btn btn-success btn-circle"><span
                           class="glyphicon glyphicon-plus"> </span><i class="fa fa-pencil-square-o"></i></a>
 
               </td>
