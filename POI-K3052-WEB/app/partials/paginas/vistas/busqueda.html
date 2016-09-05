@@ -34,21 +34,20 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-warning">
+                    <button type="button" class="btn btn-info">
                         <span class="glyphicon glyphicon-minus"> </span> Eliminar criterio
                     </button>
                     <button type="button" class="btn btn-danger">
                         <span class="glyphicon glyphicon-trash"> </span> Limpiar criterios
                     </button>
-                    <button ui-sref="index.busqueda.resultados" type="button" class="btn btn-lg btn-primary">
-                        <span class="glyphicon glyphicon-search"> </span> Buscar
-                    </button>
                 </div>
             </div>
             <br>
-            <button type="button" class="btn btn-warning btn-lg">Buscar</button>
         </div>
-
+        <br>
+        <button ui-sref="index.busqueda.resultados" type="button" class="btn btn-warning btn-lg">
+            <span class="glyphicon glyphicon-search"> </span> Buscar
+        </button>
     </div>
     <div ui-view="resultados"></div>
 </div>
