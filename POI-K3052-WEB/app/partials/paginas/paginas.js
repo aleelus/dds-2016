@@ -19,7 +19,10 @@ poiApp.config(function ($stateProvider) {
                         controllerAs: "resultadoCtrl",
                         resolve: {
                             resultados: function (serviceBusq) {
-                                return serviceBusq.getAll()
+                                  return serviceBusq.getAll()
+                            },
+                            criterios: function (serviceBusq) {
+                                return serviceBusq.getAllCriterios()
                             }
                         }
                     }

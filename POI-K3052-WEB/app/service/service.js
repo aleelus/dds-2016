@@ -14,13 +14,10 @@ busquedas = [
 
 function Criterio(nombre){
 
-    return {id:idCriterio++, nombre:nombre};
+    return {nombre: nombre};
 }
 
-criterios = [
-    new Criterio("Flores"),
-    new Criterio("Local")
-];
+criterios = [];
 
 function serviceBusq() {
     var self = this;
@@ -28,19 +25,13 @@ function serviceBusq() {
     self.getAll = function () {
         return busquedas;
     };
+
     self.getAllCriterios = function () {
         return criterios;
     };
 
     self.get = function (id) {
         return _.find(busquedas, { id: id });
-    };
-
-    self.create = function () {
-       /* if(_.find(criterios,{nombre: nombre}) === undefined){
-            return new Criterio(nombre);
-        }*/
-       return new Busqueda("ParadaSKDBSIDHBSHIDBSDHIBHIS", "Malabia 29",{ linea: ["124","164","4","12","3","8","101"]})
     };
 
 };

@@ -6,9 +6,19 @@
             <div class="col-md-3">
             </div>
             <div class="col-md-3">
+<<<<<<< HEAD
 
                 <ul class="list-group">
                     <li class="list-group-item" ng-repeat="crit in criterioCtrl.criterios" ng-click="setValue(crit)" ng-class="{selected: crit === criterioCtrl.criterioSeleccionado}">{{crit.nombre}}</li>
+=======
+                <p>Criterios seleccionados:</p>
+                <ul class="list-group" style="list-style-type:none">
+                    <li  data-ng-repeat="crit in criterioCtrl.criterios">
+                        <button class="list-group-item" ng-mouseover="flag=true" ng-mouseleave="flag=false" ng-init="flag=false" ng-click="criterioCtrl.eliminarCriterio(crit.nombre)">
+                            <center>{{crit.nombre}}<span ng-show="flag" class="glyphicon glyphicon-remove"></span></center>
+                        </button>
+                    </li>
+>>>>>>> 820d14929724e3bc968d2d08b649511c26c94c83
                 </ul>
             </div>
             <div class="col-md-3">
@@ -24,31 +34,28 @@
                                     <h4 class="modal-title">Introduzca un nuevo criterio</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <label for="criterioNuevo"/>
-                                    <input type="text" class="form-control" id="criterioNuevo"
+                                    <input type="text" class="form-control" ng-model="criterioCtrl.nuevoCriterio"
                                            placeholder="Nuevo criterio">
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-success" data-dismiss="modal">Agregar</button>
+                                    <button type="submit" class="btn btn-success" data-dismiss="modal" ng-click="criterioCtrl.agregarCriterio()">Agregar</button>
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-info">
-                        <span class="glyphicon glyphicon-minus"> </span> Eliminar criterio
-                    </button>
-                    <button type="button" class="btn btn-danger">
+                    <button type="button" class="btn btn-danger" ng-click="criterioCtrl.limpiarCriterios()">
                         <span class="glyphicon glyphicon-trash"> </span> Limpiar criterios
+                    </button>
+                    <button ui-sref="index.busqueda.resultados" type="button" class="btn btn-warning btn-lg">
+                        <span class="glyphicon glyphicon-search"> </span> Buscar
                     </button>
                 </div>
             </div>
             <br>
         </div>
         <br>
-        <button ui-sref="index.busqueda.resultados" type="button" class="btn btn-warning btn-lg">
-            <span class="glyphicon glyphicon-search"> </span> Buscar
-        </button>
+
     </div>
     <div ui-view="resultados"></div>
 </div>
