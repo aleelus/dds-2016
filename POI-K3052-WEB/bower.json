@@ -1,4 +1,7 @@
 {
+  "name": "POI-K3052-WEB",
+  "version": "0.0.1",
+  "description": "Sistema de búsqueda de POI's",
   "ignore": [
     "**/.*",
     "node_modules",

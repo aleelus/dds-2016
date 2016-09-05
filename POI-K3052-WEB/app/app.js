@@ -1,5 +1,4 @@
 'use strict';
-
 var poiApp = angular.module('poi-app', ['ui.router'])
     .config(function ($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise("/");
@@ -58,4 +57,4 @@ var poiApp = angular.module('poi-app', ['ui.router'])
     ]);
 poiApp.run(function ($state,$rootScope) {
     $rootScope.$state = $state;
-})
+});

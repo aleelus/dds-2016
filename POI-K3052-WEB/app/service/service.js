@@ -19,6 +19,7 @@ function Criterio(nombre){
 
 criterios = [
     new Criterio("Flores"),
+    new Criterio("Local")
 ];
 
 function serviceBusq() {
