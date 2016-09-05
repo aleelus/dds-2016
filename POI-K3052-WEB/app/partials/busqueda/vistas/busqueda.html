@@ -1,72 +1,82 @@
-<div class="container">
-    <div class="jumbotron">
-        <h3 class="page-header">Criterios</h3>
-        <div class="row">
-            <div class="col-md-3">
-            </div>
-            <div class="col-md-3">
-                <p>Criterios seleccionados:</p>
-                <ul class="list-group">
-                    <li class="list-group-item">Flores</li>
-                    <li class="list-group-item">Parada</li>
-                    <li class="list-group-item">Santander</li>
-                </ul>
-            </div>
-            <div class="col-md-3"><br><br><br>
-                <div class="btn-group-vertical">
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#agregarCriterio">
-                        <span class="glyphicon glyphicon-plus"> </span> Agregar criterio
-                    </button>
-                    <div id="agregarCriterio" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Introduzca un nuevo criterio</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <label for="criterioNuevo"/>
-                                    <input type="text" class="form-control" id="criterioNuevo"
-                                           placeholder="Nuevo criterio">
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-success" data-dismiss="modal">Agregar</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                </div>
-                            </div>
+<div class="jumbotron">
+<h3 class="page-header">Criterios</h3>
+<div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-3">
+        <p class="superior">Criterios seleccionados:</p>
+        <ul class="list-group">
+            <li class="list-group-item">Flores</li>
+            <li class="list-group-item">Parada</li>
+            <li class="list-group-item">Santander</li>
+        </ul>
+    </div>
+    <div class="col-md-3 vcenter">
+        <div class="btn-group-vertical">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#agregarCriterio">
+                <span class="glyphicon glyphicon-plus"> </span> Agregar criterio
+            </button>
+            <div id="agregarCriterio" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Introduzca un nuevo criterio</h4>
+                        </div>
+                        <div class="modal-body">
+                            <label for="criterioNuevo"/>
+                            <input type="text" class="form-control" id="criterioNuevo"
+                                   placeholder="Nuevo criterio">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-dismiss="modal">Agregar</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-warning">
-                        <span class="glyphicon glyphicon-minus"> </span> Eliminar criterio
-                    </button>
-                    <button type="button" class="btn btn-danger">
-                        <span class="glyphicon glyphicon-trash"> </span> Limpiar criterios
-                    </button>
                 </div>
             </div>
-        </div>
-        <h3 class="page-header">Resultados</h3>
-        <h4>Los resultados son los siguientes:</h4>
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Dirección</th>
-                    <th>Detalles</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="busq in busqCtrl.busquedas">
-                    <td>{{ busq.nombre }}</td>
-                    <td>{{ busq.direccion }}</td>
-                    <td class="center">
-                        <a ui-sref="index.ver_detalles({ id: busq.id})" class="btn btn-success btn-circle"><span class="glyphicon glyphicon-plus"> </span><i class="fa fa-pencil-square-o"></i></a>
-
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <button type="button" class="btn btn-info">
+                <span class="glyphicon glyphicon-minus"> </span> Eliminar criterio
+            </button>
+            <button type="button" class="btn btn-danger">
+                <span class="glyphicon glyphicon-trash"> </span> Limpiar criterios
+            </button>
         </div>
     </div>
+</div>
+<br>
+<button type="button" class="btn btn-warning btn-lg">Buscar</button>
+</div>
+<div class="jumbotron">
+<h3 class="page-header">Resultados</h3>
+<p class="inferior">Los resultados son los siguientes:</p>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Detalles</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="busq in busqCtrl.busquedas">
+            <td>{{ busq.nombre }}</td>
+            <td>{{ busq.direccion }}</td>
+            <td class="center">
+                <a ui-sref="index.ver_detalles({ id: busq.id})" class="btn btn-success btn-circle"><span
+                        class="glyphicon glyphicon-plus"> </span><i class="fa fa-pencil-square-o"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="btn-group btn-group-sm">
+        <button type="button" class="btn btn-success">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+        <button type="button" class="btn btn-success">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </button>
+    </div>
+</div>
 </div>

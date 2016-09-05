@@ -1,35 +1,42 @@
-html,
-body {
-  background-color: #2b542c!important;
-}
 body {
   text-align: center!important;
+	/*background-color: #2b542c!important;*/
+	background: url("https://static.pexels.com/photos/14676/pexels-photo-14676.png") center fixed;
+	background-size: cover;
 }
 
 .jumbotron {
-	background-color: #f9f9f9!important;
+	background-color: rgba(249, 249, 249, 0.7)!important;
 }
 
-.page-header{
-	color:#333!important;
+.jumbotron-grande{
+	background-color: rgba(249, 249, 249, 0.4)!important;
 }
 
-.table-bordered{
-	border-color: #5cb85c!important;
+.alert {
+	background-color: rgba(217, 237, 247, 0.7)!important;
 }
 
-p{
+
+.list-group-item{
+	color: #330;
+}
+.superior{
+	text-align:center;
+	color: #333;
+	font-size: 18px!important;
+}
+
+.inferior{
 	text-align:left;
-	color: black;
+	color: #333;
+	font-size: 20px!important;
 }
 
 tr{
 	color: black;
 	background-color: white;
+	text-align: center!important;
 }
 
-th {
-	color: #f9f9f9;
-	text-align:center;
-    background-color: #5cb85c;
-}
+
