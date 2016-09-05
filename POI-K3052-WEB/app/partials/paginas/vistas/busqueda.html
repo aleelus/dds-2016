@@ -9,13 +9,14 @@
                 <ul class="list-group" style="list-style-type:none">
                     <li  data-ng-repeat="crit in criterioCtrl.criterios">
                         <button class="list-group-item" ng-mouseover="flag=true" ng-mouseleave="flag=false" ng-init="flag=false" ng-click="criterioCtrl.eliminarCriterio(crit.nombre)">
-                            <center>{{crit.nombre}}<span ng-show="flag" class="glyphicon glyphicon-remove"></span></center>
+                            <center>{{crit.nombre}} <span ng-show="flag" class="glyphicon glyphicon-remove"></span></center>
                         </button>
                     </li>
                 </ul>
             </div>
             <div class="col-md-3">
                 <div class="btn-group-vertical">
+
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#agregarCriterio">
                         <span class="glyphicon glyphicon-plus"> </span> Agregar criterio
                     </button>
@@ -40,14 +41,14 @@
                     <button type="button" class="btn btn-danger" ng-click="criterioCtrl.limpiarCriterios()">
                         <span class="glyphicon glyphicon-trash"> </span> Limpiar criterios
                     </button>
-                    <button ui-sref="index.busqueda.resultados" type="button" class="btn btn-warning btn-lg">
-                        <span class="glyphicon glyphicon-search"> </span> Buscar
-                    </button>
                 </div>
             </div>
             <br>
         </div>
         <br>
+        <button ui-sref="index.busqueda.resultados" type="button" class="btn btn-warning btn-lg">
+            <span class="glyphicon glyphicon-search"> </span> Buscar
+        </button>
 
     </div>
     <div ui-view="resultados"></div>
