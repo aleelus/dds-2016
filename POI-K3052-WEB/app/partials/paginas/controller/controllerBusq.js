@@ -42,6 +42,11 @@ function criterioController(criterio) {
     self.limpiarCriterios = function(){
         self.criterios.length = 0;
     };
+    self.eliminarCriterio = function(nombre){
+        _.remove(self.criterios,function(actual){
+            return (actual.nombre===nombre);
+        })
+    };
 
 }
 
