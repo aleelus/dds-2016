@@ -15,7 +15,8 @@ var poiApp = angular.module('poi-app', ['ui.router'])
                     },
                     'container@index': {
                         template: "<ui-view>"
-                    }
+                    },
+
                 },
             })
     })
