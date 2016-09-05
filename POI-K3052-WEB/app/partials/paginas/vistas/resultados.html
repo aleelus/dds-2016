@@ -4,27 +4,29 @@
 <div class="table-responsive">
     <table class="table table-bordered table-hover">
         <thead>
-        <tr>
+        <tr class="center">
             <th>
-                <center>Nombre</center>
+                Nombre
             </th>
             <th>
-                <center>Dirección</center>
+                Dirección
             </th>
             <th>
-                <center>Detalles</center>
+                Detalles
             </th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="busq in resultadoCtrl.busquedas">
-            <td>{{ busq.nombre }}</td>
-            <td>{{ busq.direccion }}</td>
-            <td class="center">
-                <a ui-sref="index.ver_detalles({ id: busq.id})" class="btn btn-success btn-circle"><span
-                        class="glyphicon glyphicon-plus"> </span><i class="fa fa-pencil-square-o"></i></a>
+        <tr ng-repeat="crit in resultadoCtrl.criterios">
 
-            </td>
+            <td ng-show="resultadoCtrl.buscarPorCriterio(crit.nombre)" class="ng-hide">{{  resultadoCtrl.buscarPorCriterio(crit.nombre).nombre}}</td>
+            <td ng-show="resultadoCtrl.buscarPorCriterio(crit.nombre)" class="ng-hide">{{  resultadoCtrl.buscarPorCriterio(crit.nombre).direccion }}</td>
+              <td class="center" ng-show="resultadoCtrl.buscarPorCriterio(crit.nombre)" class="ng-hide">
+                  <a ui-sref="index.ver_detalles({ id: resultadoCtrl.buscarPorCriterio(crit.nombre).id})" class="btn btn-success btn-circle"><span
+                          class="glyphicon glyphicon-plus"> </span><i class="fa fa-pencil-square-o"></i></a>
+
+              </td>
+
         </tr>
         </tbody>
     </table>
