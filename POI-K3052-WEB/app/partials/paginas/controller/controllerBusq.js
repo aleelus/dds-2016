@@ -4,26 +4,16 @@ function busquedaController(busqueda) {
     self.busquedas = busqueda;
     self.criterios = criterios;
 
-    self.buscarPorCriterio = function (criterio){
+    self.buscarPorCriterio = function (criterio) {
 
-        var i=0;
+        var i = 0;
 
-        var esta = function (vec){
-           /* var x;
-            for(x=0;x<vec.length;x++){
-                if(vec[x]===criterio){
-                    return true;
-                }
-            }*/
-            return false;
+        var esta = function (vec) {
+            return _.includes(vec, criterio);
         };
-
-        for(i=0;i<self.busquedas.length;i++){
-            if(self.busquedas[i].nombre===criterio || self.busquedas[i].direccion===criterio || esta(self.busquedas[i].tipo.linea)){
-                return self.busquedas[i];
-            }
-        }
-
+        return _.filter(self.busquedas, function (i) {
+            return (i.nombre.includes(criterio) || i.direccion.includes(criterio) || esta(i.tipo.rubros) || esta(i.servicios) || esta(i.tipo.linea));
+        })
     };
 
 }
@@ -32,19 +22,19 @@ function criterioController(criterio) {
     self.criterios = criterio;
     self.nuevoCriterio = '';
 
-    self.agregarCriterio = function() {
+    self.agregarCriterio = function () {
         if (_.find(self.criterios, {nombre: self.nuevoCriterio}) === undefined) {
             self.criterios.push(new Criterio(self.nuevoCriterio));
         }
-        self.nuevoCriterio= '';
+        self.nuevoCriterio = '';
 
     };
-    self.limpiarCriterios = function(){
+    self.limpiarCriterios = function () {
         self.criterios.length = 0;
     };
-    self.eliminarCriterio = function(nombre){
-        _.remove(self.criterios,function(actual){
-            return (actual.nombre===nombre);
+    self.eliminarCriterio = function (nombre) {
+        _.remove(self.criterios, function (actual) {
+            return (actual.nombre === nombre);
         })
     };
 

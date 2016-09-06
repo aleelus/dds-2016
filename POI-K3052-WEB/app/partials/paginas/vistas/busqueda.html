@@ -1,7 +1,7 @@
 <div class="container">
     <div class="jumbotron">
         <h3 class="page-header">Criterios</h3>
-        <div class="row">
+        <div class="row vertical-align">
             <div class="col-md-3">
             </div>
             <div class="col-md-3">
@@ -9,7 +9,7 @@
                 <ul class="list-group" style="list-style-type:none">
                     <li  data-ng-repeat="crit in criterioCtrl.criterios">
                         <button class="list-group-item" ng-mouseover="flag=true" ng-mouseleave="flag=false" ng-init="flag=false" ng-click="criterioCtrl.eliminarCriterio(crit.nombre)">
-                            <center>{{crit.nombre}} <span ng-show="flag" class="glyphicon glyphicon-remove"></span></center>
+                            {{crit.nombre}} <span ng-show="flag" class="glyphicon glyphicon-remove"></span>
                         </button>
                     </li>
                 </ul>
@@ -38,7 +38,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-danger" ng-click="criterioCtrl.limpiarCriterios()">
+                    <button type="button" class="btn btn-danger" ng-click="criterioCtrl.limpiarCriterios()" ui-sref="index.busqueda">
                         <span class="glyphicon glyphicon-trash"> </span> Limpiar criterios
                     </button>
                 </div>
