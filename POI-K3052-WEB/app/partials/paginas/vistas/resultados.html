@@ -16,10 +16,10 @@
                 </th>
             </tr>
             </thead>
-            <tbody ng-repeat="crit in resultadoCtrl.criterios" ng-init="res = resultadoCtrl.buscarPorCriterio(crit.nombre)">
+            <tbody ng-repeat="crit in resultadoCtrl.criterios"
+                   ng-init="res = resultadoCtrl.buscarPorCriterio(crit.nombre)">
             <tr ng-repeat="busq in res">
-                <td ng-show="busq"
-                    class="ng-hide">{{ busq.nombre}}
+                <td ng-show="busq" class="ng-hide">{{ busq.nombre}}
                 </td>
                 <td ng-show="busq" class="ng-hide">{{ busq.direccion }}</td>
                 <td class="center" ng-show="busq" class="ng-hide">
