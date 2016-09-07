@@ -8,8 +8,8 @@
                 <p>Criterios seleccionados:</p>
                 <ul class="list-group" style="list-style-type:none">
                     <li  data-ng-repeat="crit in criterioCtrl.criterios">
-                        <button class="list-group-item" ng-mouseover="flag=true" ng-mouseleave="flag=false" ng-init="flag=false" ng-click="criterioCtrl.eliminarCriterio(crit.nombre)">
-                            {{crit.nombre}} <span ng-show="flag" class="glyphicon glyphicon-remove"></span>
+                        <button class="list-group-item" ng-mouseover="flag=true" ng-mouseleave="flag=false" ng-init="flag=false" ng-click="criterioCtrl.eliminarCriterio(crit.nombre)" ui-sref="index.busqueda.resultados">
+                            <center>{{crit.nombre}} <span ng-show="flag" class="glyphicon glyphicon-remove"></span></center>
                         </button>
                     </li>
                 </ul>
@@ -32,7 +32,7 @@
                                            placeholder="Nuevo criterio">
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success" data-dismiss="modal" ng-click="criterioCtrl.agregarCriterio()">Agregar</button>
+                                    <button type="submit" class="btn btn-success" data-dismiss="modal" ng-click="criterioCtrl.agregarCriterio()" ui-sref="index.busqueda.resultados">Agregar</button>
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                 </div>
                             </div>
