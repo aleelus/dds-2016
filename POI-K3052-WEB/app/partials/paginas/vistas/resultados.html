@@ -16,9 +16,8 @@
                 </th>
             </tr>
             </thead>
-            <tbody ng-repeat="crit in resultadoCtrl.criterios"
-                 ng-init="res = resultadoCtrl.buscarPorCriterio(crit.nombre)">
-            <tr ng-repeat="busq in res">
+            <tbody >
+            <tr ng-repeat="busq in resultadoCtrl.buscarPorCriterio()">
                 <td ng-show="busq" class="ng-hide">{{ busq.nombre}}
                 </td>
                 <td ng-show="busq" class="ng-hide">{{ busq.direccion }}</td>
