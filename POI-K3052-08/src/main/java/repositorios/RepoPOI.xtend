@@ -19,6 +19,7 @@ class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
 	 */
 	override search(String input) {
 		val List<POI> datosLocales = allInstances.filter[punto|punto.contieneTexto(input)].toList
+		
 		if (datosLocales.empty) {
 			val List<POI> datosExternos = new ArrayList<POI>
 			reposExterno.forEach[repo|datosExternos.addAll(repo.search(input))]
@@ -30,6 +31,7 @@ class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
 	/**Método para agregar un servicio externo que implemente OrigenDeDatos a la lista */
 	def agregarSrv(OrigenDatos repoExterno) {
 		reposExterno.add(repoExterno)
+		
 	}
 
 	override create(POI puntoInteres) {
