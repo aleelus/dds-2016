@@ -6,8 +6,6 @@ function busquedaController(busqueda) {
 
     self.buscarPorCriterio = function (criterio) {
 
-        var i = 0;
-
         var esta = function (vec) {
             return _.includes(vec, criterio);
         };

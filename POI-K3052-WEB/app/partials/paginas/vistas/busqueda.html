@@ -17,7 +17,7 @@
             <div class="col-md-3">
                 <div class="btn-group-vertical">
 
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#agregarCriterio">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#agregarCriterio"  ui-sref="index.busqueda.resultados">
                         <span class="glyphicon glyphicon-plus"> </span> Agregar criterio
                     </button>
                     <div id="agregarCriterio" class="modal fade" role="dialog">
@@ -45,11 +45,6 @@
             </div>
             <br>
         </div>
-        <br>
-        <button ui-sref="index.busqueda.resultados" type="button" class="btn btn-warning btn-lg">
-            <span class="glyphicon glyphicon-search"> </span> Buscar
-        </button>
-
     </div>
     <div ui-view="resultados"></div>
 </div>

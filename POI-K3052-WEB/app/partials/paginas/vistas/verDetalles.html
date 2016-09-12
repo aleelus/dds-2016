@@ -1,7 +1,7 @@
 <body>
 <div class="container">
     <div class="jumbotron">
-        <h3 class="page-header">{{detalleCtrl.detalle.nombre}}</h3>
+        <h2 class="page-header">{{detalleCtrl.detalle.nombre}}</h2>
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
                 <tbody>
@@ -13,7 +13,9 @@
                     <td>Servicios:</td>
                     <td>
                         <ul class="list-group">
-                            <li class="list-group-item" ng-repeat="servicio in detalleCtrl.detalle.tipo.servicios">{{servicio}}</li>
+                            <li class="list-group-item" ng-repeat="servicio in detalleCtrl.detalle.tipo.servicios">
+                                {{servicio}}
+                            </li>
                         </ul>
 
                     </td>
@@ -21,8 +23,10 @@
                 <tr ng-show="detalleCtrl.detalle.tipo.rubros" class="ng-hide">
                     <td>Rubros:</td>
                     <td>
-                        <ul class="list-group" >
-                            <li class="list-group-item" ng-repeat="servicio in detalleCtrl.detalle.tipo.rubros">{{servicio}}</li>
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="servicio in detalleCtrl.detalle.tipo.rubros">
+                                {{servicio}}
+                            </li>
                         </ul>
 
                     </td>
@@ -31,17 +35,82 @@
                     <td>Linea:</td>
                     <td>
                         <ul class="list-group">
-                            <li class="list-group-item" ng-repeat="servicio in detalleCtrl.detalle.tipo.linea">{{servicio}}</li>
+                            <li class="list-group-item" ng-repeat="servicio in detalleCtrl.detalle.tipo.linea">
+                                {{servicio}}
+                            </li>
                         </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Distancia:
+                    </td>
+                    <td>
 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Calificación general:
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 0px">Favorito:</td>
+                    <td>
+                        <div class="checkbox" style="margin: auto">
+                            <label><input type="checkbox" value=""></label>
+                        </div>
                     </td>
                 </tr>
                 </tbody>
             </table>
         </div>
+        <h3>Deja tu opinión!</h3>
+        <div class="row vertical-align" style="padding-bottom: 20px">
+                <div class="col-md-12">
+                    <label for="comentario">Comentarios:</label>
+                    <textarea class="form-control" rows="3" id="comentario"></textarea>
+                </div>
+                <div class="col-md-8">
+                    <label for="estrellas">Seleccione la calificación deseada:</label>
+                    <select class="form-control center-block" id="estrellas" style="width: auto">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+        </div>
         <a ui-sref="index.busqueda.resultados" class="btn btn-success">
+            <span class="glyphicon glyphicon-ok-circle"> </span> Enviar
+        </a>
+    <h3>Opiniones</h3>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr class="center">
+                <th>
+                    Usuario
+                </th>
+                <th>
+                    Comentario
+                </th>
+                <th>
+                    Calificación
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+        <a ui-sref="index.busqueda.resultados" class="btn btn-danger">
             <span class="glyphicon glyphicon-menu-left"> </span> Volver
         </a>
-    </div>
+</div>
 </div>
 </body>

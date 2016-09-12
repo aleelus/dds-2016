@@ -17,18 +17,19 @@
             </tr>
             </thead>
             <tbody ng-repeat="crit in resultadoCtrl.criterios"
-                   ng-init="res = resultadoCtrl.buscarPorCriterio(crit.nombre)">
+                 ng-init="res = resultadoCtrl.buscarPorCriterio(crit.nombre)">
             <tr ng-repeat="busq in res">
                 <td ng-show="busq" class="ng-hide">{{ busq.nombre}}
                 </td>
                 <td ng-show="busq" class="ng-hide">{{ busq.direccion }}</td>
-                <td class="center" ng-show="busq" class="ng-hide">
+                <td ng-show="busq" class="ng-hide center">
                     <a ui-sref="index.ver_detalles({ id: busq.id})" class="btn btn-success btn-circle"><span
                             class="glyphicon glyphicon-plus"> </span><i class="fa fa-pencil-square-o"></i></a>
                 </td>
             </tr>
             </tbody>
         </table>
+        </div>
         <div class="btn-group">
             <button type="button" class="btn btn-sm btn-success">
                 <span class="glyphicon glyphicon-chevron-left"></span>
