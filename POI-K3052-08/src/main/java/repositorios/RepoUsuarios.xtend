@@ -9,6 +9,7 @@ import java.util.ArrayList
 import java.util.List
 import usuario.Terminal
 import usuario.Rol
+import excepciones.InvalidUserException
 
 @Accessors
 class RepoUsuarios extends CollectionBasedRepo<Terminal> {
@@ -63,17 +64,26 @@ class RepoUsuarios extends CollectionBasedRepo<Terminal> {
 		listaTerminales.forEach[terminal|repoCopia.create(terminal)]
 		repoCopia
 	}
-	
+
 	def ContieneAcciones(List<ObserverBusqueda> acciones) {
-		allInstances.forall[user | user.TieneAcciones(acciones)]
+		allInstances.forall[user|user.TieneAcciones(acciones)]
 	}
-	
+
 	def existeUsuario(String nombre) {
-		allInstances.exists[user | user.nombreTerminal.equalsIgnoreCase(nombre)]
+		allInstances.exists[user|user.nombreTerminal.equalsIgnoreCase(nombre)]
 	}
-	
+
 	def coincidePass(String nombre, String pass) {
-		allInstances.exists[user | user.nombreTerminal==nombre && user.contraseña==pass]
+		allInstances.exists[user|user.nombreTerminal == nombre && user.contraseña == pass]
+	}
+
+	def validarLogin(String usuario, String pass) {
+		if (!existeUsuario(usuario)) {
+			throw new InvalidUserException("El usuario no existe")
+		} else if (!coincidePass(usuario, pass)) {
+			throw new InvalidUserException("La password no coincide")
+		}
+		true
 	}
 
 }
