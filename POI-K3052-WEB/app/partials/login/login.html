@@ -16,7 +16,7 @@
             <label for="inputPass" class="sr-only">Contraseña</label>
             <input type="password" id="inputPass" ng-required="true" ng-model="login.pass" class="form-control" placeholder="Contraseña">
             <label ng-model="login.pass"></label>
-            <div class="btn-group" role="group">
+            <div class="btn-group" role="group" style="padding-top: 15px">
                 <a ui-sref="index.busqueda" class="btn btn-lg btn-success" type="submit" eat-click-if="!(login.loguearse())">
                     <span class="glyphicon glyphicon-log-in"></span>
                     Ingresar
