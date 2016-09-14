@@ -38,7 +38,7 @@ class RepoUsuarios extends CollectionBasedRepo<Terminal> {
 	}
 
 	override createExample() {
-		new Terminal
+		new Terminal()
 	}
 
 	override getEntityType() {
@@ -77,10 +77,10 @@ class RepoUsuarios extends CollectionBasedRepo<Terminal> {
 		allInstances.exists[user|user.nombreTerminal == nombre && user.contraseña == pass]
 	}
 
-	def validarLogin(String usuario, String pass) {
-		if (!existeUsuario(usuario)) {
+	def validarLogin(Terminal terminal) {
+		if (!existeUsuario(terminal.nombreTerminal)) {
 			throw new InvalidUserException("El usuario no existe")
-		} else if (!coincidePass(usuario, pass)) {
+		} else if (!coincidePass(terminal.nombreTerminal, terminal.contraseña)) {
 			throw new InvalidUserException("La password no coincide")
 		}
 		true

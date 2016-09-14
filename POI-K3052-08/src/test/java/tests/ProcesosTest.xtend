@@ -43,6 +43,8 @@ import static org.mockito.Mockito.*
 import procesos.Proceso
 import usuario.Terminal
 import usuario.Rol
+import org.uqbar.commons.utils.ApplicationContext
+import puntosDeInteres.POI
 
 class ProcesosTest {
 	RepoPOI mapa
@@ -66,11 +68,6 @@ class ProcesosTest {
 	@Before
 	def void setUp() {
 
-		// Repositorios
-		mapa = new RepoPOI
-		baseUsuarios = new RepoUsuarios
-		baseUsuariosRota = new RepoUsuarios
-
 		// Carga del repositorio
 		val LocalComBuilder builderLocal = new LocalComBuilder()
 
@@ -93,8 +90,15 @@ class ProcesosTest {
 		]
 		localComercialABorrar = builderLocal.build()
 
-		mapa.create(localComercial)
-		mapa.create(localComercialABorrar)
+		// Repositorios
+		ApplicationContext.instance => [
+			configureRepo(typeof(POI), new RepoPOI => [
+				create(localComercial)
+				create(localComercialABorrar)
+			])
+		]
+
+		mapa = ApplicationContext.instance.getRepo(typeof(POI)) as RepoPOI
 
 		// Creación de roles
 		val rolAdmin = new Rol()
@@ -104,13 +108,20 @@ class ProcesosTest {
 		rolConsulta.esUserConNotificacion()
 
 		// Creación de terminales
-		terminalEjecutora = new Terminal("abasto", rolAdmin, mapa)
-		terminalEjecutora.repositorio = mapa
-		baseUsuarios.create(terminalEjecutora)
+		terminalEjecutora = new Terminal("abasto", rolAdmin)
+
+		terminalNoEjecutora = new Terminal("caballito", rolConsulta)
+
+		ApplicationContext.instance => [
+			configureRepo(typeof(Terminal), new RepoUsuarios => [
+				create(terminalEjecutora)
+				create(terminalNoEjecutora)
+			])
+		]
+
+		baseUsuarios = ApplicationContext.instance.getRepo(typeof(Terminal)) as RepoUsuarios
+		baseUsuariosRota = new RepoUsuarios
 		baseUsuariosRota.create(terminalEjecutora)
-		terminalNoEjecutora = new Terminal("caballito", rolConsulta, mapa)
-		terminalNoEjecutora.repositorio = mapa
-		baseUsuarios.create(terminalNoEjecutora)
 		baseUsuariosRota.create(terminalNoEjecutora)
 
 		// Algoritmos de falla
@@ -161,8 +172,9 @@ class ProcesosTest {
 		// Proceso compuesto con errores
 		builderProc =>
 			[
-				agregarProcActualizacionLocales("Proceso de actualización de locales", algoritmoReenvio, mapa, srvExtFail)
-				agregarProcAgregadoAcciones("Proceso de adición de acciones", sinAlgoritmo , listaObservers,
+				agregarProcActualizacionLocales("Proceso de actualización de locales", algoritmoReenvio, mapa,
+					srvExtFail)
+				agregarProcAgregadoAcciones("Proceso de adición de acciones", sinAlgoritmo, listaObservers,
 					baseUsuariosRota)
 				agregarProcBajaPoi("Proceso de baja de POI", algoritmoReintento, mapa, srvExtFail)
 			]
@@ -278,17 +290,20 @@ class ProcesosTest {
 		terminalEjecutora.ejecutarProceso(procesoCompuesto)
 		Assert.assertTrue(srvMails.contieneMail(terminalEjecutora.nombreTerminal))
 		Assert.assertFalse(baseUsuariosRota.ContieneAcciones(procesoAgregadoAcciones.acciones))
-		Assert.assertTrue(HistorialProcesos.instance.contieneErrorDeProceso(terminalEjecutora,procesoCompuesto.procesosSimples.get(2)))
-	}
+		Assert.assertTrue(
+			HistorialProcesos.instance.contieneErrorDeProceso(terminalEjecutora,
+				procesoCompuesto.procesosSimples.get(2)))
+		}
 
-	@After
-	def limpiarSingletons() {
-		HistorialProcesos.instance.limpiar
-	}
+		@After
+		def limpiarSingletons() {
+			HistorialProcesos.instance.limpiar
+		}
 
-	@AfterClass
-	def static borrarArchivo() {
-		Files.delete(archivo)
-	}
+		@AfterClass
+		def static borrarArchivo() {
+			Files.delete(archivo)
+		}
 
-}
+	}
+	

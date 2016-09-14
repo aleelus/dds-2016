@@ -44,3 +44,10 @@ angular.module("poi-app")
     .factory("serviceBusq", function() {
         return new serviceBusq();
     });
+
+poiApp.service('loginService',function ($http) {
+    this.validarUsuario = function (usuario,contraseña,callback) {
+        $http.get('/',{user:usuario,pass:contraseña}).then(callback)
+    }
+    
+})

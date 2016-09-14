@@ -88,9 +88,9 @@ class AccionesTest {
 		mapa.create(localComercial)
 
 		// Terminales
-		terminalAbasto = new Terminal("Abasto", rolAdmin, mapa)
+		terminalAbasto = new Terminal("Abasto", rolAdmin)
 		terminalAbasto.repositorio = mapa
-		terminalCaballito = new Terminal("Caballito", rolConsulta, mapa)
+		terminalCaballito = new Terminal("Caballito", rolConsulta)
 		terminalCaballito.repositorio = mapa
 
 		// Observers

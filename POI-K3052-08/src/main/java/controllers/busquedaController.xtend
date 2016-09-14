@@ -8,6 +8,7 @@ import org.uqbar.xtrest.http.ContentType
 import org.uqbar.xtrest.json.JSONUtils
 import repositorios.RepoUsuarios
 import usuario.Terminal
+import org.uqbar.xtrest.api.annotation.Body
 
 @Controller
 class busquedaController {
@@ -15,18 +16,18 @@ class busquedaController {
 	extension JSONUtils = new JSONUtils
 
 	def static void main(String[] args) {
-		XTRest.start(busquedaController, 9000)
 		POIBootstrap.run()
+		XTRest.start(busquedaController, 9000)
 	}
 
-	@Get("/login")
-	def usuario(String usuario, String contraseña) {
+	@Get("/")
+	def validarLogin(@Body String body) {
 		try {
 			val usuarios = ApplicationContext.instance.getSingleton(typeof(Terminal)) as RepoUsuarios
 			response.contentType = ContentType.APPLICATION_JSON
-			ok(usuarios.validarLogin(usuario, contraseña).toJson)
+			ok(usuarios.validarLogin(body.fromJson(Terminal)).toJson)
 		} catch (Exception ex) {
-			notFound(ex.toString.toJson)
+			notFound('{"error": "'+ex.toString+'"}')
 		}
 
 	}
