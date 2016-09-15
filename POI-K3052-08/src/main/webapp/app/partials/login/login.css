@@ -1,0 +1,98 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  text-align: center;
+}
+
+.navbar-inverse{
+  background-color: rgba(51,51,51,0.9)!important;
+  border-color: rgba(51,51,51,1)!important;
+}
+
+.vertical-align {
+  display: flex;
+  align-items: center;
+}
+
+.page-header{
+	color:#333;
+    border-bottom-color: rgba(51,51,51,0.2)!important;
+    margin-top: auto!important;
+}
+
+h3 small{
+  color: #333!important;
+}
+
+h4{
+  color:  #333!important;
+}
+
+.table-bordered{
+  border-color: rgba(15,55,55,1)!important;
+}
+
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+th {
+  color: #f9f9f9;
+  text-align:center!important;
+  background-color: rgba(15,55,55,1)!important;
+}
+
+.btn-success{
+  background-color: rgba(15,55,55,0.9)!important;
+  border-color: rgba(15,55,55,1)!important;
+}
+
+.btn-danger{
+  background-color: rgba(92,25,25,0.9)!important;
+  border-color: rgba(92,25,25,1)!important;;
+}
+
+.btn-warning{
+  background-color: rgba(20,73,20,0.9)!important;
+  border-color: rgba(20,73,20,1)!important;
+}
+
+.btn-info{
+  background-color: rgba(92,55,25,0.9)!important;
+  border-color: rgba(92,55,25,1)!important;;
+}
+
+.form-signin {
+  max-width: 450px;
+  padding-bottom: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin{
+  margin-bottom: 10px;
+}
+.form-signin {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 14px;
+}
+
+p{
+  font-color:#333!important;
+  font-size: 18px!important;
+}
+
+td{
+vertical-align: middle!important;}
+

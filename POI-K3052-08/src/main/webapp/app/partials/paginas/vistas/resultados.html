@@ -1,0 +1,41 @@
+<div class="jumbotron">
+    <h3 class="page-header">Resultados</h3>
+    <h4>Los resultados son los siguientes:</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr class="center">
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Dirección
+                </th>
+                <th>
+                    Detalles
+                </th>
+            </tr>
+            </thead>
+            <tbody >
+            <tr ng-repeat="busq in resultadoCtrl.buscarPorCriterio()">
+                <td ng-show="busq" class="ng-hide">{{ busq.nombre}}
+                </td>
+                <td ng-show="busq" class="ng-hide">{{ busq.direccion }}</td>
+                <td ng-show="busq" class="ng-hide center">
+                    <a ui-sref="index.ver_detalles({ id: busq.id})" class="btn btn-success btn-circle"><span
+                            class="glyphicon glyphicon-plus"> </span><i class="fa fa-pencil-square-o"></i></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-success">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </button>
+            <button type="button" class="btn btn-sm btn-success">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+        </div>
+    </div>
+</div>

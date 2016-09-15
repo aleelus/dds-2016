@@ -1,0 +1,42 @@
+body {
+  text-align: center!important;
+	background: url("pexels-photo-14676.png") center fixed;
+	background-size: cover;
+}
+
+.jumbotron {
+	background-color: rgba(249, 249, 249, 0.7)!important;
+}
+
+.jumbotron-grande{
+	background-color: rgba(249, 249, 249, 0.4)!important;
+}
+
+.alert {
+	background-color: rgba(217, 237, 247, 0.7)!important;
+}
+
+
+.list-group-item{
+	color: #330;
+}
+.superior{
+	text-align:center;
+	color: #333;
+	font-size: 18px!important;
+}
+
+.inferior{
+	text-align:left;
+	color: #333;
+	font-size: 20px!important;
+}
+
+
+tr{
+	color: black;
+	background-color: white;
+	text-align: center!important;
+}
+
+

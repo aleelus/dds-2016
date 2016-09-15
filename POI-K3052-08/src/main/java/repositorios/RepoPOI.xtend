@@ -1,5 +1,7 @@
 package repositorios
 
+import com.eclipsesource.json.Json
+import com.eclipsesource.json.JsonValue
 import java.util.ArrayList
 import java.util.List
 import org.apache.commons.collections15.Predicate
@@ -80,5 +82,33 @@ class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
 	def contiene(POI poi) {
 		allInstances.contains(poi)
 	}
+
+	def stringJsonToList(String strJson) {
+
+		var vec = Json.array(strJson)
+		var List<String> listaCriterios = new ArrayList<String>
+
+		for (JsonValue valor : vec) {
+			listaCriterios.add(valor.asObject.getString("nombre", "undefined"))
+		}
+
+		listaCriterios.forEach[criterio|println(criterio)]
+
+		listaCriterios
+	}
+
+	def buscar(String criterios) {
+
+		var List<POI> lista = new ArrayList<POI>
+
+		var listaCriterios = stringJsonToList(criterios)
+
+		for (String criterio : listaCriterios) {
+			lista.addAll(this.search(criterio))
+		}
+
+		lista
+	}
+	
 
 }

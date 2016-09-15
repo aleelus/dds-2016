@@ -1,0 +1,24 @@
+{
+  "name": "POI-K3052-WEB",
+  "version": "0.0.1",
+  "description": "Sistema de búsqueda de POI's",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "4.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dds-utn/2016-mn-group-08"
+  },
+  "keywords": [
+    "angular",
+    "ui"
+  ],
+  "author": "DiseñandoPorTuVida",
+  "license": "",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
