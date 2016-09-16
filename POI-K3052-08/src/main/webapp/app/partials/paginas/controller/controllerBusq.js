@@ -75,12 +75,13 @@ function criterioController(criterio, busquedasService) {
 
 }
 
-var x = angular.module("poi-app");
 
-x.controller("criterioController", ["criterios", function (criterio,busquedasService) {
+
+poiApp.controller("criterioController", ["criterios", function (criterio,busquedasService) {
     return new criterioController(criterio,busquedasService);
 }]);
 
-x.controller("resultadosController", ["resultados", function (resultado) {
+
+poiApp.controller("resultadosController", ["resultados", function (resultado) {
     return new busquedaController(resultado);
 }]);

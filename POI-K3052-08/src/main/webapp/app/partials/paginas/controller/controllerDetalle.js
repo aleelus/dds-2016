@@ -4,7 +4,6 @@ function detalleController(serviceBusq,detalle) {
 
 };
 
-angular.module("poi-app")
-    .controller("detalleController", detalleController);
+poiApp.controller("detalleController", detalleController);
 
 detalleController.$inject = [ "serviceBusq", "detalle" ];
