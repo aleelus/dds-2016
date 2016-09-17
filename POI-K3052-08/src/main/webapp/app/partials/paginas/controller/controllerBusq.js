@@ -50,6 +50,16 @@ function criterioController(criterio, busquedasService,$rootScope) {
 	self.criterios = criterio;
 	self.nuevoCriterio = '';
 
+
+
+/*	self.damePOIS = function (){
+
+		busquedasService.recibirPOIS(function (response){
+			self.listaPOI.push(response);
+		});
+
+	}*/
+
 	self.agregarCriterio = function() {
 		if (_.find(self.criterios, {
 			nombre : self.nuevoCriterio
@@ -58,10 +68,13 @@ function criterioController(criterio, busquedasService,$rootScope) {
 		}
 		self.nuevoCriterio = '';
 
-
-		busquedasService.mandarLista(self.criterios,function() {
-
+		self.listaPOI = [];
+		busquedasService.mandarLista(self.criterios,function(rsp) {
+			self.listaPOI = rsp.data;
+			return self.listaPOI;
 		});
+
+
 
 	};
 	self.limpiarCriterios = function() {
@@ -73,6 +86,7 @@ function criterioController(criterio, busquedasService,$rootScope) {
 		})
 
 	};
+
 
 }
 
