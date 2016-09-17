@@ -5,20 +5,19 @@ function busquedaController(busqueda) {
 	self.criterios = criterios;
 	self.listaResultados = listaResultados;
 
+
 	self.buscarPorCriterio = function() {
 
-		var esta = function(vec, criterio) {
+
+//[{"id":2,"nombre":"Don José","direccion":"Quintana 861","latitud":10.0,"longitud":5.0,"tags":["José","Rotiseria","Barato"],"habilitado":true,"rubro":{"radioCercania":5.0,"nombre":"Rotiseria","horario":[],"diasAbierto":[]},"new":false},
+//{"id":3,"nombre":"Don Yoyo","direccion":"Quintana 130","latitud":10.0,"longitud":5.0,"tags":["Yoyo","Librería","Barato"],"habilitado":true,"rubro":{"radioCercania":5.0,"nombre":"Librería","horario":[],"diasAbierto":[]},"new":false}]
+
+
+        var esta = function(vec, criterio) {
 			return _.includes(vec, criterio);
 		};
-		/*
-		 * return _.filter(self.busquedas, function (i) { return
-		 * (i.nombre.includes(criterio) || i.direccion.includes(criterio) ||
-		 * esta(i.tipo.rubros) || esta(i.servicios) || esta(i.tipo.linea)); })
-		 */
 
-		// HAY Q VER BIEN DESPUES ESTA FUNCION
 		var x;
-
 		var filtrado = [];
 
 		self.listaResultados = [];
@@ -60,23 +59,31 @@ function criterioController(criterio, busquedasService,$rootScope) {
 
 	}*/
 
-	self.agregarCriterio = function() {
-		if (_.find(self.criterios, {
-			nombre : self.nuevoCriterio
-		}) === undefined && self.nuevoCriterio !== '') {
-			self.criterios.push(new Criterio(self.nuevoCriterio));
-		}
-		self.nuevoCriterio = '';
-
-		self.listaPOI = [];
-		busquedasService.mandarLista(self.criterios,function(rsp) {
-			self.listaPOI = rsp.data;
-			return self.listaPOI;
-		});
+    function transformarAPOI(jsonTarea) {
+        return POI.asPOI(jsonTarea);
+    }
 
 
+    self.enviarListaCriterios = function (){
 
-	};
+        self.listaPOI = [];
+        busquedasService.mandarLista(self.criterios,function(rsp) {
+            self.listaPOI = _.map(rsp.data, transformarAPOI);
+            return self.listaPOI;
+        });
+
+    }
+
+    self.agregarCriterio = function() {
+        if (_.find(self.criterios, {
+                nombre : self.nuevoCriterio
+            }) === undefined && self.nuevoCriterio !== '') {
+            self.criterios.push(new Criterio(self.nuevoCriterio));
+        }
+        self.nuevoCriterio = '';
+        self.enviarListaCriterios();
+
+    };
 	self.limpiarCriterios = function() {
 		self.criterios.length = 0;
 	};
@@ -97,6 +104,6 @@ poiApp.controller("criterioController", ["criterios","busquedasService","$rootSc
 }]);
 
 
-poiApp.controller("resultadosController", ["resultados", function (resultado) {
+poiApp.controller("resultadosController", ["resultados",function (resultado) {
     return new busquedaController(resultado);
 }]);

@@ -14,6 +14,7 @@ poiApp.config(function ($stateProvider,$locationProvider) {
             .state('index.busqueda.resultados', {
                 views: {
                     'resultados': {
+                        url: "/resultados/:poi",
                         templateUrl: "app/partials/paginas/vistas/resultados.html",
                         controller: "resultadosController",
                         controllerAs: "resultadoCtrl",
