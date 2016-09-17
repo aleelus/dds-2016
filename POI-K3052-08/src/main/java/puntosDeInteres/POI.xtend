@@ -58,7 +58,7 @@ class POI extends Entity {
 	
 	/**Método que verifica si un input está en los tags */
 	def contieneTextoEnTags(String input) {
-		tags.exists[tag | tag.contains(input)]
+		tags.exists[tag | tag.contains(input)] || direccion.contains(input)
 	}
 
 	def buscarDia(List<Dias> lista, Dias dia) {

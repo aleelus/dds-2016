@@ -85,7 +85,8 @@ class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
 
 	def stringJsonToList(String strJson) {
 
-		var vec = Json.array(strJson)
+		var vec = Json.parse(strJson).asArray
+
 		var List<String> listaCriterios = new ArrayList<String>
 
 		for (JsonValue valor : vec) {
@@ -93,7 +94,7 @@ class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
 		}
 
 		listaCriterios.forEach[criterio|println(criterio)]
-
+		
 		listaCriterios
 	}
 

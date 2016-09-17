@@ -24,6 +24,9 @@ class POIBootstrap{
 		val LocalComBuilder builderLocal = new LocalComBuilder()
 		val BancoBuilder builderBanco = new BancoBuilder()
 		
+		
+		
+		
 		// Un CGP
 		builderCGP => [
 			agregarServicios(builderServicios.crearServicios("Rentas", "Licencia de manejo", "Atención al jubilado"))
@@ -39,13 +42,26 @@ class POIBootstrap{
 		// Un local
 		builderLocal => [
 			setNombre("Don José")
-			setTags(newArrayList("José","Librería","Barato"))
+			setTags(newArrayList("José","Rotiseria","Barato"))
 			setLongitud(5)
 			setLatitud(10)
-			setRubro("Librería", 5)
+			setRubro("Rotiseria", 5)
 			setDireccion = "Quintana 861"
 		]
 		val localComercial = builderLocal.build()
+		
+		// 
+		// Un local
+		builderLocal => [
+			setNombre("Don Yoyo")
+			setTags(newArrayList("Yoyo", "Librería", "Barato"))
+			setLongitud(5)
+			setLatitud(10)
+			setRubro("Librería", 5)
+			setDireccion = "Quintana 130"
+		]
+		val localComercialDos = builderLocal.build()
+		
 		
 		// Una parada
 		val parada = new ParadaColectivo("124", 15, 15,"Malabia 29")
@@ -68,6 +84,7 @@ class POIBootstrap{
 			configureRepo(typeof(POI), new RepoPOI => [
 				create(cgp)
 				create(localComercial)
+				create(localComercialDos)
 				create(parada)
 				create(banco)
 			])

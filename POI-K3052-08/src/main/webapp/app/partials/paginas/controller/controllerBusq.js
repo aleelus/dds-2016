@@ -58,6 +58,7 @@ function criterioController(criterio, busquedasService,$rootScope) {
 		}
 		self.nuevoCriterio = '';
 
+
 		busquedasService.mandarLista(self.criterios,function() {
 
 		});

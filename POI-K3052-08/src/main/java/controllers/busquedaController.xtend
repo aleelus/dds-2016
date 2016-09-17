@@ -1,6 +1,9 @@
 package controllers
 
-import org.eclipse.xtend.lib.annotations.Accessors
+import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.databind.ObjectMapper
+import java.util.HashMap
+import java.util.Map
 import org.uqbar.commons.utils.ApplicationContext
 import org.uqbar.xtrest.api.Result
 import org.uqbar.xtrest.api.XTRest
@@ -15,7 +18,6 @@ import repositorios.RepoPOI
 import repositorios.RepoUsuarios
 import usuario.Terminal
 
-
 @Controller
 class busquedaController {
 
@@ -23,23 +25,34 @@ class busquedaController {
 	
 	static RepoPOI repo
 	
-
+	//
 
 	def static void main(String[] args) {
+
 		POIBootstrap.run()
-		XTRest.start(busquedaController, 9000)
 		repo = ApplicationContext.instance.getSingleton(typeof(POI)) as RepoPOI
+		XTRest.start(busquedaController, 8000)
+
 	}
+
+	def String getPropertyValue(String json, String property) {
+		val properties = new ObjectMapper().readValue(json, new TypeReference<HashMap<String, String>>() {
+		})
+		(properties as Map<String, String>).get(property)
+	}
+	
+	
+		
+	
 	
 	@Post("/paginas")
 	def Result buscarCrit(@Body String listaCriterios) {
-		println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-		
+		val resultado = repo.buscar(listaCriterios).toJson
 		println(listaCriterios)
+		println(resultado)
 		
-
 		response.contentType = ContentType.APPLICATION_JSON
-		ok(repo.buscar(listaCriterios).toJson)
+		ok(resultado)
 
 	}
 
