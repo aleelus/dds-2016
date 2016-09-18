@@ -80,6 +80,7 @@ class AccionesTest {
 			setTags(newArrayList("José","Librería","Barato"))
 			setLongitud(5)
 			setLatitud(10)
+			setDireccion("Quintana 821")
 			setRubro("Librería", 5)
 		]
 		localComercial = builderLocal.build()

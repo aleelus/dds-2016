@@ -78,6 +78,7 @@ class ProcesosTest {
 			setLongitud(5)
 			setLatitud(10)
 			setRubro("Restaurant", 5)
+			setDireccion("Quintana 861")
 		]
 		localComercial = builderLocal.build
 
@@ -87,6 +88,7 @@ class ProcesosTest {
 			setLongitud(5)
 			setLatitud(10)
 			setRubro("Librería", 5)
+			setDireccion("Quintana 123")
 		]
 		localComercialABorrar = builderLocal.build()
 
