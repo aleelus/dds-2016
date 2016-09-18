@@ -18,14 +18,15 @@ import repositorios.RepoPOI
 import repositorios.RepoUsuarios
 import usuario.Terminal
 
+
 @Controller
 class busquedaController {
 
 	extension JSONUtils = new JSONUtils
 	
-	static RepoPOI repo
 	
-	//
+	static RepoPOI repo
+
 
 	def static void main(String[] args) {
 
@@ -34,14 +35,6 @@ class busquedaController {
 		XTRest.start(busquedaController, 9000)
 
 	}
-
-	def String getPropertyValue(String json, String property) {
-		val properties = new ObjectMapper().readValue(json, new TypeReference<HashMap<String, String>>() {
-		})
-		(properties as Map<String, String>).get(property)
-	}
-	
-	
 	
 
 	@Post("/paginas")
@@ -65,9 +58,6 @@ class busquedaController {
 			notFound('{"error": "'+ex.toString+'"}')
 		}
 
-	}
-
-	def busquedas() {
 	}
 
 }
