@@ -1,16 +1,21 @@
+
 function busquedaController(busqueda) {
 	var self = this;
 
 	self.busquedas = busqueda;
 	self.criterios = criterios;
-	self.listaResultados = listaResultados;
+    self.listaResultados = listaResultados;
 
 
-	self.buscarPorCriterio = function() {
-
+    self.getPoiLista = function (){
+        return poisList;
+    };
 
 //[{"id":2,"nombre":"Don José","direccion":"Quintana 861","latitud":10.0,"longitud":5.0,"tags":["José","Rotiseria","Barato"],"habilitado":true,"rubro":{"radioCercania":5.0,"nombre":"Rotiseria","horario":[],"diasAbierto":[]},"new":false},
 //{"id":3,"nombre":"Don Yoyo","direccion":"Quintana 130","latitud":10.0,"longitud":5.0,"tags":["Yoyo","Librería","Barato"],"habilitado":true,"rubro":{"radioCercania":5.0,"nombre":"Librería","horario":[],"diasAbierto":[]},"new":false}]
+
+	self.buscarPorCriterio = function() {
+
 
 
         var esta = function(vec, criterio) {
@@ -20,25 +25,17 @@ function busquedaController(busqueda) {
 		var x;
 		var filtrado = [];
 
-		self.listaResultados = [];
-		for (x = 0; x < self.criterios.length; x++) {
-			filtrado = _
-					.filter(
-							self.busquedas,
-							function(i) {
-								return (i.nombre
-										.includes(self.criterios[x].nombre)
-										|| i.direccion
-												.includes(self.criterios[x].nombre)
-										|| esta(i.tipo.rubros,
-												self.criterios[x].nombre)
-										|| esta(i.tipo.servicios,
-												self.criterios[x].nombre) || esta(
-										i.tipo.linea, self.criterios[x].nombre));
-							});
-			self.listaResultados = _.union(filtrado, self.listaResultados);
+        // || i.rubro.nombre.includes(self.criterios[x].nombre) || esta(i.servicios,self.criterios[x].nombre)
 
-		}
+        self.listaResultados= [];
+        for (x = 0; x < self.criterios.length; x++) {
+            filtrado = _.filter(self.getPoiLista(),function (i) {
+                        return (i.nombre.includes(self.criterios[x].nombre) || i.direccion.includes(self.criterios[x].nombre)
+                        )
+                        });
+            self.listaResultados = _.union(filtrado, self.listaResultados);
+
+        }
 
 		return self.listaResultados;
 	};
@@ -48,6 +45,7 @@ function criterioController(criterio, busquedasService,$rootScope) {
 	var self = this;
 	self.criterios = criterio;
 	self.nuevoCriterio = '';
+    //self.poisList = poisList;
 
 
 
@@ -66,22 +64,24 @@ function criterioController(criterio, busquedasService,$rootScope) {
 
     self.enviarListaCriterios = function (){
 
-        self.listaPOI = [];
+
         busquedasService.mandarLista(self.criterios,function(rsp) {
-            self.listaPOI = _.map(rsp.data, transformarAPOI);
-            return self.listaPOI;
+            poisList = _.map(rsp.data, transformarAPOI);
+            return poisList;
         });
 
-    }
+    };
 
     self.agregarCriterio = function() {
         if (_.find(self.criterios, {
                 nombre : self.nuevoCriterio
             }) === undefined && self.nuevoCriterio !== '') {
             self.criterios.push(new Criterio(self.nuevoCriterio));
+            self.nuevoCriterio = '';
+            self.enviarListaCriterios();
+
         }
-        self.nuevoCriterio = '';
-        self.enviarListaCriterios();
+
 
     };
 	self.limpiarCriterios = function() {
@@ -90,10 +90,9 @@ function criterioController(criterio, busquedasService,$rootScope) {
 	self.eliminarCriterio = function(nombre) {
 		_.remove(self.criterios, function(actual) {
 			return (actual.nombre === nombre);
-		})
+		});
 
 	};
-
 
 }
 
@@ -104,6 +103,6 @@ poiApp.controller("criterioController", ["criterios","busquedasService","$rootSc
 }]);
 
 
-poiApp.controller("resultadosController", ["resultados",function (resultado) {
-    return new busquedaController(resultado);
+poiApp.controller("resultadosController", [function (busqueda) {
+    return new busquedaController(busqueda);
 }]);

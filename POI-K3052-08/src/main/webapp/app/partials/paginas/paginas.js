@@ -14,14 +14,11 @@ poiApp.config(function ($stateProvider,$locationProvider) {
             .state('index.busqueda.resultados', {
                 views: {
                     'resultados': {
-                        url: "/resultados/:poi",
+                        url: "/resultados/",
                         templateUrl: "app/partials/paginas/vistas/resultados.html",
                         controller: "resultadosController",
                         controllerAs: "resultadoCtrl",
                         resolve: {
-                            resultados: function (serviceBusq) {
-                                  return serviceBusq.getAll()
-                            },
                             criterios: function (serviceBusq) {
                                 return serviceBusq.getAllCriterios()
                             }

@@ -31,7 +31,7 @@ class busquedaController {
 
 		POIBootstrap.run()
 		repo = ApplicationContext.instance.getSingleton(typeof(POI)) as RepoPOI
-		XTRest.start(busquedaController, 8000)
+		XTRest.start(busquedaController, 9000)
 
 	}
 
@@ -42,15 +42,14 @@ class busquedaController {
 	}
 	
 	
-		
 	
-	
+
 	@Post("/paginas")
 	def Result buscarCrit(@Body String listaCriterios) {
-		val resultado = repo.buscar(listaCriterios).toJson
 		println(listaCriterios)
+		val resultado = repo.buscar(listaCriterios).toJson		
 		println(resultado)
-		
+
 		response.contentType = ContentType.APPLICATION_JSON
 		ok(resultado)
 

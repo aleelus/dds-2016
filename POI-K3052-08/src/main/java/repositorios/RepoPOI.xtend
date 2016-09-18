@@ -93,7 +93,7 @@ class RepoPOI extends CollectionBasedRepo<POI> implements OrigenDatos {
 			listaCriterios.add(valor.asObject.getString("nombre", "undefined"))
 		}
 
-		listaCriterios.forEach[criterio|println(criterio)]
+		//listaCriterios.forEach[criterio|println(criterio)]
 		
 		listaCriterios
 	}

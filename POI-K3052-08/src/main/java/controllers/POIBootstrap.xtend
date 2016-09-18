@@ -45,7 +45,7 @@ class POIBootstrap{
 			setTags(newArrayList("José","Rotiseria","Barato"))
 			setLongitud(5)
 			setLatitud(10)
-			setRubro("Rotiseria", 5)
+			setRubro("Rotiseria", 5)			
 			setDireccion = "Quintana 861"
 		]
 		val localComercial = builderLocal.build()

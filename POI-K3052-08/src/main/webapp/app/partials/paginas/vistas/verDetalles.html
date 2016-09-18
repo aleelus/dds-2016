@@ -20,25 +20,15 @@
 
                     </td>
                 </tr>
-                <tr ng-show="detalleCtrl.detalle.tipo.rubros" class="ng-hide">
+                <tr ng-show="detalleCtrl.hayDatos(detalleCtrl.detalle)" class="ng-hide">
                     <td>Rubros:</td>
                     <td>
                         <ul class="list-group">
-                            <li class="list-group-item" ng-repeat="servicio in detalleCtrl.detalle.tipo.rubros">
-                                {{servicio}}
+                            <li class="list-group-item">
+                                {{detalleCtrl.detalle.rubro.nombre}}
                             </li>
                         </ul>
 
-                    </td>
-                </tr>
-                <tr ng-show="detalleCtrl.detalle.tipo.linea" class="ng-hide">
-                    <td>Linea:</td>
-                    <td>
-                        <ul class="list-group">
-                            <li class="list-group-item" ng-repeat="servicio in detalleCtrl.detalle.tipo.linea">
-                                {{servicio}}
-                            </li>
-                        </ul>
                     </td>
                 </tr>
                 <tr>
