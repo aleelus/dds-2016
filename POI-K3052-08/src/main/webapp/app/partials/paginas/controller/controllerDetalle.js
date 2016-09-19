@@ -3,7 +3,7 @@ function detalleController(serviceBusq,detalle) {
     self.detalle = detalle;
 
     self.hayDatos = function (datos){
-        return  ( datos.hasOwnProperty("rubro") || datos.hasOwnProperty("servicios") ||  datos.hasOwnProperty("lineas") )  ;
+        return  (datos !==undefined);
     };
 
 };

@@ -3,10 +3,6 @@ function POI(){
     this.nombre = "";
     this.direccion = "";
     this.id= 0;
-    this.rubro = {};
-    this.servicios = [];
-    this.lineas = [];
-
 }
 
 

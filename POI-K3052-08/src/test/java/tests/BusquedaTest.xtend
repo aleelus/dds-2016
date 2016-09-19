@@ -170,7 +170,7 @@ class BusquedaTest{
 		val ParadaColectivo paradaNueva = new ParadaColectivo("Parada 03", 10, 20,"Helguera 1382",newArrayList("24","60","124"))
 		paradaNueva.id = parada.id
 		mapa.update(paradaNueva)
-		Assert.assertTrue(mapa.searchById(paradaNueva.id).nombre == "34")
+		Assert.assertTrue(mapa.searchById(paradaNueva.id).nombre == "Parada 03")
 	}
 
 	@Test(expected=Exception)

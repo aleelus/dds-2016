@@ -9,7 +9,7 @@
                     <td>Dirección:</td>
                     <td>{{detalleCtrl.detalle.direccion}}</td>
                 </tr>
-                <tr ng-show="detalleCtrl.hayDatos(detalleCtrl.detalle)" class="ng-hide">
+                <tr ng-show="detalleCtrl.hayDatos(detalleCtrl.detalle.servicios)" class="ng-hide">
                     <td>Servicios:</td>
                     <td>
                         <ul class="list-group">
@@ -20,7 +20,7 @@
 
                     </td>
                 </tr>
-                <tr ng-show="detalleCtrl.hayDatos(detalleCtrl.detalle)" class="ng-hide">
+                <tr ng-show="detalleCtrl.hayDatos(detalleCtrl.detalle.rubro)" class="ng-hide">
                     <td>Rubros:</td>
                     <td>
                         <ul class="list-group">
@@ -31,7 +31,7 @@
 
                     </td>
                 </tr>
-                <tr ng-show="detalleCtrl.hayDatos(detalleCtrl.detalle)" class="ng-hide">
+                <tr ng-show="detalleCtrl.hayDatos(detalleCtrl.detalle.lineas)" class="ng-hide">
                     <td>Linea:</td>
                     <td>
                         <ul class="list-group" ng-repeat="linea in detalleCtrl.detalle.lineas">
