@@ -9,11 +9,11 @@
                     <td>Dirección:</td>
                     <td>{{detalleCtrl.detalle.direccion}}</td>
                 </tr>
-                <tr ng-show="detalleCtrl.detalle.tipo.servicios" class="ng-hide">
+                <tr ng-show="detalleCtrl.hayDatos(detalleCtrl.detalle)" class="ng-hide">
                     <td>Servicios:</td>
                     <td>
                         <ul class="list-group">
-                            <li class="list-group-item" ng-repeat="servicio in detalleCtrl.detalle.tipo.servicios">
+                            <li class="list-group-item" ng-repeat="servicio in detalleCtrl.detalle.servicios">
                                 {{servicio}}
                             </li>
                         </ul>
@@ -26,6 +26,17 @@
                         <ul class="list-group">
                             <li class="list-group-item">
                                 {{detalleCtrl.detalle.rubro.nombre}}
+                            </li>
+                        </ul>
+
+                    </td>
+                </tr>
+                <tr ng-show="detalleCtrl.hayDatos(detalleCtrl.detalle)" class="ng-hide">
+                    <td>Linea:</td>
+                    <td>
+                        <ul class="list-group" ng-repeat="linea in detalleCtrl.detalle.lineas">
+                            <li class="list-group-item">
+                                {{linea}}
                             </li>
                         </ul>
 

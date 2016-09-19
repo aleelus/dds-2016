@@ -4,7 +4,8 @@ function POI(){
     this.direccion = "";
     this.id= 0;
     this.rubro = {};
-    //this.servicios = [];
+    this.servicios = [];
+    this.lineas = [];
 
 }
 

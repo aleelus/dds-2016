@@ -1,5 +1,7 @@
 package controllers
 
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import org.uqbar.commons.utils.ApplicationContext
 import org.uqbar.xtrest.api.Result
 import org.uqbar.xtrest.api.XTRest
@@ -15,6 +17,7 @@ import repositorios.RepoUsuarios
 import usuario.Terminal
 
 @Controller
+@JsonIgnoreProperties(ignoreUnknown=true)
 class busquedaController {
 
 	extension JSONUtils = new JSONUtils
@@ -22,24 +25,23 @@ class busquedaController {
 	
 	static RepoPOI repo
 
-
 	def static void main(String[] args) {
-
 		POIBootstrap.run()
 		repo = ApplicationContext.instance.getSingleton(typeof(POI)) as RepoPOI
-		XTRest.start(busquedaController, 8000)
-
+		XTRest.start(busquedaController, 8200)
 	}
 	
 
 	@Post("/paginas")
+	
 	def Result buscarCrit(@Body String listaCriterios) {
 		println(listaCriterios)
-		val resultado = repo.buscar(listaCriterios).toJson		
-		println(resultado)
+		println(repo.buscar(listaCriterios))
+		val resultado = repo.buscar(listaCriterios)
+		println(resultado.toJson)
 
 		response.contentType = ContentType.APPLICATION_JSON
-		ok(resultado)
+		ok(resultado.toJson)
 
 	}
 
