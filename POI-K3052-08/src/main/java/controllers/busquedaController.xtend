@@ -1,9 +1,5 @@
 package controllers
 
-import com.fasterxml.jackson.core.type.TypeReference
-import com.fasterxml.jackson.databind.ObjectMapper
-import java.util.HashMap
-import java.util.Map
 import org.uqbar.commons.utils.ApplicationContext
 import org.uqbar.xtrest.api.Result
 import org.uqbar.xtrest.api.XTRest
@@ -18,7 +14,6 @@ import repositorios.RepoPOI
 import repositorios.RepoUsuarios
 import usuario.Terminal
 
-
 @Controller
 class busquedaController {
 
@@ -32,7 +27,7 @@ class busquedaController {
 
 		POIBootstrap.run()
 		repo = ApplicationContext.instance.getSingleton(typeof(POI)) as RepoPOI
-		XTRest.start(busquedaController, 9000)
+		XTRest.start(busquedaController, 8000)
 
 	}
 	

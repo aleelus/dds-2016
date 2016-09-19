@@ -64,7 +64,7 @@ class POIBootstrap{
 		
 		
 		// Una parada
-		val parada = new ParadaColectivo("124", 15, 15,"Malabia 29")
+		val parada = new ParadaColectivo("Parada Metrobús Caballito", 15, 15,"Malabia 29",newArrayList("24","60","124"))
 		
 		// Un banco
 		builderBanco => [

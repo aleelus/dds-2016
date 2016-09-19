@@ -1,21 +1,25 @@
 package puntosDeInteres
 
+import java.util.ArrayList
 import org.joda.time.DateTime
 import org.uqbar.geodds.Point
 
 class ParadaColectivo extends POI {
+	
+	ArrayList<String> lineas 
 	
 	//Constructores
 	new() {
 		super()
 	}
 
-	new(String nombre, double latitud, double longitud, String direccion) {
+	new(String nombre, double latitud, double longitud, String direccion, ArrayList<String> lineasCol) {
 		this()
 		this.nombre = nombre
 		this.latitud = latitud
 		this.longitud = longitud
 		this.direccion = direccion
+		this.lineas = lineasCol
 	}
 
 	/**Método que indica si una Parada está cerca de una latitud y
