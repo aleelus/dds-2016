@@ -29,7 +29,7 @@ angular.module("poi-app")
 
 poiApp.service('loginService',function ($http) {
     this.validarUsuario = function (usuario,contraseña,callback) {
-        $http.get('/',{user:usuario,pass:contraseña}).then(callback)
+        $http.post('/',{nombreTerminal:usuario,contraseña:contraseña}).then(callback)
     }
     
 })

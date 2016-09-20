@@ -1,43 +1,48 @@
-angular.module('poi-app').config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
+poiApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
     $urlRouterProvider.otherwise("/");
 
     $stateProvider
         .state('index.login', {
             url: "/",
+            controller: "LoginController",
+            controllerAs: "loginCtrl",
             templateUrl: "app/partials/login/login.html"
         });
     $locationProvider.html5Mode(true);
 })
-    .controller('LoginController', function (loginService) {
+    .controller('LoginController', function (loginService,$state) {
 
         var self = this;
 
         this.usuario = "";
         this.pass = "";
+        this.respuesta= false;
 
-        this.validar = function () {
+        self.validar = function () {
             if (self.usuario === "" || self.pass === "") {
                 throw "Complete todos los datos";
             } else {
                 loginService.validarUsuario(self.usuario,self.pass,function (response) {
-                    self.loginCorrecto = response.data;
-                    if (!self.loginCorrecto){
-                        throw response.data;
+                    self.respuesta = response.data;
+                    if(self.respuesta){
+                        $state.go("index.busqueda");
                     }
                 });
             }
         };
 
-        this.loguearse = function () {
+        self.loguearse = function () {
             try {
-                this.validar();
-                this.errorMessage = null;
+                self.validar();
+                if (!self.respuesta) {
+                    throw "Usuario o contraseña incorrectos";
+                }
                 return true;
             }
             catch (exception) {
                 this.errorMessage = exception.toString();
                 return false;
             }
-        }
+        };
 
     });

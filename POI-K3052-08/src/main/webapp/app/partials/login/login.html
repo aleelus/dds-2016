@@ -1,4 +1,4 @@
-<div class="login" ng-controller="LoginController as login">
+<div class="login">
     <div class="alert alert-info">
         Usuario: ADMIN<br>
         Contraseña: 123<br>
@@ -11,13 +11,13 @@
 
         <form class="form-signin form-horizontal">
             <label for="inputUsuario" class="sr-only">Usuario</label>
-            <input type="text" id="inputUsuario" ng-required="true" ng-model="login.usuario" class="form-control" placeholder="Usuario" autofocus>
-            <label ng-model="login.user"></label>
+            <input type="text" id="inputUsuario" ng-required="true" ng-model="loginCtrl.usuario" class="form-control" placeholder="Usuario" autofocus>
+            <label ng-model="loginCtrl.usuario"></label>
             <label for="inputPass" class="sr-only">Contraseña</label>
-            <input type="password" id="inputPass" ng-required="true" ng-model="login.pass" class="form-control" placeholder="Contraseña">
-            <label ng-model="login.pass"></label>
+            <input type="password" id="inputPass" ng-required="true" ng-model="loginCtrl.pass" class="form-control" placeholder="Contraseña">
+            <label ng-model="loginCtrl.pass"></label>
             <div class="btn-group" role="group" style="padding-top: 15px">
-                <a ui-sref="index.busqueda" class="btn btn-lg btn-success" type="submit" eat-click-if="!(login.loguearse())">
+                <a class="btn btn-lg btn-success" type="submit" ng-click="loginCtrl.loguearse()">
                     <span class="glyphicon glyphicon-log-in"></span>
                     Ingresar
                 </a>
@@ -27,8 +27,8 @@
                 </button>
             </div>
             <div>
-                <div class="alert alert-danger" ng-show="login.errorMessage" class="ng-hide">
-                    {{login.errorMessage}}
+                <div class="alert alert-danger" ng-show="loginCtrl.errorMessage" class="ng-hide">
+                    {{loginCtrl.errorMessage}}
                 </div>
             </div>
         </form>

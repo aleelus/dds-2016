@@ -23,11 +23,13 @@ class busquedaController {
 	extension JSONUtils = new JSONUtils
 	
 	
-	static RepoPOI repo
+	static RepoPOI repo	
+	static RepoUsuarios usuarios
 
 	def static void main(String[] args) {
 		POIBootstrap.run()
 		repo = ApplicationContext.instance.getSingleton(typeof(POI)) as RepoPOI
+		usuarios = ApplicationContext.instance.getSingleton(typeof(Terminal)) as RepoUsuarios
 		XTRest.start(busquedaController, 9000)
 	}
 	
@@ -45,14 +47,17 @@ class busquedaController {
 
 	}
 
-	@Get("/")
+	@Post("/")
 	def validarLogin(@Body String body) {
 		try {
-			val usuarios = ApplicationContext.instance.getSingleton(typeof(Terminal)) as RepoUsuarios
+			println(body)			
 			response.contentType = ContentType.APPLICATION_JSON
-			ok(usuarios.validarLogin(body.fromJson(Terminal)).toJson)
+			val resp = usuarios.validarLogin(body.fromJson(Terminal)).toJson
+			println(resp)
+			ok(resp)
 		} catch (Exception ex) {
 			notFound('{"error": "'+ex.toString+'"}')
+			ok("false")
 		}
 
 	}
