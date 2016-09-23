@@ -2,17 +2,6 @@ function criterioController(criterio, busquedasService,$rootScope) {
     var self = this;
     self.criterios = criterio;
     self.nuevoCriterio = '';
-    //self.poisList = poisList;
-
-
-
-    /*	self.damePOIS = function (){
-
-     busquedasService.recibirPOIS(function (response){
-     self.listaPOI.push(response);
-     });
-
-     }*/
 
     function transformarAPOI(jsonTarea) {
         return POI.asPOI(jsonTarea);

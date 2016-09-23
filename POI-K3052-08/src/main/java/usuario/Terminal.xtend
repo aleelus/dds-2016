@@ -16,16 +16,19 @@ import reportes.ReportePorTerminal
 import reportes.ReporteTotales
 import repositorios.RepoPOI
 import puntosDeInteres.POI
+import com.fasterxml.jackson.annotation.JsonIgnore
 
 @Accessors
 @Observable
 class Terminal extends Entity{
+	
 
 	String nombreTerminal
 	String contraseña 
-	List<ObserverBusqueda> listaObservers = new ArrayList<ObserverBusqueda>
-	Rol rolTerminal
-	RepoPOI repositorio = ApplicationContext.instance.getRepo(typeof(POI)) as RepoPOI
+	List<Integer> listaFavoritos = new ArrayList<Integer>
+	@JsonIgnore List<ObserverBusqueda> listaObservers = new ArrayList<ObserverBusqueda>
+	@JsonIgnore Rol rolTerminal
+	@JsonIgnore RepoPOI repositorio = ApplicationContext.instance.getRepo(typeof(POI)) as RepoPOI
 
 	new(String nombre, Rol rol) {
 		this()

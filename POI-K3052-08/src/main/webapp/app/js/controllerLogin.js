@@ -24,7 +24,7 @@ poiApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
             } else {
                 loginService.validarUsuario(self.usuario,self.pass,function (response) {
                     self.respuesta = response.data;
-                    if(self.respuesta){
+                    if(self.respuesta!== false){
                         $state.go("index.busqueda");
                     }
                 });

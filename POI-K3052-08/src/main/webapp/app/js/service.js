@@ -20,6 +20,7 @@ function serviceBusq() {
     };
 
 
+
 };
 
 angular.module("poi-app")
