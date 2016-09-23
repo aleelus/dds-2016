@@ -7,7 +7,7 @@ poiApp.config(function ($stateProvider,$locationProvider) {
                 controllerAs: "criterioCtrl",
                 resolve: {
                     criterios: function (serviceBusq) {
-                        return serviceBusq.getAllCriterios()
+                        return serviceBusq.getAllCriterios();
                     }
                 }
             })
@@ -20,7 +20,7 @@ poiApp.config(function ($stateProvider,$locationProvider) {
                         controllerAs: "resultadoCtrl",
                         resolve: {
                             criterios: function (serviceBusq) {
-                                return serviceBusq.getAllCriterios()
+                                return serviceBusq.getAllCriterios();
                             }
                         }
                     }

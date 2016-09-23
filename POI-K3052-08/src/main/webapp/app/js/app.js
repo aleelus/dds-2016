@@ -9,7 +9,9 @@ var poiApp = angular.module('poi-app', [ 'ui.router' ]).config(
 						templateUrl : "app/layout/layout.html"
 					},
 					'topbar@index' : {
-						templateUrl : "app/layout/topbar.html"
+						templateUrl : "app/layout/topbar.html",
+                        controller: "topbarController",
+                        controllerAs: "topbarCtrl"
 					},
 					'container@index' : {
 						template : "<ui-view>"

@@ -10,7 +10,7 @@ poiApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         });
     $locationProvider.html5Mode(true);
 })
-    .controller('LoginController', function (loginService,$state) {
+    .controller('LoginController', function (loginService,serviceBusq,$state) {
 
         var self = this;
 
@@ -25,6 +25,7 @@ poiApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
                 loginService.validarUsuario(self.usuario,self.pass,function (response) {
                     self.respuesta = response.data;
                     if(self.respuesta!== false){
+                        serviceBusq.setUsuarioSrv(self.respuesta);
                         $state.go("index.busqueda");
                     }
                 });

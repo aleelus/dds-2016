@@ -1,7 +1,12 @@
-function criterioController(criterio, busquedasService,$rootScope) {
+function criterioController(criterio, busquedasService,serviceBusq,$rootScope) {
     var self = this;
     self.criterios = criterio;
     self.nuevoCriterio = '';
+
+
+    self.dameUsuarioSrv = function () {
+        return serviceBusq.getUsuarioSrv();
+    }
 
     function transformarAPOI(jsonTarea) {
         return POI.asPOI(jsonTarea);
@@ -43,6 +48,6 @@ function criterioController(criterio, busquedasService,$rootScope) {
 }
 
 
-poiApp.controller("criterioController", ["criterios","busquedasService","$rootScope", function (criterio,busquedasService,$rootScope) {
-    return new criterioController(criterio,busquedasService,$rootScope);
+poiApp.controller("criterioController", ["criterios","busquedasService","serviceBusq","$rootScope", function (criterio,busquedasService,serviceBusq,$rootScope) {
+    return new criterioController(criterio,busquedasService,serviceBusq,$rootScope);
 }]);
