@@ -43,6 +43,14 @@ class Terminal extends Entity{
 		this.contraseña = pass
 	}
 	
+		new(String nombre, Rol rol, String pass,List<Integer> listaFavoritos) {
+		this()
+		this.rolTerminal = rol
+		this.nombreTerminal = nombre
+		this.contraseña = pass
+		this.listaFavoritos = listaFavoritos
+	}
+	
 
 	new() {
 		super()

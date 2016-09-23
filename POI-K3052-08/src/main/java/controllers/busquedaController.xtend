@@ -18,6 +18,7 @@ import puntosDeInteres.POI
 import repositorios.RepoPOI
 import repositorios.RepoUsuarios
 import usuario.Terminal
+import org.uqbar.xtrest.api.annotation.Put
 
 @Controller
 @JsonIgnoreProperties(ignoreUnknown=true)
@@ -47,11 +48,9 @@ class busquedaController {
 	@Post("/paginas")
 	
 	def Result buscarCrit(@Body String listaCriterios) {
-		println(listaCriterios)
-		println(repo.buscar(listaCriterios))
+		println(listaCriterios)		
 		val resultado = repo.buscar(listaCriterios)
 		println(resultado.toJson)
-
 		response.contentType = ContentType.APPLICATION_JSON
 		ok(resultado.toJson)
 
@@ -72,5 +71,15 @@ class busquedaController {
 		}
 
 	}
+	
+	
+	@Put("/verdetalles/:id")
+	def actualizarDetalles(@Body String usuario){
+		println(usuario)
+		
+		response.contentType = ContentType.APPLICATION_JSON
+		ok("true")
+	}
+	
 
 }

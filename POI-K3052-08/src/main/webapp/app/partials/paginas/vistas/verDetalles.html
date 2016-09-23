@@ -1,6 +1,6 @@
 <body>
 <div class="container">
-    <div class="jumbotron">
+    <div class="jumbotron" ng-init="valor=detalleCtrl.esFavorito(detalleCtrl.detalle.id)">
         <h2 class="page-header">{{detalleCtrl.detalle.nombre}}</h2>
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
@@ -62,7 +62,7 @@
                     <td style="padding: 0px">Favorito:</td>
                     <td>
                         <div class="checkbox" style="margin: auto">
-                            <label><input type="checkbox" value=""></label>
+                            <label><input type="checkbox" ng-change="valor=detalleCtrl.cambiarEstadoFav(detalleCtrl.detalle.id)" ng-model="valor" value=""></label>
                         </div>
                     </td>
                 </tr>
@@ -86,7 +86,7 @@
                     </select>
                 </div>
         </div>
-        <a ui-sref="index.busqueda.resultados" class="btn btn-success">
+        <a  class="btn btn-success" type="submit" ng-click="detalleCtrl.actualizarDetallesVista(detalleCtrl.dameUsuarioSrv())">
             <span class="glyphicon glyphicon-ok-circle"> </span> Enviar
         </a>
     <h3>Opiniones</h3>

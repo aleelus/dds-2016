@@ -5,6 +5,9 @@ poiApp.service('busquedasService', function($http) {
     this.recibirPOIS = function(callback) {
         $http.get('/paginas').then(callback);
     }
+    this.actualizarDetalles = function(usuario,callback) {
+        $http.put('/verdetalles/' +usuario.id,usuario).then(callback);
+    }
 });
 
 

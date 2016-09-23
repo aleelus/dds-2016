@@ -89,8 +89,8 @@ class POIBootstrap{
 				create(banco)
 			])
 			configureRepo(typeof(Terminal), new RepoUsuarios => [
-				create(new Terminal("ADMIN", new Rol(),"123"))
-				create(new Terminal("aleelus", new Rol(),"12345"))
+				create(new Terminal("ADMIN", new Rol(),"123",newArrayList(1,2)))
+				create(new Terminal("aleelus", new Rol(),"12345",newArrayList(2)))
 				create(new Terminal("terminal-1", new Rol(),"banana"))
 			])
 		]
