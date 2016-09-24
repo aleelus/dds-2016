@@ -23,6 +23,9 @@ function criterioController(criterio, busquedasService,serviceBusq,$rootScope) {
 
     };
 
+    self.getListaCriterio=function () {
+        return self.criterios;
+    };
     self.agregarCriterio = function() {
         if (_.find(self.criterios, {
                 nombre : self.nuevoCriterio

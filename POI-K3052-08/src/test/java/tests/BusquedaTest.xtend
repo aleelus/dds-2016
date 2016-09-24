@@ -139,7 +139,7 @@ class BusquedaTest{
 			sucursalJSON.add("sucursal", sucursal.nombreSucursal)
 			sucursalJSON.add("gerente", sucursal.gerente)
 			sucursalJSON.add("banco", sucursal.nombre)
-			var JsonArray arrayServicios = Json.array(sucursal.servicios)
+			var JsonArray arrayServicios = Json.array(sucursal.listaServicios)
 			sucursalJSON.add("servicios", arrayServicios)
 			arraySucursales.add(sucursalJSON)
 		]

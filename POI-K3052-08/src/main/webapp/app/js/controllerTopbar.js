@@ -5,5 +5,8 @@ poiApp.controller('topbarController', function (serviceBusq) {
     self.dameUsuarioSrv = function () {
         return serviceBusq.getUsuarioSrv();
     }
+    self.limpiarTodo = function (){
+        serviceBusq.limpiar();
+    };
 
 });

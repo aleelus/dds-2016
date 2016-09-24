@@ -4,6 +4,6 @@
     </div>
 <ul class="nav navbar-nav navbar-right">
     <li><a href="#">{{topbarCtrl.dameUsuarioSrv().nombreTerminal}}</a></li>
-    <li><a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li>
+    <li><a ng-click="topbarCtrl.limpiarTodo()" ui-sref="index.login"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li>
 </ul>
 </div>

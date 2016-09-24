@@ -38,6 +38,16 @@ function detalleController(serviceBusq,detalle,busquedasService) {
 
     };
 
+    self.verificarServicio = function (servicio) {
+
+        if(servicio.nombre!==undefined){
+            return servicio.nombre;
+        }else{
+            return servicio;
+        }
+
+    };
+
 };
 
 poiApp.controller("detalleController", detalleController);

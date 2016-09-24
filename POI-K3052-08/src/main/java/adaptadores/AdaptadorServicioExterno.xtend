@@ -54,11 +54,11 @@ class AdaptadorServicioExterno implements OrigenDatos {
 			sucursal.longitud = valor.asObject.getDouble("y", 0)
 			sucursal.nombreSucursal = valor.asObject.getString("sucursal", "Sucursal desconocido")
 			sucursal.gerente = valor.asObject.getString("gerente", "Gerente desconocido")
-			arrayServicios = valor.asObject.get("servicios").asArray
+			arrayServicios = valor.asObject.get("listaServicios").asArray
 			for (JsonValue servicio : arrayServicios) {
 				listaServicios.add(servicio.toString)
 			}
-			sucursal.servicios = listaServicios
+			sucursal.listaServicios = listaServicios
 			listaSucursales.add(sucursal)
 		}
 		listaSucursales

@@ -20,7 +20,7 @@ class BancoBuilder {
 	List<DateTime> horario = new ArrayList<DateTime>
 	List<Dias> diasAbierto = new ArrayList<Dias>
 	String nombreSucursal
-	List<String> servicios
+	List<String> listaServicios
 	String gerente
 
 	def setNombre(String nombre) {
@@ -70,7 +70,7 @@ class BancoBuilder {
 	}
 	
 	def setServicios(List<String> listaServicios){
-		this.servicios = listaServicios
+		this.listaServicios = listaServicios
 		this
 	}
 	
@@ -96,7 +96,7 @@ class BancoBuilder {
 		banco.latitud = latitud
 		banco.longitud = longitud
 		banco.nombreSucursal = nombreSucursal
-		banco.servicios = servicios
+		banco.listaServicios = listaServicios
 		banco.gerente = gerente
 		banco.horario = horario
 		banco.diasAbierto = diasAbierto

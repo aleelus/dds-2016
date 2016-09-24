@@ -16,7 +16,7 @@ class SucursalBanco extends POI {
 	/**Nombre dado a la sucursal */
 	String nombreSucursal
 	/**Servicios proporcionados por el banco */
-	List<String> servicios
+	List<String> listaServicios
 	/**Nombre del gerente de la sucursal */
 	String gerente
 	/**Zona del banco */

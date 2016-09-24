@@ -9,15 +9,14 @@
                     <td>Dirección:</td>
                     <td>{{detalleCtrl.detalle.direccion}}</td>
                 </tr>
-                <tr ng-show="detalleCtrl.hayDatos(detalleCtrl.detalle.servicios)" class="ng-hide">
+                <tr ng-show="detalleCtrl.hayDatos(detalleCtrl.detalle.listaServicios)" class="ng-hide">
                     <td>Servicios:</td>
                     <td>
                         <ul class="list-group">
-                            <li class="list-group-item" ng-repeat="servicio in detalleCtrl.detalle.servicios">
-                                {{servicio}}
+                            <li class="list-group-item" ng-repeat="servicio in detalleCtrl.detalle.listaServicios" >
+                                {{detalleCtrl.verificarServicio(servicio)}}
                             </li>
                         </ul>
-
                     </td>
                 </tr>
                 <tr ng-show="detalleCtrl.hayDatos(detalleCtrl.detalle.rubro)" class="ng-hide">

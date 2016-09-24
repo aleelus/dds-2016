@@ -1,5 +1,7 @@
 package usuario
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import excepciones.AuthException
 import java.util.ArrayList
 import java.util.List
@@ -11,15 +13,15 @@ import org.uqbar.commons.utils.ApplicationContext
 import org.uqbar.commons.utils.Observable
 import procesos.ProcAgregadoAcciones
 import procesos.Proceso
+import puntosDeInteres.POI
 import reportes.ReportePorFecha
 import reportes.ReportePorTerminal
 import reportes.ReporteTotales
 import repositorios.RepoPOI
-import puntosDeInteres.POI
-import com.fasterxml.jackson.annotation.JsonIgnore
 
 @Accessors
 @Observable
+@JsonIgnoreProperties(ignoreUnknown = true)
 class Terminal extends Entity{
 	
 
@@ -143,6 +145,10 @@ class Terminal extends Entity{
 	
 	def TieneAcciones(List<ObserverBusqueda> acciones) {
 		acciones.forall[accion | listaObservers.contains(accion)]
+	}
+
+	def asignarListaFavoritos(List<Integer> listaFavoritos){
+		this.listaFavoritos = listaFavoritos
 	}
 
 }

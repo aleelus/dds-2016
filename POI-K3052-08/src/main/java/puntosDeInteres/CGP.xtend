@@ -9,6 +9,7 @@ import org.uqbar.geodds.Point
 import org.uqbar.geodds.Polygon
 import puntosDeInteres.POI.Dias
 import org.uqbar.commons.utils.Observable
+import com.fasterxml.jackson.annotation.JsonIgnore
 
 @Accessors
 @Observable
@@ -93,7 +94,7 @@ class CGP extends POI {
 @Observable
 class Comuna {
 	/**Polígono que representa el área de la comuna */
-	Polygon areaComuna
+	@JsonIgnore Polygon areaComuna
 	String nombreComuna
 
 	// Constructores

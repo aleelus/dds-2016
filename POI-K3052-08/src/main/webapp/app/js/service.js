@@ -20,10 +20,17 @@ function serviceBusq() {
         return _.find(poisList, { id: id });
     };
 
+    self.limpiar = function() {
+        criterios.length = 0;
+        listaResultados.length =0;
+        poisList.length = 0;
+    };
+
     self.getUsuarioSrv = function () {
         return self.usuarioSrv;
     };
     self.setUsuarioSrv = function (usuario) {
+        self.usuarioSrv = undefined;
         self.usuarioSrv = usuario;
     };
 

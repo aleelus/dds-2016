@@ -35,7 +35,7 @@ class busquedaController {
 		POIBootstrap.run()
 		repo = ApplicationContext.instance.getSingleton(typeof(POI)) as RepoPOI
 		usuarios = ApplicationContext.instance.getSingleton(typeof(Terminal)) as RepoUsuarios
-		XTRest.start(busquedaController, 7000)
+		XTRest.start(busquedaController, 8300)
 	}
 
 	
@@ -75,10 +75,18 @@ class busquedaController {
 	
 	@Put("/verdetalles/:id")
 	def actualizarDetalles(@Body String usuario){
-		println(usuario)
+		try {
+			println(usuario)
+			response.contentType = ContentType.APPLICATION_JSON
+			val terminalUsuario = usuario.fromJson(Terminal)			
+			usuarios.updateUsuario(terminalUsuario)			
+			ok("true")
+
+		} catch (Exception ex) {
+			notFound('{"error": "' + ex.toString + '"}')
+			ok("false")
+		}
 		
-		response.contentType = ContentType.APPLICATION_JSON
-		ok("true")
 	}
 	
 

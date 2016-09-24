@@ -83,6 +83,12 @@ class RepoUsuarios extends CollectionBasedRepo<Terminal> {
 	def getTerminal(Terminal terminal) {
 		allInstances.findFirst[user|user.nombreTerminal.equalsIgnoreCase(terminal.nombreTerminal)]
 	}
+	
+	def updateUsuario(Terminal terminal){
+		
+		this.update(terminal)
+		
+	}
 
 	def validarLogin(Terminal terminal) {
 		if (!existeUsuario(terminal.nombreTerminal)) {
