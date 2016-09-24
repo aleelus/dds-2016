@@ -34,6 +34,10 @@ function serviceBusq() {
         self.usuarioSrv = usuario;
     };
 
+    self.favorito = function (id) {
+        return _.includes(self.getUsuarioSrv().listaFavoritos,id);
+    };
+
 
 };
 

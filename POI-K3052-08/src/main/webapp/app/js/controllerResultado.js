@@ -1,7 +1,7 @@
-function resultadosController(busqueda) {
+function resultadosController(serviceBusq) {
 	var self = this;
 
-	self.busquedas = busqueda;
+
 	self.criterios = criterios;
     self.listaResultados = listaResultados;
 
@@ -36,8 +36,13 @@ function resultadosController(busqueda) {
 		return self.listaResultados;
 	};
 
+	self.esFavorito = function (id) {
+        return serviceBusq.favorito(id);
+    };
+
 }
 
-poiApp.controller("resultadosController", [function (busqueda) {
-    return new resultadosController(busqueda);
+poiApp.controller("resultadosController", ["serviceBusq",function (serviceBusq) {
+    return new resultadosController(serviceBusq);
 }]);
+

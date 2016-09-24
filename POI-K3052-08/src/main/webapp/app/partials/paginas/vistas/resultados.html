@@ -6,6 +6,9 @@
             <thead>
             <tr class="center">
                 <th>
+                    Favorito
+                </th>
+                <th>
                     Nombre
                 </th>
                 <th>
@@ -18,6 +21,8 @@
             </thead>
             <tbody >
             <tr ng-repeat="busq in resultadoCtrl.buscarPorCriterio()">
+                <td><span class="glyphicon glyphicon-star" ng-show="resultadoCtrl.esFavorito(busq.id)" class="ng-hide"> </span>
+                </td>
                 <td ng-show="busq" class="ng-hide">{{ busq.nombre}}
                 </td>
                 <td ng-show="busq" class="ng-hide">{{ busq.direccion }}</td>

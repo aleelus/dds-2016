@@ -35,7 +35,7 @@ class busquedaController {
 		POIBootstrap.run()
 		repo = ApplicationContext.instance.getSingleton(typeof(POI)) as RepoPOI
 		usuarios = ApplicationContext.instance.getSingleton(typeof(Terminal)) as RepoUsuarios
-		XTRest.start(busquedaController, 8300)
+		XTRest.start(busquedaController, 8500)
 	}
 
 	

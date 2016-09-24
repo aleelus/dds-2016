@@ -11,9 +11,7 @@ function detalleController(serviceBusq,detalle,busquedasService) {
     };
 
     self.esFavorito = function (id) {
-
-        return _.includes(self.dameUsuarioSrv().listaFavoritos,id);
-
+        return serviceBusq.favorito(id);
     };
     self.cambiarEstadoFav = function (id) {
 

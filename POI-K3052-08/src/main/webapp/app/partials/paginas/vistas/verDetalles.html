@@ -85,9 +85,26 @@
                     </select>
                 </div>
         </div>
-        <a  class="btn btn-success" type="submit" ng-click="detalleCtrl.actualizarDetallesVista(detalleCtrl.dameUsuarioSrv())">
-            <span class="glyphicon glyphicon-ok-circle"> </span> Enviar
-        </a>
+        <div class="container">
+            <button type="button" class="btn btn-success"
+               ng-click="detalleCtrl.actualizarDetallesVista(detalleCtrl.dameUsuarioSrv())" data-toggle="modal"
+               data-target="#popUp">
+                <span class="glyphicon glyphicon-ok-circle"> </span> Enviar
+            </button>
+            <div id="popUp" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <p>Enviado al servidor</p>
+                        </div>
+                        <div class="modal-footer">
+                            <center><button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button></center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     <h3>Opiniones</h3>
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
