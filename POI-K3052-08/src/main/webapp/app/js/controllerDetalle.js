@@ -1,6 +1,8 @@
-function detalleController(serviceBusq,detalle,busquedasService) {
+function detalleController(serviceBusq,detalle,busquedasService,$state) {
     var self = this;
     self.detalle = detalle;
+    self.comentario = "";
+    self.calificacion= 0;
 
     self.hayDatos = function (datos){
         return  (datos !==undefined);
@@ -27,11 +29,29 @@ function detalleController(serviceBusq,detalle,busquedasService) {
 
     };
 
-    self.actualizarDetallesVista = function (usuario) {
+    function transformarAComentario (jsonTarea){
+        return POI.asComentario(jsonTarea);
+    }
+
+    
+    self.actualizarDetallesVista = function (id,usuario,comentario,calificacion) {
 
         busquedasService.actualizarDetalles(usuario,function () {
             //HAY Q VER Q GAROMPA HAGO ACA
-            $state.go("index.ver_detalles");
+
+        });
+        listaOpinion=[];
+        busquedasService.actualizarComentario(id,usuario.nombreTerminal,comentario,calificacion,function (rsp) {
+            listaOpinion= ( _.map(rsp.data.listaComentarios, transformarAComentario));
+            self.comentario = "";
+            self.calificacion= 0;
+
+            var nuevo = _.find(poisList,function (poi) {
+                return poi.id===id;
+            });
+            nuevo.listaComentarios = listaOpinion;
+
+
         });
 
     };
@@ -46,8 +66,20 @@ function detalleController(serviceBusq,detalle,busquedasService) {
 
     };
 
+    self.calcularDistancia = function (latitudPoi,longitudPoi) {
+        var usuario = serviceBusq.getUsuarioSrv();
+        poiPuntos = new Point(latitudPoi,longitudPoi);
+        return poiPuntos.distance(new Point(usuario.latitud,usuario.longitud));
+    };
+    self.calcularCalificacionGeneral = function (poi) {
+        var sumatoria = _.sumBy(poi.listaComentarios, function (comment) {
+            return _.toInteger(comment.calificacion);
+        });
+        return ( sumatoria / poi.listaComentarios.length );
+    };
+
 };
 
 poiApp.controller("detalleController", detalleController);
 
-detalleController.$inject = [ "serviceBusq", "detalle","busquedasService" ];
+detalleController.$inject = [ "serviceBusq", "detalle","busquedasService","$state"];

@@ -1,0 +1,27 @@
+<div class="container" ng-show="opinionCtrl.dameListaOpiniones()" class="ng-hide">
+    <h3>Opiniones</h3>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr class="center">
+                <th>
+                    Usuario
+                </th>
+                <th>
+                    Comentario
+                </th>
+                <th>
+                    Calificación
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="opinion in opinionCtrl.dameListaOpiniones()">
+                <td ng-show="opinion" class="ng-hide">{{ opinion.usuario}}</td>
+                <td ng-show="opinion" class="ng-hide">{{ opinion.detalle }}</td>
+                <td ng-show="opinion" class="ng-hide">{{ opinion.calificacion }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -6,6 +6,7 @@ function Criterio(nombre){
 criterios = [];
 listaResultados = [];
 poisList = [];
+listaOpinion = [];
 
 
 function serviceBusq() {
@@ -15,9 +16,18 @@ function serviceBusq() {
     self.getAllCriterios = function () {
         return criterios;
     };
+    self.getListaOpinion = function () {
+        return listaOpinion;
+    };
+    self.setListaOpinion = function (lista) {
+        self.listaOpinion = lista;
+    };
 
     self.get = function (id) {
-        return _.find(poisList, { id: id });
+        var lista =_.find(poisList, { id: id });
+        listaOpinion=[];
+        listaOpinion = lista.listaComentarios;
+        return lista
     };
 
     self.limpiar = function() {

@@ -1,15 +1,17 @@
 package puntosDeInteres
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.commons.model.Entity
-import org.uqbar.geodds.Point
-import java.util.ArrayList
 import org.uqbar.commons.utils.Observable
+import org.uqbar.geodds.Point
 
 @Accessors
 @Observable
+@JsonIgnoreProperties(ignoreUnknown = true)
 class POI extends Entity {
 
 	// Campos
@@ -25,6 +27,8 @@ class POI extends Entity {
 	List<String> tags = new ArrayList<String>
 	/**Estado del punto de interés */
 	Boolean habilitado = true;
+	/**Lista de comentarios */
+	List<Comentario> listaComentarios = new ArrayList<Comentario> 
 
 	enum Dias {
 
@@ -111,5 +115,40 @@ class POI extends Entity {
 	def inhabilitar() {
 		this.habilitado = false
 	}
+	
+	def verificarSiEseUsuarioComento(Comentario comentario){
+		listaComentarios.exists[comment| comment.usuario.contains(comentario.usuario)]		
+	}
+	
+	def addComentario (Comentario comentario){
+		
+		if(!this.verificarSiEseUsuarioComento(comentario)){
+			listaComentarios.add(new Comentario(comentario.usuario,comentario.detalle,comentario.calificacion))
+		}
+		
+		
+	}
 
+}
+
+
+@Accessors
+@JsonIgnoreProperties(ignoreUnknown = true)
+class Comentario extends Entity{
+	
+	String usuario
+	String detalle
+	String calificacion
+	
+	new() {
+		super()
+	}
+	
+	
+	new(String terminal, String comentario, String calificacion) {
+		this.usuario = terminal
+		this.detalle = comentario
+		this.calificacion = calificacion
+	}
+		
 }

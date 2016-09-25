@@ -1,4 +1,3 @@
-<body>
 <div class="container">
     <div class="jumbotron" ng-init="valor=detalleCtrl.esFavorito(detalleCtrl.detalle.id)">
         <h2 class="page-header">{{detalleCtrl.detalle.nombre}}</h2>
@@ -13,7 +12,7 @@
                     <td>Servicios:</td>
                     <td>
                         <ul class="list-group">
-                            <li class="list-group-item" ng-repeat="servicio in detalleCtrl.detalle.listaServicios" >
+                            <li class="list-group-item" ng-repeat="servicio in detalleCtrl.detalle.listaServicios">
                                 {{detalleCtrl.verificarServicio(servicio)}}
                             </li>
                         </ul>
@@ -46,7 +45,7 @@
                         Distancia:
                     </td>
                     <td>
-
+                        {{detalleCtrl.calcularDistancia(detalleCtrl.detalle.latitud,detalleCtrl.detalle.longitud)}}
                     </td>
                 </tr>
                 <tr>
@@ -54,29 +53,34 @@
                         Calificación general:
                     </td>
                     <td>
-
+                        {{detalleCtrl.calcularCalificacionGeneral(detalleCtrl.detalle)}}
                     </td>
                 </tr>
                 <tr>
                     <td style="padding: 0px">Favorito:</td>
                     <td>
                         <div class="checkbox" style="margin: auto">
-                            <label><input type="checkbox" ng-change="valor=detalleCtrl.cambiarEstadoFav(detalleCtrl.detalle.id)" ng-model="valor" value=""></label>
+                            <label><input type="checkbox"
+                                          ng-change="valor=detalleCtrl.cambiarEstadoFav(detalleCtrl.detalle.id)"
+                                          ng-model="valor" value=""></label>
                         </div>
                     </td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <h3>Deja tu opinión!</h3>
-        <div class="row vertical-align" style="padding-bottom: 20px">
+        <div>
+            <h3>Deja tu opinión!</h3>
+            <div class="row vertical-align" style="padding-bottom: 20px">
                 <div class="col-md-12">
                     <label for="comentario">Comentarios:</label>
-                    <textarea class="form-control" rows="3" id="comentario"></textarea>
+                    <textarea class="form-control" rows="3" id="comentario"
+                              ng-model="detalleCtrl.comentario"></textarea>
                 </div>
                 <div class="col-md-8">
                     <label for="estrellas">Seleccione la calificación deseada:</label>
-                    <select class="form-control center-block" id="estrellas" style="width: auto">
+                    <select class="form-control center-block" id="estrellas" ng-model="detalleCtrl.calificacion"
+                            style="width: auto">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -84,50 +88,46 @@
                         <option>5</option>
                     </select>
                 </div>
-        </div>
-        <div class="container">
-            <button type="button" class="btn btn-success"
-               ng-click="detalleCtrl.actualizarDetallesVista(detalleCtrl.dameUsuarioSrv())" data-toggle="modal"
-               data-target="#popUp">
-                <span class="glyphicon glyphicon-ok-circle"> </span> Enviar
-            </button>
-            <div id="popUp" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <p>Enviado al servidor</p>
-                        </div>
-                        <div class="modal-footer">
-                            <center><button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button></center>
+            </div>
+            <div class="container">
+                <button type="button" class="btn btn-success"
+                        ng-click="detalleCtrl.actualizarDetallesVista(detalleCtrl.detalle.id,detalleCtrl.dameUsuarioSrv(),detalleCtrl.comentario,detalleCtrl.calificacion)"
+                        data-toggle="modal"
+                        data-target="#popUp">
+                    <span class="glyphicon glyphicon-ok-circle"> </span> Enviar
+                </button>
+                <div id="popUp" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <p>Enviado al servidor</p>
+                            </div>
+                            <div class="modal-footer">
+                                <center>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                </center>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-    <h3>Opiniones</h3>
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-            <thead>
-            <tr class="center">
-                <th>
-                    Usuario
-                </th>
-                <th>
-                    Comentario
-                </th>
-                <th>
-                    Calificación
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
     </div>
+
+    <div class="jumbotron">
+
+        <div class="container">
+            <button type="button" class="btn btn-success"
+                    ui-sref="index.ver_detalles.opinion">
+                <span class="glyphicon glyphicon-chevron-down"> </span> Mostrar comentarios de otros usuarios
+            </button>
+        </div>
+        <div ui-view="opinion"></div>
+    </div>
+
+    <div class="container">
         <a ui-sref="index.busqueda.resultados" class="btn btn-danger">
             <span class="glyphicon glyphicon-menu-left"> </span> Volver
         </a>
+    </div>
 </div>
-</div>
-</body>

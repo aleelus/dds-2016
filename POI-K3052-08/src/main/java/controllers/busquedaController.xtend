@@ -1,6 +1,5 @@
 package controllers
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -12,13 +11,14 @@ import org.uqbar.xtrest.api.XTRest
 import org.uqbar.xtrest.api.annotation.Body
 import org.uqbar.xtrest.api.annotation.Controller
 import org.uqbar.xtrest.api.annotation.Post
+import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.http.ContentType
 import org.uqbar.xtrest.json.JSONUtils
+import puntosDeInteres.Comentario
 import puntosDeInteres.POI
 import repositorios.RepoPOI
 import repositorios.RepoUsuarios
 import usuario.Terminal
-import org.uqbar.xtrest.api.annotation.Put
 
 @Controller
 @JsonIgnoreProperties(ignoreUnknown=true)
@@ -35,7 +35,7 @@ class busquedaController {
 		POIBootstrap.run()
 		repo = ApplicationContext.instance.getSingleton(typeof(POI)) as RepoPOI
 		usuarios = ApplicationContext.instance.getSingleton(typeof(Terminal)) as RepoUsuarios
-		XTRest.start(busquedaController, 8500)
+		XTRest.start(busquedaController, 8000)
 	}
 
 	
@@ -73,9 +73,9 @@ class busquedaController {
 	}
 	
 	
-	@Put("/verdetalles/:id")
+	@Put("/verdetalles/")
 	def actualizarDetalles(@Body String usuario){
-		try {
+		try {			
 			println(usuario)
 			response.contentType = ContentType.APPLICATION_JSON
 			val terminalUsuario = usuario.fromJson(Terminal)			
@@ -87,6 +87,24 @@ class busquedaController {
 			ok("false")
 		}
 		
+	}
+	
+	@Put("/verdetalles/:id")
+	def actualizarComentario(@Body String comentario) {
+		try {
+			println(comentario)
+			println(id)
+			val POI = repo.searchById(Integer.parseInt(id))				
+			POI.addComentario(comentario.fromJson(Comentario))	
+			repo.update(POI)
+			response.contentType = ContentType.APPLICATION_JSON
+			ok(POI.toJson)
+
+		} catch (Exception ex) {
+			notFound('{"error": "' + ex.toString + '"}')
+			ok("false")
+		}
+
 	}
 	
 

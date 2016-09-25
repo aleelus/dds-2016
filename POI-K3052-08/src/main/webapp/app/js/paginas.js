@@ -36,7 +36,17 @@ poiApp.config(function ($stateProvider,$locationProvider) {
                         return serviceBusq.get(parseInt($stateParams.id));
                     }
                 }
+            })
+            .state('index.ver_detalles.opinion', {
+                views: {
+                    'opinion': {
+                        url: "/verdetalles/",
+                        templateUrl: "app/partials/paginas/vistas/opiniones.html",
+                        controller: "opinionController",
+                        controllerAs: "opinionCtrl"
+                    }
+                }
             });
-        
+
         $locationProvider.html5Mode(true);
     });

@@ -6,7 +6,7 @@ function criterioController(criterio, busquedasService,serviceBusq,$rootScope) {
 
     self.dameUsuarioSrv = function () {
         return serviceBusq.getUsuarioSrv();
-    }
+    };
 
     function transformarAPOI(jsonTarea) {
         return POI.asPOI(jsonTarea);

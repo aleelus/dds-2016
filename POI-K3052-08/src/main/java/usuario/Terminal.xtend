@@ -31,7 +31,9 @@ class Terminal extends Entity{
 	@JsonIgnore List<ObserverBusqueda> listaObservers = new ArrayList<ObserverBusqueda>
 	@JsonIgnore Rol rolTerminal
 	@JsonIgnore RepoPOI repositorio = ApplicationContext.instance.getRepo(typeof(POI)) as RepoPOI
-
+	double latitud	
+	double longitud
+	
 	new(String nombre, Rol rol) {
 		this()
 		this.rolTerminal = rol
@@ -45,12 +47,14 @@ class Terminal extends Entity{
 		this.contraseña = pass
 	}
 	
-		new(String nombre, Rol rol, String pass,List<Integer> listaFavoritos) {
+		new(String nombre, Rol rol, String pass,List<Integer> listaFavoritos,double latitud,double longitud) {
 		this()
 		this.rolTerminal = rol
 		this.nombreTerminal = nombre
 		this.contraseña = pass
 		this.listaFavoritos = listaFavoritos
+		this.latitud = latitud
+		this.longitud = longitud
 	}
 	
 
