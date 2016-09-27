@@ -32,8 +32,8 @@ class POIBootstrap{
 			agregarServicios(builderServicios.crearServicios("Rentas", "Licencia de manejo", "Atención al jubilado"))
 			setNombre("Centro Flores")
 			setTags(newArrayList("CGP","Flores","Rentas"))
-			setLongitud(1.4)
-			setLatitud(1.2)
+			setLongitud(0.97)
+			setLatitud(1.01)
 			setComuna("Flores",new Point(0, 0), new Point(2, 0), new Point(2, 2), new Point(0, 2))
 			setDireccion = "Av. Corrientes 2873"
 		]
@@ -43,8 +43,8 @@ class POIBootstrap{
 		builderLocal => [
 			setNombre("Don José")
 			setTags(newArrayList("José","Rotiseria","Barato"))
-			setLongitud(0.9)
-			setLatitud(1.3)
+			setLongitud(0.99)
+			setLatitud(1.11)
 			setRubro("Rotiseria", 5)			
 			setDireccion = "Quintana 861"
 		]
@@ -55,8 +55,8 @@ class POIBootstrap{
 		builderLocal => [
 			setNombre("Don Yoyo")
 			setTags(newArrayList("Yoyo", "Librería", "Barato"))
-			setLongitud(1.5)
-			setLatitud(-0.3)
+			setLongitud(-1.15)
+			setLatitud(-0.99)
 			setRubro("Librería", 5)
 			setDireccion = "Quintana 130"
 		]
@@ -64,13 +64,13 @@ class POIBootstrap{
 		
 		
 		// Una parada
-		val parada = new ParadaColectivo("Parada Metrobús Caballito", 1.2, -1.6,"Malabia 29",newArrayList("24","60","124"))
+		val parada = new ParadaColectivo("Parada Metrobús Caballito", -1.12, -1.06,"Malabia 29",newArrayList("24","60","124"))
 		
 		// Un banco
 		builderBanco => [
 			setNombre("Santander")
-			setLongitud(1.2)
-			setLatitud(0.7)
+			setLongitud(1.12)
+			setLatitud(0.98)
 			setTags(newArrayList("Santander","Rio","Banco","Depósito","Cheque"))
 			setSucursal("Once")
 			setZona(new Comuna("Once",new Point(0, 0), new Point(50, 0), new Point(50, 50), new Point(0, 50)))
