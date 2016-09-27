@@ -45,7 +45,7 @@
                         Distancia:
                     </td>
                     <td>
-                        {{detalleCtrl.calcularDistancia(detalleCtrl.detalle.latitud,detalleCtrl.detalle.longitud)}}
+                        {{detalleCtrl.calcularDistancia(detalleCtrl.detalle)  | number: 2}}km
                     </td>
                 </tr>
                 <tr>
@@ -61,7 +61,7 @@
                     <td>
                         <div class="checkbox" style="margin: auto">
                             <label><input type="checkbox"
-                                          ng-change="valor=detalleCtrl.cambiarEstadoFav(detalleCtrl.detalle.id)"
+                                          ng-change="valor=detalleCtrl.cambiarEstadoFav(detalleCtrl.detalle)"
                                           ng-model="valor" value=""></label>
                         </div>
                     </td>
@@ -91,7 +91,7 @@
             </div>
             <div class="container">
                 <button type="button" class="btn btn-success"
-                        ng-click="detalleCtrl.actualizarDetallesVista(detalleCtrl.detalle.id,detalleCtrl.dameUsuarioSrv(),detalleCtrl.comentario,detalleCtrl.calificacion)"
+                        ng-click="detalleCtrl.actualizarDetallesVista(detalleCtrl.detalle,detalleCtrl.dameUsuarioSrv(),detalleCtrl.comentario,detalleCtrl.calificacion)"
                         data-toggle="modal"
                         data-target="#popUp">
                     <span class="glyphicon glyphicon-ok-circle"> </span> Enviar
@@ -124,6 +124,7 @@
         </div>
         <div ui-view="opinion"></div>
     </div>
+    <div class="alert alert-danger animate-repeat" ng-repeat="error in detalleCtrl.errors">{{error}}</div>
 
     <div class="container">
         <a ui-sref="index.busqueda.resultados" class="btn btn-danger">

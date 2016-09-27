@@ -1,15 +1,17 @@
-function criterioController(criterio, busquedasService,serviceBusq,$rootScope) {
+function criterioController(criterio, busquedasService,serviceBusq,$rootScope,$timeout) {
     var self = this;
     self.criterios = criterio;
     self.nuevoCriterio = '';
+    self.timeout = $timeout;
+    self.errors = [];
 
 
     self.dameUsuarioSrv = function () {
         return serviceBusq.getUsuarioSrv();
     };
 
-    function transformarAPOI(jsonTarea) {
-        return POI.asPOI(jsonTarea);
+    function transformarAPOI(jsonPOI) {
+        return POI.asPOI(jsonPOI);
     }
 
 
@@ -19,6 +21,8 @@ function criterioController(criterio, busquedasService,serviceBusq,$rootScope) {
         busquedasService.mandarLista(self.criterios,function(rsp) {
             poisList = _.map(rsp.data, transformarAPOI);
             return poisList;
+        },function () {
+            notificarError(self);
         });
 
     };
@@ -51,6 +55,6 @@ function criterioController(criterio, busquedasService,serviceBusq,$rootScope) {
 }
 
 
-poiApp.controller("criterioController", ["criterios","busquedasService","serviceBusq","$rootScope", function (criterio,busquedasService,serviceBusq,$rootScope) {
-    return new criterioController(criterio,busquedasService,serviceBusq,$rootScope);
+poiApp.controller("criterioController", ["criterios","busquedasService","serviceBusq","$rootScope","$timeout" ,function (criterio,busquedasService,serviceBusq,$rootScope,$timeout) {
+    return new criterioController(criterio,busquedasService,serviceBusq,$rootScope,$timeout);
 }]);

@@ -18,6 +18,12 @@ poiApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         this.pass = "";
         this.respuesta= false;
 
+
+        function transformarATerminal (jsonTerminal){
+            return Terminal.asTerminal(jsonTerminal);
+        }
+
+
         self.validar = function () {
             if (self.usuario === "" || self.pass === "") {
                 throw "Complete todos los datos";
@@ -25,7 +31,7 @@ poiApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
                 loginService.validarUsuario(self.usuario,self.pass,function (response) {
                     self.respuesta = response.data;
                     if(self.respuesta!== false){
-                        serviceBusq.setUsuarioSrv(self.respuesta);
+                        serviceBusq.setUsuarioSrv(transformarATerminal(self.respuesta));
                         $state.go("index.busqueda");
                     }
                 });
