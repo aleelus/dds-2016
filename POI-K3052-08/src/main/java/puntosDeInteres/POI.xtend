@@ -29,6 +29,8 @@ class POI extends Entity {
 	Boolean habilitado = true;
 	/**Lista de comentarios */
 	List<Comentario> listaComentarios = new ArrayList<Comentario> 
+	/**URL del icono **/
+	String urlIcono
 
 	enum Dias {
 

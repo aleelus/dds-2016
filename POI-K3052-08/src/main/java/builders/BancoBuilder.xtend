@@ -22,6 +22,11 @@ class BancoBuilder {
 	String nombreSucursal
 	List<String> listaServicios
 	String gerente
+	String urlIcono
+
+	def setUrlIcono(String url){
+		this.urlIcono = url
+	}
 
 	def setNombre(String nombre) {
 		if (nombre.empty) {
@@ -101,6 +106,7 @@ class BancoBuilder {
 		banco.horario = horario
 		banco.diasAbierto = diasAbierto
 		banco.zona = zona
+		banco.urlIcono = urlIcono
 		banco
 	}
 }

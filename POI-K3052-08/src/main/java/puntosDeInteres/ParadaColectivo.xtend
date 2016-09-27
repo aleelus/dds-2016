@@ -16,13 +16,14 @@ class ParadaColectivo extends POI {
 		super()
 	}
 
-	new(String nombre, double latitud, double longitud, String direccion, List<String> lineasCol) {
+	new(String nombre, double latitud, double longitud, String direccion, List<String> lineasCol,String url) {
 		this()
 		this.nombre = nombre
 		this.latitud = latitud
 		this.longitud = longitud
 		this.direccion = direccion
 		this.lineas = lineasCol
+		this.urlIcono = url
 	}
 
 	/**Método que indica si una Parada está cerca de una latitud y

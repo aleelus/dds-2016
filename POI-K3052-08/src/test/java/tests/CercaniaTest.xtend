@@ -63,8 +63,8 @@ class CercaniaTest {
 		localLejano = builderLocal.build()
 
 		// Ubicación paradas
-		paradaCercana = new ParadaColectivo("Parada 12", 1, 1.05, "Terrada 271",newArrayList("24","60","124"))
-		paradaLejana = new ParadaColectivo("Parada 2", 2, 0, "Condarco 431",newArrayList("24","60","124"))
+		paradaCercana = new ParadaColectivo("Parada 12", 1, 1.05, "Terrada 271",newArrayList("24","60","124"),"https://image.freepik.com/iconos-gratis/silueta-bus-frontal_318-27514.png")
+		paradaLejana = new ParadaColectivo("Parada 2", 2, 0, "Condarco 431",newArrayList("24","60","124"),"https://image.freepik.com/iconos-gratis/silueta-bus-frontal_318-27514.png")
 
 		// Creación de bancos
 		builderBanco => [

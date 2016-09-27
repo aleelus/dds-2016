@@ -135,7 +135,7 @@ class DisponibilidadTest {
 		cgp = builderCGP.build()
 
 		// Ubicación paradas
-		colectivo = new ParadaColectivo("Parada 124", 1, 1.05,"Av. Córdoba 4213",newArrayList("24","60","124"))
+		colectivo = new ParadaColectivo("Parada 124", 1, 1.05,"Av. Córdoba 4213",newArrayList("24","60","124"),"https://image.freepik.com/iconos-gratis/silueta-bus-frontal_318-27514.png")
 
 	}
 

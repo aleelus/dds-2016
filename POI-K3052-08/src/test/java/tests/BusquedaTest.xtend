@@ -67,8 +67,8 @@ class BusquedaTest{
 		localComercial = builderLocal.build()
 
 		// Paradas
-		parada = new ParadaColectivo("124", 15, 15,"Campana 132",newArrayList("24","60","124"))
-		parada2 = new ParadaColectivo("110", 40, 10, "Cuenca 451",newArrayList("24","60","124"))
+		parada = new ParadaColectivo("124", 15, 15,"Campana 132",newArrayList("24","60","124"),"https://image.freepik.com/iconos-gratis/silueta-bus-frontal_318-27514.png")
+		parada2 = new ParadaColectivo("110", 40, 10, "Cuenca 451",newArrayList("24","60","124"),"https://image.freepik.com/iconos-gratis/silueta-bus-frontal_318-27514.png")
 
 		// Agrego los POI's al repositorio externo
 		mapa.create(cgp)
@@ -167,7 +167,7 @@ class BusquedaTest{
 
 	@Test
 	def testModificacionPOIExistente() {
-		val ParadaColectivo paradaNueva = new ParadaColectivo("Parada 03", 10, 20,"Helguera 1382",newArrayList("24","60","124"))
+		val ParadaColectivo paradaNueva = new ParadaColectivo("Parada 03", 10, 20,"Helguera 1382",newArrayList("24","60","124"),"https://image.freepik.com/iconos-gratis/silueta-bus-frontal_318-27514.png")
 		paradaNueva.id = parada.id
 		mapa.update(paradaNueva)
 		Assert.assertTrue(mapa.searchById(paradaNueva.id).nombre == "Parada 03")

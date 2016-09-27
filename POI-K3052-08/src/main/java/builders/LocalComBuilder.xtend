@@ -14,6 +14,11 @@ class LocalComBuilder {
 	double latitud
 	double longitud
 	String[] tags
+	String urlIcono
+	
+	def setUrlIcono(String url){
+		this.urlIcono = url
+	}
 	
 	def setNombre(String nombre) {
 		if (nombre.empty) {
@@ -68,6 +73,7 @@ class LocalComBuilder {
 		nuevoLocal.latitud = latitud
 		nuevoLocal.longitud = longitud
 		nuevoLocal.tags = tags
+		nuevoLocal.urlIcono = urlIcono
 		nuevoLocal
 	}
 }

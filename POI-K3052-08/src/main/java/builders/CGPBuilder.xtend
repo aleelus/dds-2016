@@ -18,10 +18,15 @@ class CGPBuilder {
 	double latitud
 	double longitud
 	Comuna comuna
+	String urlIcono
 
 	def agregarServicios(List<ServicioCGP> listaServicios) {
 		servicios.addAll(listaServicios)
 		this
+	}
+	
+	def setUrlIcono(String url){
+		this.urlIcono = url
 	}
 
 	def setNombre(String nombre) {
@@ -73,6 +78,7 @@ class CGPBuilder {
 		nuevoCGP.latitud = latitud
 		nuevoCGP.longitud = longitud
 		nuevoCGP.zona = comuna
+		nuevoCGP.urlIcono = urlIcono
 		nuevoCGP
 	}
 }

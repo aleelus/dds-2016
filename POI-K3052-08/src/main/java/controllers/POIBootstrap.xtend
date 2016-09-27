@@ -32,6 +32,7 @@ class POIBootstrap{
 			agregarServicios(builderServicios.crearServicios("Rentas", "Licencia de manejo", "Atención al jubilado"))
 			setNombre("Centro Flores")
 			setTags(newArrayList("CGP","Flores","Rentas"))
+			setUrlIcono("http://static2.elblogverde.com/wp-content/uploads/2016/03/cuales-son-las-flores-del-verano-girasol-600x450.jpg")			
 			setLongitud(1.4)
 			setLatitud(1.2)
 			setComuna("Flores",new Point(0, 0), new Point(2, 0), new Point(2, 2), new Point(0, 2))
@@ -43,6 +44,7 @@ class POIBootstrap{
 		builderLocal => [
 			setNombre("Don José")
 			setTags(newArrayList("José","Rotiseria","Barato"))
+			setUrlIcono("http://200.43.76.2:20009/website/file.php/transfer_files/2041//Iconos_web/rotiseria.jpg")
 			setLongitud(0.9)
 			setLatitud(1.3)
 			setRubro("Rotiseria", 5)			
@@ -55,6 +57,7 @@ class POIBootstrap{
 		builderLocal => [
 			setNombre("Don Yoyo")
 			setTags(newArrayList("Yoyo", "Librería", "Barato"))
+			setUrlIcono("http://previews.123rf.com/images/faysalfarhan/faysalfarhan1303/faysalfarhan130300010/18570071-Libro-azul-brillante-icono-refleja-bot-n-cuadrado-Foto-de-archivo.jpg")
 			setLongitud(1.5)
 			setLatitud(-0.3)
 			setRubro("Librería", 5)
@@ -64,11 +67,12 @@ class POIBootstrap{
 		
 		
 		// Una parada
-		val parada = new ParadaColectivo("Parada Metrobús Caballito", 1.2, -1.6,"Malabia 29",newArrayList("24","60","124"))
+		val parada = new ParadaColectivo("Parada Metrobús Caballito", 1.2, -1.6,"Malabia 29",newArrayList("24","60","124"),"https://image.freepik.com/iconos-gratis/silueta-bus-frontal_318-27514.png")
 		
 		// Un banco
 		builderBanco => [
 			setNombre("Santander")
+			setUrlIcono("https://pbs.twimg.com/profile_images/610470794603405314/0-T5nIIv.png")
 			setLongitud(1.2)
 			setLatitud(0.7)
 			setTags(newArrayList("Santander","Rio","Banco","Depósito","Cheque"))
