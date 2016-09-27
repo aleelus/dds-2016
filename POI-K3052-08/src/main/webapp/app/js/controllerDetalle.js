@@ -1,8 +1,10 @@
-function detalleController(serviceBusq,detalle,busquedasService,$state) {
+function detalleController(serviceBusq,detalle,busquedasService,$timeout) {
     var self = this;
     self.detalle = detalle;
     self.comentario = "";
     self.calificacion= 0;
+    self.timeout = $timeout;
+    self.errors = [];
 
     self.hayDatos = function (datos){
         return  (datos !==undefined);
@@ -19,24 +21,35 @@ function detalleController(serviceBusq,detalle,busquedasService,$state) {
         return self.dameUsuarioSrv().esFavoritoDe(self.dameUsuarioSrv(),poi,self.esFavorito);
     };
 
-    function transformarAComentario (jsonTarea){
-        return Comentario.asComentario(jsonTarea);
+    function transformarAComentario (jsonComentario){
+        return Comentario.asComentario(jsonComentario);
     }
 
-    
-    self.actualizarDetallesVista = function (poi,usuario,comentario,calificacion) {
 
-        busquedasService.actualizarDetalles(usuario,function () {
+    self.actualizarDetallesVista = function (poi, usuario, comentario, calificacion) {
+
+
+        busquedasService.actualizarDetalles(usuario, function () {
             //HAY Q VER Q GAROMPA HAGO ACA
 
+        }, function () {
+            notificarError(self);
         });
-        listaOpinion=[];
-        busquedasService.actualizarComentario(poi.id,usuario.nombreTerminal,comentario,calificacion,function (rsp) {
-            listaOpinion= ( _.map(rsp.data.listaComentarios, transformarAComentario));
-            poi.agregarComentario(poi);
-            self.comentario = "";
-            self.calificacion= 0;
-        });
+
+
+        if (comentario !== "" && calificacion !== 0) {
+            listaOpinion = [];
+            busquedasService.actualizarComentario(poi.id, usuario.nombreTerminal, comentario, calificacion, function (rsp) {
+                listaOpinion = ( _.map(rsp.data.listaComentarios, transformarAComentario));
+                poi.agregarComentario(poi);
+                self.comentario = "";
+                self.calificacion = 0;
+            }, function () {
+                notificarError(self);
+            });
+
+
+        }
 
     };
 
@@ -62,4 +75,4 @@ function detalleController(serviceBusq,detalle,busquedasService,$state) {
 
 poiApp.controller("detalleController", detalleController);
 
-detalleController.$inject = [ "serviceBusq", "detalle","busquedasService","$state"];
+detalleController.$inject = [ "serviceBusq", "detalle","busquedasService","$state","$timeout"];

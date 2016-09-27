@@ -45,7 +45,7 @@
                         Distancia:
                     </td>
                     <td>
-                        {{detalleCtrl.calcularDistancia(detalleCtrl.detalle)}}
+                        {{detalleCtrl.calcularDistancia(detalleCtrl.detalle)  | number: 2}}km
                     </td>
                 </tr>
                 <tr>
@@ -124,6 +124,7 @@
         </div>
         <div ui-view="opinion"></div>
     </div>
+    <div class="alert alert-danger animate-repeat" ng-repeat="error in detalleCtrl.errors">{{error}}</div>
 
     <div class="container">
         <a ui-sref="index.busqueda.resultados" class="btn btn-danger">

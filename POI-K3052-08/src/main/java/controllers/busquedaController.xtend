@@ -35,7 +35,7 @@ class busquedaController {
 		POIBootstrap.run()
 		repo = ApplicationContext.instance.getSingleton(typeof(POI)) as RepoPOI
 		usuarios = ApplicationContext.instance.getSingleton(typeof(Terminal)) as RepoUsuarios
-		XTRest.start(busquedaController, 8000)
+		XTRest.start(busquedaController, 8700)
 	}
 
 	
@@ -83,7 +83,7 @@ class busquedaController {
 			ok("true")
 
 		} catch (Exception ex) {
-			notFound('{"error": "' + ex.toString + '"}')
+			notFound('{"error": "Error al intentar marcar/desmarcar el POI como favoritos"}')
 			ok("false")
 		}
 		
@@ -101,7 +101,7 @@ class busquedaController {
 			ok(POI.toJson)
 
 		} catch (Exception ex) {
-			notFound('{"error": "' + ex.toString + '"}')
+			notFound('{"error": "Error al comentar un POI"}')
 			ok("false")
 		}
 
