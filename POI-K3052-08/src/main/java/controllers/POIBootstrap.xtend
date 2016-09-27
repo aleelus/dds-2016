@@ -32,9 +32,9 @@ class POIBootstrap{
 			agregarServicios(builderServicios.crearServicios("Rentas", "Licencia de manejo", "Atención al jubilado"))
 			setNombre("Centro Flores")
 			setTags(newArrayList("CGP","Flores","Rentas"))
-			setLongitud(15)
-			setLatitud(30)
-			setComuna("Flores",new Point(0, 0), new Point(50, 0), new Point(50, 50), new Point(0, 50))
+			setLongitud(1.4)
+			setLatitud(1.2)
+			setComuna("Flores",new Point(0, 0), new Point(2, 0), new Point(2, 2), new Point(0, 2))
 			setDireccion = "Av. Corrientes 2873"
 		]
 		val cgp = builderCGP.build()
@@ -43,8 +43,8 @@ class POIBootstrap{
 		builderLocal => [
 			setNombre("Don José")
 			setTags(newArrayList("José","Rotiseria","Barato"))
-			setLongitud(5)
-			setLatitud(10)
+			setLongitud(0.9)
+			setLatitud(1.3)
 			setRubro("Rotiseria", 5)			
 			setDireccion = "Quintana 861"
 		]
@@ -55,8 +55,8 @@ class POIBootstrap{
 		builderLocal => [
 			setNombre("Don Yoyo")
 			setTags(newArrayList("Yoyo", "Librería", "Barato"))
-			setLongitud(5)
-			setLatitud(10)
+			setLongitud(1.5)
+			setLatitud(-0.3)
 			setRubro("Librería", 5)
 			setDireccion = "Quintana 130"
 		]
@@ -64,13 +64,13 @@ class POIBootstrap{
 		
 		
 		// Una parada
-		val parada = new ParadaColectivo("Parada Metrobús Caballito", 15, 15,"Malabia 29",newArrayList("24","60","124"))
+		val parada = new ParadaColectivo("Parada Metrobús Caballito", 1.2, -1.6,"Malabia 29",newArrayList("24","60","124"))
 		
 		// Un banco
 		builderBanco => [
 			setNombre("Santander")
-			setLongitud(30)
-			setLatitud(40)
+			setLongitud(1.2)
+			setLatitud(0.7)
 			setTags(newArrayList("Santander","Rio","Banco","Depósito","Cheque"))
 			setSucursal("Once")
 			setZona(new Comuna("Once",new Point(0, 0), new Point(50, 0), new Point(50, 50), new Point(0, 50)))
@@ -89,8 +89,8 @@ class POIBootstrap{
 				create(banco)
 			])
 			configureRepo(typeof(Terminal), new RepoUsuarios => [
-				create(new Terminal("ADMIN", new Rol(),"123",newArrayList(1,2),5,10))
-				create(new Terminal("aleelus", new Rol(),"12345",newArrayList(2),-40,-80))
+				create(new Terminal("ADMIN", new Rol(),"123",newArrayList(1,2),1,1))
+				create(new Terminal("aleelus", new Rol(),"12345",newArrayList(2),-1,-1))
 				create(new Terminal("terminal-1", new Rol(),"banana"))
 			])
 		]
