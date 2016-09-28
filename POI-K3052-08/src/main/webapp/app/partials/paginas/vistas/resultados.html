@@ -20,7 +20,7 @@
             </tr>
             </thead>
             <tbody >
-            <tr ng-repeat="busq in resultadoCtrl.buscarPorCriterio()">
+            <tr ng-repeat="busq in resultadoCtrl.getPoiLista()">
                 <td><span class="glyphicon glyphicon-star" ng-show="resultadoCtrl.esFavorito(busq.id)" class="ng-hide"> </span>
                 </td>
                 <td ng-show="busq" class="ng-hide">{{ busq.nombre}}

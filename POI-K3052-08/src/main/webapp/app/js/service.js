@@ -4,7 +4,6 @@ function Criterio(nombre){
 }
 
 criterios = [];
-listaResultados = [];
 poisList = [];
 listaOpinion = [];
 
@@ -32,7 +31,6 @@ function serviceBusq() {
 
     self.limpiar = function() {
         criterios.length = 0;
-        listaResultados.length =0;
         poisList.length = 0;
     };
 
