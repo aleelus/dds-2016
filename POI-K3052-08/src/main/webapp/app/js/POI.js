@@ -41,6 +41,8 @@ POI.prototype.calcularDistanciaPOI = function (poi,usuario) {
 
 
 
+
+
 POI.asPOI = function (jsonTarea) {
     return angular.extend(new POI(), jsonTarea);
 };

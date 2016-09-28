@@ -35,7 +35,7 @@ class busquedaController {
 		POIBootstrap.run()
 		repo = ApplicationContext.instance.getSingleton(typeof(POI)) as RepoPOI
 		usuarios = ApplicationContext.instance.getSingleton(typeof(Terminal)) as RepoUsuarios
-		XTRest.start(busquedaController, 8800)
+		XTRest.start(busquedaController, 8500)
 	}
 
 	
@@ -92,8 +92,7 @@ class busquedaController {
 	@Put("/verdetalles/:id")
 	def actualizarComentario(@Body String comentario) {
 		try {
-			println(comentario)
-			println(id)
+			println(comentario)			
 			val POI = repo.searchById(Integer.parseInt(id))				
 			POI.addComentario(comentario.fromJson(Comentario))	
 			repo.update(POI)

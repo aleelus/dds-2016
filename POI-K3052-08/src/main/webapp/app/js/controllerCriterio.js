@@ -1,4 +1,4 @@
-function criterioController(criterio, busquedasService,serviceBusq,$rootScope,$timeout) {
+function criterioController(criterio, busquedasService,serviceBusq,$timeout) {
     var self = this;
     self.criterios = criterio;
     self.nuevoCriterio = '';
@@ -55,6 +55,6 @@ function criterioController(criterio, busquedasService,serviceBusq,$rootScope,$t
 }
 
 
-poiApp.controller("criterioController", ["criterios","busquedasService","serviceBusq","$rootScope","$timeout" ,function (criterio,busquedasService,serviceBusq,$rootScope,$timeout) {
-    return new criterioController(criterio,busquedasService,serviceBusq,$rootScope,$timeout);
+poiApp.controller("criterioController", ["criterios","busquedasService","serviceBusq","$timeout" ,function (criterio,busquedasService,serviceBusq,$timeout) {
+    return new criterioController(criterio,busquedasService,serviceBusq,$timeout);
 }]);

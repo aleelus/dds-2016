@@ -11,4 +11,12 @@ poiApp.service('busquedasService', function($http) {
 });
 
 
+poiApp.service('loginService',function ($http) {
+    this.validarUsuario = function (usuario,contraseña,callback) {
+        $http.post('/',{nombreTerminal:usuario,contraseña:contraseña}).then(callback)
+    }
+
+});
+
+
 

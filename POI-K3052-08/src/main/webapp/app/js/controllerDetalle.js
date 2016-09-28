@@ -30,7 +30,7 @@ function detalleController(serviceBusq,detalle,busquedasService,$timeout) {
 
 
         busquedasService.actualizarDetalles(usuario, function () {
-            //HAY Q VER Q GAROMPA HAGO ACA
+
 
         }, function () {
             notificarError(self);

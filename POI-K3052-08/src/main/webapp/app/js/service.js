@@ -27,7 +27,7 @@ function serviceBusq() {
         var lista =_.find(poisList, { id: id });
         listaOpinion=[];
         listaOpinion = lista.listaComentarios;
-        return lista
+        return lista;
     };
 
     self.limpiar = function() {
@@ -55,9 +55,3 @@ poiApp.factory("serviceBusq", function() {
         return new serviceBusq();
     });
 
-poiApp.service('loginService',function ($http) {
-    this.validarUsuario = function (usuario,contraseña,callback) {
-        $http.post('/',{nombreTerminal:usuario,contraseña:contraseña}).then(callback)
-    }
-    
-})
