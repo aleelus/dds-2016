@@ -5,6 +5,7 @@ function detalleController(serviceBusq,detalle,busquedasService,$timeout) {
     self.calificacion= 0;
     self.timeout = $timeout;
     self.errors = [];
+    self.msgError ="";
 
     self.hayDatos = function (datos){
         return  (datos !==undefined);
@@ -47,9 +48,12 @@ function detalleController(serviceBusq,detalle,busquedasService,$timeout) {
             }, function () {
                 notificarError(self);
             });
+            self.msgError="Los cambios han sido guardados. Gracias por comentar y calificar nuestro servicio.";
 
-
+        }else{
+            self.msgError = "Los cambios han sido guardados. No se ha comentado ni calificado a este POI.";
         }
+
 
     };
 
@@ -68,7 +72,11 @@ function detalleController(serviceBusq,detalle,busquedasService,$timeout) {
         return poi.calcularDistanciaPOI(poi,usuario);
     };
     self.calcularCalificacionGeneral = function (poi) {
-        return poi.calcularCalificacion(poi);
+        var resultado = poi.calcularCalificacion(poi);
+        if(resultado>0){
+            return resultado + " /5";
+        }
+        return resultado;
     };
 
 };

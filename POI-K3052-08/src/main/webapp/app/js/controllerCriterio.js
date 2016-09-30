@@ -49,6 +49,7 @@ function criterioController(criterio, busquedasService,serviceBusq,$timeout) {
         _.remove(self.criterios, function(actual) {
             return (actual.nombre === nombre);
         });
+        self.enviarListaCriterios();
 
     };
 

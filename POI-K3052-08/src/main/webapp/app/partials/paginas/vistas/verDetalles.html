@@ -57,7 +57,7 @@
                         Calificación general:
                     </td>
                     <td>
-                        {{detalleCtrl.calcularCalificacionGeneral(detalleCtrl.detalle)}}/5
+                        {{detalleCtrl.calcularCalificacionGeneral(detalleCtrl.detalle)}}
                     </td>
                 </tr>
                 <tr>
@@ -98,21 +98,10 @@
                         ng-click="detalleCtrl.actualizarDetallesVista(detalleCtrl.detalle,detalleCtrl.dameUsuarioSrv(),detalleCtrl.comentario,detalleCtrl.calificacion)"
                         data-toggle="modal"
                         data-target="#popUp">
-                    <span class="glyphicon glyphicon-ok-circle"> </span> Enviar
+                    <span class="glyphicon glyphicon-ok-circle"> </span> Guardar
                 </button>
-                <div id="popUp" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <p>Enviado al servidor</p>
-                            </div>
-                            <div class="modal-footer">
-                                <center>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                                </center>
-                            </div>
-                        </div>
-                    </div>
+                <div class="alert alert-danger" ng-show="detalleCtrl.msgError" class="ng-hide">
+                    {{detalleCtrl.msgError}}
                 </div>
             </div>
         </div>

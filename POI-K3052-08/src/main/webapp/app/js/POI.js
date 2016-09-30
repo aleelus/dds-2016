@@ -23,11 +23,15 @@ POI.prototype.agregarComentario = function (poi) {
 };
 
 POI.prototype.calcularCalificacion = function (poi) {
+    if(poi.listaComentarios.length>0){
+        var sumatoria = _.sumBy(poi.listaComentarios, function (comment) {
+            return _.toInteger(comment.calificacion);
+        });
+        return ( sumatoria / poi.listaComentarios.length );
+    }else{
+        return "no hay calificación";
+    }
 
-    var sumatoria = _.sumBy(poi.listaComentarios, function (comment) {
-        return _.toInteger(comment.calificacion);
-    });
-    return ( sumatoria / poi.listaComentarios.length );
     
 };
 
