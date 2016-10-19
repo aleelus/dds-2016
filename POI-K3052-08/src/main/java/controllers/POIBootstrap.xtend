@@ -6,15 +6,19 @@ import builders.ListaServiciosBuilder
 import builders.LocalComBuilder
 import org.uqbar.commons.utils.ApplicationContext
 import org.uqbar.geodds.Point
+import puntosDeInteres.CGP
 import puntosDeInteres.Comuna
+import puntosDeInteres.LocalComercial
 import puntosDeInteres.POI
 import puntosDeInteres.ParadaColectivo
+import puntosDeInteres.SucursalBanco
 import repositorios.RepoPOI
 import repositorios.RepoUsuarios
 import usuario.Rol
 import usuario.Terminal
 
 class POIBootstrap{
+	
 	
 	def static run() {
 		
@@ -83,22 +87,40 @@ class POIBootstrap{
 			setDireccion = "Av. Rivadavia 3163"
 		]
 		val banco = builderBanco.build()
+				
+		
+		println("DASDASDASDASDASD")
 		 
+	
+//		repoPOI.add(cgp)
+//		repoPOI.add(localComercial)
+//		repoPOI.add(localComercialDos)
+//		repoPOI.add(parada)
+//		repoPOI.add(banco)		
+//	
+//		repoUsuario.add(new Terminal("ADMIN", new Rol(),"123",newArrayList(1,2),1,1))		
+//		repoUsuario.add(new Terminal("aleelus", new Rol(),"12345",newArrayList(2),-1,-1))
+//		repoUsuario.add(new Terminal("terminal-1", new Rol(),"banana"))	
+		
 		ApplicationContext.instance => [
-			configureRepo(typeof(POI), new RepoPOI => [
-				create(cgp)
-				create(localComercial)
-				create(localComercialDos)
-				create(parada)
-				create(banco)
+			configureSingleton(typeof(POI), new RepoPOI => [
+				add(cgp)
+				add(localComercial)
+				add(localComercialDos)
+				add(parada)
+				add(banco)
 			])
-			configureRepo(typeof(Terminal), new RepoUsuarios => [
-				create(new Terminal("ADMIN", new Rol(),"123",newArrayList(1,2),1,1))
-				create(new Terminal("aleelus", new Rol(),"12345",newArrayList(2),-1,-1))
-				create(new Terminal("terminal-1", new Rol(),"banana"))
+			configureSingleton(typeof(Terminal), new RepoUsuarios => [
+				add(new Terminal("ADMIN", new Rol(),"123",newArrayList(1,2),1,1))
+				add(new Terminal("aleelus", new Rol(),"12345",newArrayList(2),-1,-1))
+				add(new Terminal("terminal-1", new Rol(),"banana"))
 			])
 		]
-	
+			
+		
+		
+		println("DESPUES")
 	}
+	
 	
 }

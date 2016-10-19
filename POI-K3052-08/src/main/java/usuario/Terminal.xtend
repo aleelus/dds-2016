@@ -5,10 +5,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import excepciones.AuthException
 import java.util.ArrayList
 import java.util.List
+import javax.persistence.Column
+import javax.persistence.ElementCollection
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.Transient
 import observers.ObserverBusqueda
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalDate
-import org.uqbar.commons.model.Entity
 import org.uqbar.commons.utils.ApplicationContext
 import org.uqbar.commons.utils.Observable
 import procesos.ProcAgregadoAcciones
@@ -21,18 +26,35 @@ import repositorios.RepoPOI
 
 @Accessors
 @Observable
+@Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
-class Terminal extends Entity{
+class Terminal{
 	
-
+	///////////////////////////
+	@Id
+    @GeneratedValue
+    private Integer id	
+	///////////////////////////
+	@Column(length=150)
 	String nombreTerminal
+	@Column(length=150)
 	String contraseña 
+	
+	
+	@ElementCollection 
 	List<Integer> listaFavoritos = new ArrayList<Integer>
+	@Transient 
 	@JsonIgnore List<ObserverBusqueda> listaObservers = new ArrayList<ObserverBusqueda>
+	@Transient 
 	@JsonIgnore Rol rolTerminal
-	@JsonIgnore RepoPOI repositorio = ApplicationContext.instance.getRepo(typeof(POI)) as RepoPOI
-	double latitud	
+	@Transient
+	@JsonIgnore RepoPOI repositorio = ApplicationContext.instance.getSingleton(typeof(POI)) as RepoPOI
+	
+	@Column
+	double latitud
+	@Column	
 	double longitud
+		
 	
 	new(String nombre, Rol rol) {
 		this()
@@ -59,7 +81,7 @@ class Terminal extends Entity{
 	
 
 	new() {
-		super()
+		
 	}
 	
 	new(Terminal terminal) {

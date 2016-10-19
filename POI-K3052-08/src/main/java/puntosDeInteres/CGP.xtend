@@ -1,29 +1,44 @@
 package puntosDeInteres
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import java.util.ArrayList
 import java.util.List
 import java.util.Locale
+import javax.persistence.Column
+import javax.persistence.ElementCollection
+import javax.persistence.Entity
+import javax.persistence.FetchType
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.OneToMany
+import javax.persistence.OneToOne
+import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
+import org.uqbar.commons.utils.Observable
 import org.uqbar.geodds.Point
 import org.uqbar.geodds.Polygon
 import puntosDeInteres.POI.Dias
-import org.uqbar.commons.utils.Observable
-import com.fasterxml.jackson.annotation.JsonIgnore
 
 @Accessors
 @Observable
+@Entity
 class CGP extends POI {
 	/**
 	 * Representa la comuna del CGP.
 	 */
+	 @OneToOne(fetch=FetchType.LAZY)
 	Comuna zona
 	
 	/**Representa la lista de servicios del CGP. Contiene elementos
 	 * de la clase ServicioCGP.
 	 */
+	 @OneToMany(fetch=FetchType.LAZY)
 	List<ServicioCGP> listaServicios = new ArrayList<ServicioCGP>()
 
+	new (){
+		
+	}
 	/**
 	 * Método que indica si un CGP está cerca de una latitud y
 	 * longitud determinadas.
@@ -92,13 +107,23 @@ class CGP extends POI {
 
 @Accessors
 @Observable
+@Entity
 class Comuna {
+	
+	@Id
+    @GeneratedValue
+    private Integer id
 	/**Polígono que representa el área de la comuna */
+	@Transient 
 	@JsonIgnore Polygon areaComuna
+	@Column(length=150)
 	String nombreComuna
 
 	// Constructores
-
+	new (){
+		
+	}
+	
 	new(String nombre,Point... puntos) {
 		super()
 		nombreComuna = nombre
@@ -113,17 +138,25 @@ class Comuna {
 
 @Accessors
 @Observable
+@Entity
 class ServicioCGP {
+	
+	@Id
+	@GeneratedValue
+	private Integer id
 	/**Nombre del servicio */
+	@Column(length=150)
 	String nombre
 	/**Horario de apertura */
+	@ElementCollection
 	List<DateTime> horario = new ArrayList<DateTime>()
 	/**Días de apertura */
+	@ElementCollection
 	List<Dias> diasAbierto = new ArrayList<Dias>()
 
 	// Constructores
 	new() {
-		super()
+		
 	}
 
 	new(String servicio, List<DateTime> horario, List<Dias> diasAbierto) {

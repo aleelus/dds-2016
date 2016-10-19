@@ -3,15 +3,24 @@ package puntosDeInteres
 import java.util.ArrayList
 import java.util.List
 import java.util.Locale
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.FetchType
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.OneToOne
+import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
+import org.uqbar.commons.utils.Observable
 import org.uqbar.geodds.Point
 import puntosDeInteres.POI.Dias
-import org.uqbar.commons.utils.Observable
 
 @Accessors
+@Entity
 class LocalComercial extends POI {
 	/**Representa el tipo de local */
+	 @OneToOne(fetch=FetchType.LAZY)
 	Rubro rubro
 
 	/**Método que indica si un Local está cerca de una latitud y
@@ -42,22 +51,29 @@ class LocalComercial extends POI {
 
 @Accessors
 @Observable
+@Entity
 class Rubro {
-	
+	@Id
+    @GeneratedValue
+    private Integer id
 	/**Determina el radío máximo a partir del cual un
 	 * LocalComercial está lejos
 	 */
+	 @Column
 	double radioCercania
 	/**Determina el nombre del rubro */
+	 @Column
 	String nombre
 	/**Determina el horario del rubro */
+	@Transient 
 	List<DateTime> horario = new ArrayList<DateTime>()
 	/**Determina los días de apertura del rubro */
+	@Transient 
 	List<Dias> diasAbierto = new ArrayList<Dias>()
 
 	//Constructores
 	new() {
-		super()
+		
 	}
 
 	new(String nombre, double radio, List<DateTime> horario, List<Dias> diasAbierto) {

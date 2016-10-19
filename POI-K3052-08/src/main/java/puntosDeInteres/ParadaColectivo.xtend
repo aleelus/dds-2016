@@ -2,18 +2,22 @@ package puntosDeInteres
 
 import java.util.ArrayList
 import java.util.List
+import javax.persistence.ElementCollection
+import javax.persistence.Entity
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.geodds.Point
 
 @Accessors
+@Entity
 class ParadaColectivo extends POI {
 	
+	@ElementCollection 
 	List<String> lineas =  new ArrayList<String>
 	
 	//Constructores
 	new() {
-		super()
+		
 	}
 
 	new(String nombre, double latitud, double longitud, String direccion, List<String> lineasCol,String url) {

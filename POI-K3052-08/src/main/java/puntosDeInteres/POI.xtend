@@ -3,34 +3,63 @@ package puntosDeInteres
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.util.ArrayList
 import java.util.List
+import javax.persistence.Column
+import javax.persistence.ElementCollection
+import javax.persistence.Entity
+import javax.persistence.FetchType
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.Inheritance
+import javax.persistence.InheritanceType
+import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
-import org.uqbar.commons.model.Entity
 import org.uqbar.commons.utils.Observable
 import org.uqbar.geodds.Point
 
 @Accessors
 @Observable
+@Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
-class POI extends Entity {
+@Inheritance(strategy=InheritanceType.JOINED)
+class POI{
+
+	/////////////////////////
+	@Id
+    @GeneratedValue
+    private Integer id
+	/////////////////////////
 
 	// Campos
 	/**Nombre del punto de interés */
+	@Column(length=100)
 	String nombre
 	/**Dirección del punto de interés */
+	@Column(length=150)
 	String direccion
 	/**Latitud del punto de interés */
+	@Column
 	double latitud
 	/**Longitud del punto de interés */
+	@Column
 	double longitud
 	/**Palabras clave del punto de interés */
+	@ElementCollection 	
 	List<String> tags = new ArrayList<String>
 	/**Estado del punto de interés */
+	@Column
 	Boolean habilitado = true;
 	/**Lista de comentarios */
+	@OneToMany(fetch=FetchType.LAZY)
 	List<Comentario> listaComentarios = new ArrayList<Comentario> 
 	/**URL del icono **/
+	@Column(length=255)
 	String urlIcono
+
+	new() {
+		
+	}
+	
 
 	enum Dias {
 
@@ -96,7 +125,7 @@ class POI extends Entity {
 		tags = poi.tags
 	}
 
-	override validateCreate() {
+	def validateCreate() {
 		if (nombre.nullOrEmpty) {
 			throw new Exception("Por favor introducir un nombre para el Punto de Interés")
 		}
@@ -110,9 +139,9 @@ class POI extends Entity {
 //		(nombre.equals(puntoAComparar.nombre) && direccion.equals(puntoAComparar.direccion)) || (id.equals(puntoAComparar.id))
 //	}
 
-	override hashCode() {
-		id
-	}
+//	override hashCode() {
+//		id
+//	}
 	
 	def inhabilitar() {
 		this.habilitado = false
@@ -135,15 +164,22 @@ class POI extends Entity {
 
 
 @Accessors
+@Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
-class Comentario extends Entity{
+class Comentario{
 	
+	@Id
+    @GeneratedValue
+    private Integer id
+	@Column(length=100)
 	String usuario
+	@Column(length=200)
 	String detalle
+	@Column(length=5)
 	String calificacion
 	
 	new() {
-		super()
+		
 	}
 	
 	
